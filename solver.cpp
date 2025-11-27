@@ -2,7 +2,7 @@
 //https://www.cs.utexas.edu/~vl/teaching/lbai/dpll.pdf
 
 #include "solver.h"
-
+#include "clause.h"
 /*
 
 DPLL(F, U)
@@ -15,13 +15,13 @@ DPLL(F, U)
 
 */
 
-bool DPLL::solve(expression F, unordered_map<string,bool>& U) {
+bool DPLL::solve(expression F, unordered_map<int,bool>& U) {
     unitPropagate(F, U);
-
+    return false;
 }
 
-bool DPLL::unitPropagate(expression F, unordered_map<string,bool>& U) {
-    F.sortClauses();
+bool DPLL::unitPropagate(expression F, unordered_map<int,bool>& U) {
+    sortClauses(F);
 
-    
+    return false;
 }

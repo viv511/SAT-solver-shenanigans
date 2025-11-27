@@ -4,7 +4,13 @@
 #include <iostream>
 #include <string>
 #include <unordered_map>
+#include <cmath>
+#include <algorithm>
 using namespace std;
+
+//Signed DIMACS-style literals
+//i.e. 1 for x1, -1 for ¬x1
+using literal = int;
 
 enum class val {
     TRUE,
@@ -12,12 +18,17 @@ enum class val {
     UNASSIGNED
 };
 
-struct literal {
-    string name;
-    bool negated;
+inline int absIndex(literal lit) {
+    return std::abs(lit);
+}
 
-    literal(string s, bool n);
-    val eval(const unordered_map<string,bool>& assignments);
+inline bool isNeg(literal lit) {
+    return lit < 0;
+}
 
-    void print();
-};
+inline literal makeNeg(literal lit) {
+    return -lit;
+}
+
+val evalLiteral(literal L, unordered_map<int,bool>& assignments);
+void printLiteral(literal L);

@@ -1,23 +1,20 @@
 #include "literal.h"
 
-literal::literal(string s, bool n) {
-    this->name = s;
-    this->negated = n;
+val evalLiteral(literal L, unordered_map<int,bool>& assignments) {
+	int id = absIndex(L);
+	auto it = assignments.find(id);
+	
+	//Missing in map ==> UNASSIGNED
+	if(it == assignments.end()) return val::UNASSIGNED;
+
+	bool assignedValue = it->second;
+
+	// Negate if literal is negative
+	if(isNeg(L)) assignedValue = !assignedValue;
+
+	return assignedValue ? val::TRUE : val::FALSE;
 }
 
-val literal::eval(const unordered_map<string,bool>& assignments) {
-    auto it = assignments.find(name);
-    
-    if(it == assignments.end()) return val::UNASSIGNED;
-
-    bool assignedValue = it->second;
-    
-    //Negate if needed
-    assignedValue = negated ? !assignedValue : assignedValue; 
-
-    return assignedValue ? val::TRUE : val::FALSE;
-}
-
-void literal::print() {
-    std::cout << (negated ? "¬" : "") << name;
+void printLiteral(literal L) {
+	std::cout << (isNeg(L) ? "¬" : "") << absIndex(L);
 }

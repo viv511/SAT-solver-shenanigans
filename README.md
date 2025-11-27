@@ -18,3 +18,10 @@ Implemented DIMACS-style variable names for literals
 
 # Version 1:
 the future??
+
+
+<!-- Credits/References -->
+- Dr. Marijn Heule / Dr. John Mackey for the initial inspiration
+- Various YT lectures and recordings the intuition and basics of SAT solvers
+- https://jix.github.io/varisat/manual/0.2.0/formats/dimacs.html
+- https://www.cs.cmu.edu/~wcohen/15451-f10/lectures/dpll.pdf

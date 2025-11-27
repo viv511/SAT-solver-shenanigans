@@ -6,12 +6,7 @@
 #include "literal.h"
 using namespace std;
 
-struct clause {
-    vector<literal> literals;
+using clause = vector<literal>;
 
-    clause(vector<literal> l);
-
-    val eval(const std::unordered_map<std::string,bool>& assignments);
-    
-    void print();
-};
+val evalClause(clause C, unordered_map<int,bool>& assignments);
+void printClause(clause C);

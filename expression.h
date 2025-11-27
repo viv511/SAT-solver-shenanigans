@@ -1,16 +1,14 @@
 //An expression is a conjunction of clauses
 #pragma once
 
+#include <cmath>
 #include <iostream>
 #include <vector>
 #include "clause.h"
 using namespace std;
 
-struct expression {
-    vector<clause> exp;
+using expression = vector<clause>;
 
-    expression(vector<clause> e);
-    void sortClauses();
-    val eval(const std::unordered_map<std::string,bool>& assignments);
-    void print();
-};
+void sortClauses(expression E);
+val evalExpression(expression E, unordered_map<int,bool>& assignments);
+void printExpression(expression E);

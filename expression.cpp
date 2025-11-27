@@ -1,23 +1,20 @@
 #include "expression.h"
 
-expression::expression(vector<clause> e) {
-    this->exp = e;
-}
-
-//Make a custom comparator to sort clauses by size
+//Make a custom comparator to sort clauses in an expression by size
 bool compareClauses(clause c1, clause c2) {
-    return c1.literals.size() < c2.literals.size();
+    return c1.size() < c2.size();
 }
 
-void expression::sortClauses() {
-    sort(exp.begin(), exp.end(), compareClauses);
+void sortClauses(expression E) {
+    sort(E.begin(), E.end(), compareClauses);
 }
 
-val expression::eval(const std::unordered_map<std::string,bool>& assignments) {
+
+val evalExpression(expression E, unordered_map<int,bool>& assignments) {
     bool hasUnassigned = false;
 
-    for(clause c : exp) {
-        val v = c.eval(assignments);
+    for(clause C : E) {
+        val v = evalClause(C, assignments);
 
         if(v == val::FALSE) return val::FALSE;
 
@@ -27,14 +24,13 @@ val expression::eval(const std::unordered_map<std::string,bool>& assignments) {
     return hasUnassigned ? val::UNASSIGNED : val::TRUE;
 }
 
-void expression::print() {
-
-    for (size_t i = 0; i < exp.size(); i++) {
+void printExpression(expression E) {
+    for(size_t i = 0; i < E.size(); i++) {
         cout << "(";
-        exp[i].print();
+        printClause(E[i]);
         cout << ")";
 
-        if(i < exp.size() - 1) {
+        if(i < E.size() - 1) {
             cout << " ∧ ";
         }
     }

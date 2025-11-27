@@ -1,14 +1,10 @@
 #include "clause.h"
 
-clause::clause(vector<literal> l) {
-    this->literals = l;
-}
-
-val clause::eval(const std::unordered_map<std::string,bool>& assignments) {
+val evalClause(clause C, unordered_map<int,bool>& assignments) {
     bool unassignedLiteral = false;
 
-    for(literal l : literals) {
-        val v = l.eval(assignments);
+    for(literal l : C) {
+        val v = evalLiteral(l, assignments);
 
         if(v == val::TRUE) return val::TRUE;
         
@@ -18,11 +14,11 @@ val clause::eval(const std::unordered_map<std::string,bool>& assignments) {
     return unassignedLiteral ? val::UNASSIGNED : val::FALSE;
 }
 
-void clause::print() {
-    for (size_t i = 0; i < literals.size(); i++) {
-        literals[i].print();
+void printClause(clause C) {
+    for (size_t i = 0; i < C.size(); i++) {
+        printLiteral(C[i]);
         
-        if(i < literals.size() - 1) {
+        if(i != (C.size() - 1)) {
             cout << " v ";
         }
     }
