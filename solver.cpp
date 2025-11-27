@@ -2,9 +2,8 @@
 //https://www.cs.utexas.edu/~vl/teaching/lbai/dpll.pdf
 
 #include "solver.h"
-#include "clause.h"
-/*
 
+/*
 DPLL(F, U)
     Unit-propagate(F, U);
     if F contains the empty clause then return;
@@ -15,12 +14,12 @@ DPLL(F, U)
 
 */
 
-bool DPLL::solve(expression F, unordered_map<int,bool>& U) {
+bool DPLL::solve(expression& F, unordered_map<int,bool>& U) {
     unitPropagate(F, U);
     return false;
 }
 
-bool DPLL::unitPropagate(expression F, unordered_map<int,bool>& U) {
+bool DPLL::unitPropagate(expression& F, unordered_map<int,bool>& U) {
     sortClauses(F);
 
     return false;

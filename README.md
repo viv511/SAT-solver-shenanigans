@@ -16,6 +16,9 @@ Literals, clauses, and expressions. Implementing DPLL after reading the literatu
 Started implementing the DPLL algorithm
 Implemented DIMACS-style variable names for literals
 
+### 11.27.25
+Made parsing work! Able to input a string and have it create and expression and sort it based on clause length.
+
 # Version 1:
 the future??
 

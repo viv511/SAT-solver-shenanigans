@@ -1,11 +1,11 @@
 #include "expression.h"
 
 //Make a custom comparator to sort clauses in an expression by size
-bool compareClauses(clause c1, clause c2) {
+bool compareClauses(clause& c1, clause& c2) {
     return c1.size() < c2.size();
 }
 
-void sortClauses(expression E) {
+void sortClauses(expression& E) {
     sort(E.begin(), E.end(), compareClauses);
 }
 

@@ -7,6 +7,6 @@
 using namespace std;
 
 struct DPLL {
-    bool solve(expression F, unordered_map<int,bool>& U);
-    bool unitPropagate(expression F, unordered_map<int,bool>& U);
+    bool solve(expression& F, unordered_map<int,bool>& U);
+    bool unitPropagate(expression& F, unordered_map<int,bool>& U);
 };
