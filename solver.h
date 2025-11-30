@@ -1,4 +1,3 @@
-//We will implement the DPLL alg to begin with
 #pragma once
 
 #include <iostream>
@@ -6,7 +5,8 @@
 #include "expression.h"
 using namespace std;
 
-struct DPLL {
-    bool solve(expression& F, unordered_map<int,bool>& U);
-    bool unitPropagate(expression& F, unordered_map<int,bool>& U);
-};
+//DPLL Algorithm!
+expression simplify(expression F, int L);
+void printAssignments(unordered_map<int,bool>& M);
+bool solve(expression F, unordered_map<int,bool>& M, const bool DEBUG_FLAG);
+bool unitPropagate(expression& F, unordered_map<int,bool>& M, const bool DEBUG_FLAG);

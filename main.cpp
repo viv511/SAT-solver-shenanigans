@@ -1,42 +1,64 @@
 #include <iostream>
-#include "literal.h"
-#include "clause.h"
+#include <chrono>
 #include "expression.h"
+#include <unordered_map>
 #include "solver.h"
 #include <sstream>
+#include <fstream>
 using namespace std;
 
-expression parseInputString(string s) {
+expression parseInputFile(string filename) {
     //String: (x ∨ y ∨ ¬z) ∧ (¬y ∨ z) as
     //SAMPLE INPUT "1 2 -3 0 -2 3 0"
 
     expression F;
     clause c;
 
-    stringstream ss(s);
-    int lit;
+    //Read file
+    ifstream infile(filename);
+    string s;
 
-    while(ss >> lit) {
-        if(lit == 0) {
-            F.push_back(c);
-            c.clear();
-        } else {
-            c.push_back(lit);
+    while (getline(infile, s)) {
+        stringstream ss(s);
+        int lit;
+        while (ss >> lit) {
+            if (lit == 0) {
+                if (!c.empty()) {
+                    F.push_back(c);
+                    c.clear();
+                }
+            } else {
+                c.push_back(lit);
+            }
         }
+    }
+
+    //redundant check just in case no trailing 0
+    if (!c.empty()) {
+        F.push_back(c);
     }
 
     return F;
 }
 
+const bool DEBUG_FLAG = true;
+
 int main() {
-    // expression F{{c1, c2, c3, c4, c5}};
-    expression F = parseInputString("-1 -2 0 2 3 0 -2 -3 0 1 0 1 -2 0");
-    unordered_map<int, bool> U;
-    
-    printExpression(F);
+    expression input = parseInputFile("tests/unsat_costas4.txt");
+    unordered_map<int, bool> map;
 
-    DPLL solver;
-    solver.solve(F, U);
 
-    printExpression(F);
+    cout << "SOLVING THE EXPRESSION: ";
+    printExpression(input);
+    cout << "---------------------------------------------------\n";
+
+    auto start = chrono::high_resolution_clock::now();
+    if(!solve(input, map, DEBUG_FLAG)) {
+        cout << "\nUNSATISFIABLE!" << endl;
+    }
+    auto finish = chrono::high_resolution_clock::now();
+    chrono::duration<double> elapsed = finish - start;
+    cout << "Time to solve: " << elapsed.count() << " seconds" << endl;
+
+    return 0;
 }

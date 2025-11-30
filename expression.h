@@ -9,6 +9,7 @@ using namespace std;
 
 using expression = vector<clause>;
 
+bool hasEmptyClause(expression& E);
 bool compareClauses(clause& c1, clause& c2);
 void sortClauses(expression& E);
 val evalExpression(expression E, unordered_map<int,bool>& assignments);

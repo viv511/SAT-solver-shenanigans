@@ -1,5 +1,15 @@
 #include "expression.h"
 
+bool hasEmptyClause(expression& E) {
+    if(E.empty()) return false;
+    for(clause C : E) {
+        if(C.empty()) {
+            return true;
+        }
+    }
+    return false;
+}
+
 //Make a custom comparator to sort clauses in an expression by size
 bool compareClauses(clause& c1, clause& c2) {
     return c1.size() < c2.size();
@@ -8,7 +18,6 @@ bool compareClauses(clause& c1, clause& c2) {
 void sortClauses(expression& E) {
     sort(E.begin(), E.end(), compareClauses);
 }
-
 
 val evalExpression(expression E, unordered_map<int,bool>& assignments) {
     bool hasUnassigned = false;
