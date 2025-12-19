@@ -1,16 +1,13 @@
 #include <iostream>
 #include <chrono>
-#include "expression.h"
-#include <unordered_map>
 #include "solver.h"
 #include <sstream>
 #include <fstream>
 using namespace std;
 
-expression parseInputFile(string filename) {
-    //String: (x ∨ y ∨ ¬z) ∧ (¬y ∨ z) as
-    //SAMPLE INPUT "1 2 -3 0 -2 3 0"
-
+int numVars = 250;
+int numClauses = 0;
+expression parseCNF(string filename) {
     expression F;
     clause c;
 
@@ -18,8 +15,28 @@ expression parseInputFile(string filename) {
     ifstream infile(filename);
     string s;
 
+    //P-line
+    bool foundPLine = false;
+    string p;
+    string cnf;
+
     while (getline(infile, s)) {
         stringstream ss(s);
+
+        if(s.empty() || s[0] == 'c') continue; //ignore comments + empty lines
+
+        if(s[0] == 'p') {
+            if(foundPLine) error("Multiple p-lines found");
+            foundPLine = true;
+            ss >> p >> cnf >> numVars >> numClauses;
+
+            if(p != "p" || cnf != "cnf" || numVars < 1 || numClauses < 1) {
+                error("Invalid p-line");
+            }
+
+            continue;
+        }
+
         int lit;
         while (ss >> lit) {
             if (lit == 0) {
@@ -41,24 +58,30 @@ expression parseInputFile(string filename) {
     return F;
 }
 
-const bool DEBUG_FLAG = true;
+const bool DEBUG_FLAG = false;
 
 int main() {
-    expression input = parseInputFile("tests/unsat_costas4.txt");
-    unordered_map<int, bool> map;
+    expression input = parseCNF("benchmarks/uf250-01.cnf");
+    vector<Assignment> map = initialize(numVars);
 
-
+    //EXPRESSION TO SOLVE:
     cout << "SOLVING THE EXPRESSION: ";
     printExpression(input);
-    cout << "---------------------------------------------------\n";
 
+
+    cout << "\n---------------------------------------------------\n";
+
+
+    //TIME TO SOLVE / FIND UNSAT
     auto start = chrono::high_resolution_clock::now();
-    if(!solve(input, map, DEBUG_FLAG)) {
-        cout << "\nUNSATISFIABLE!" << endl;
-    }
+    
+    bool ans = solve(input, map, DEBUG_FLAG);
+    if(!ans) cout << "UNSAT\n";
+
     auto finish = chrono::high_resolution_clock::now();
     chrono::duration<double> elapsed = finish - start;
-    cout << "Time to solve: " << elapsed.count() << " seconds" << endl;
+    cout << "\nTime to solve: " << elapsed.count() << " seconds" << endl;
+
 
     return 0;
 }

@@ -1,7 +1,7 @@
 #include "literal.h"
 
 val evalLiteral(literal L, unordered_map<int,bool>& assignments) {
-	int id = absIndex(L);
+	int id = abs(L);
 	auto it = assignments.find(id);
 	
 	//Missing in map ==> UNASSIGNED
@@ -16,5 +16,5 @@ val evalLiteral(literal L, unordered_map<int,bool>& assignments) {
 }
 
 void printLiteral(literal L) {
-	std::cout << (isNeg(L) ? "¬" : "") << absIndex(L);
+	std::cout << (isNeg(L) ? "¬" : "") << abs(L);
 }

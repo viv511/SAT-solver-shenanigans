@@ -6,6 +6,8 @@
 #include <unordered_map>
 #include <cmath>
 #include <algorithm>
+#include "utils.h"
+
 using namespace std;
 
 //Signed DIMACS-style literals
@@ -17,10 +19,6 @@ enum class val {
     FALSE,
     UNASSIGNED
 };
-
-inline int absIndex(literal lit) {
-    return std::abs(lit);
-}
 
 inline bool isNeg(literal lit) {
     return lit < 0;
