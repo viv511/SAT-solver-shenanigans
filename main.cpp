@@ -61,7 +61,8 @@ expression parseCNF(string filename) {
 const bool DEBUG_FLAG = false;
 
 int main() {
-    expression input = parseCNF("benchmarks/uf250-01.cnf");
+    // expression input = parseCNF("benchmarks/uf250-01.cnf");
+    expression input = parseCNF("tests/sample.cnf");
     vector<Assignment> map = initialize(numVars);
 
     //EXPRESSION TO SOLVE:
