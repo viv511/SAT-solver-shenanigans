@@ -7,10 +7,10 @@
 #include "clause.h"
 using namespace std;
 
-using expression = vector<clause>;
+using expression = vector<watchedClause>;
 
 bool hasEmptyClause(expression& E);
-bool compareClauses(clause& c1, clause& c2);
+bool compareClauses(watchedClause& wc1, watchedClause& wc2);
 void sortClauses(expression& E);
 val evalExpression(expression E, unordered_map<int,bool>& assignments);
 void printExpression(expression E);

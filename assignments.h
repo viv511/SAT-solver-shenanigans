@@ -10,5 +10,5 @@ enum class Assignment {
     UNASSIGNED
 };
 
-vector<Assignment> initialize(int numVars);
+vector<Assignment> initializeAssignment(int numVars);
 

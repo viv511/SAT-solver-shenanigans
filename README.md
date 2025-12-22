@@ -24,7 +24,8 @@ Made parsing work! Able to input a string and have it create and expression and 
 
 SUCCESS! Version 0 is complete!! The SAT solver works on a variety of tests and is even faster then a few sites that I've seen. Theres a lot of room for improvement though, especially in terms of space allocation and backtracking. There is definitely a more elegant way to approach it, so I'm going to spend more time reading about other successful solvers and try to incorporate what they do into my own. I think I need to move on from the DPLL approach though. I'll also go talk to Daniel to see how their group were able to generate Costas Arrays and actually run their solver on it.
 
-# Version 0.5 (minor improvements to DPLL)
+# Version 1 (2-Watched Literals Scheme + minor improvements)
+Started: 12.1.25 ==> Ended: ???
 
 ### 12.1.25 - 12.12.25
 
@@ -55,10 +56,33 @@ Did a lot more theory/reading work on Two-Watched literals. The concept of no wo
 
 I'll need to implement a watchlist of some sort for every single clause thats in our expression. Maybe a task for tomorrow?
 
+### 12.20.25
+Improved the clause struct slightly by adding the basics of a watch list to it.
+
+### 12.21.25
+"Implemented" the two watched literals method (but need to test it and figure out what the bugs are...)
+
+### 12.22.25
+Fixed and implemented **a fully working two watched literals** method. Changed propagation method to queue based (BFS-style) rather than naive recursion. I also implemented a Clause-based heuristic that attacks smaller length clauses first.
+
+This greatly improved performance on the initial test that I was using "uf250-01." The average time to compute this is now around 1-2 seconds, which is insane. It's making steady progress on the other "uf250-02" that it DNF'd before, but this still doesn't seem the best. 
+
+I think I need to play the optimization game some more, especially with this thing called "VSIDS" and CDCL. CDCL is the most viable next option, especially since it leads to less backtracking which is better for me.
+
+
 # TO-DO:
 
-- Read about the two watched literals approach and implement that to reduce space/time complexity
-- Benchmark tests, make it accept p cnf X Y form dimacs style input
+- Possible steps for the future:
+   - ~~DPLL Algorithm~~
+   - ~~DIMACS style input~~
+   - ~~Optimizations (Map --> Vector)~~
+   - ~~Two-watched literals~~
+   - ~~Queue-based propagation~~
+   - Clause learning (CDCL)
+   - VSIDS branching heuristic
+   - Add a make file (c++ things)
+   - Restarts
+   - Memory layout optimizations
 
 <!-- Credits/References -->
 

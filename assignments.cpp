@@ -1,6 +1,6 @@
 #include "assignments.h"
 
-vector<Assignment> initialize(int numVars) {
+vector<Assignment> initializeAssignment(int numVars) {
     vector<Assignment> assignments;
 
     //0 doesnt matter --> we will never access it

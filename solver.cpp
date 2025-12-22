@@ -3,26 +3,13 @@
 #include "solver.h"
 #include <utility>
 
-void printAssignments(vector<Assignment>& M) {
-    cout << "SAT" << endl;
-    cout << "v ";
-    for(int i = 1; i < M.size(); i++) {
-        //We don't care about unassigned variables, as long as SAT
-        if(M[i] != Assignment::UNASSIGNED) {
-            cout << (M[i] == Assignment::TRUE ? "" : "-") << i << " ";
-        }
-        //OPTIONAL: if u need to assign all assignments, just convert the unassigned to all true or all false
-    }
-
-    cout << "\n---------------------------------------------------\n";
-}
-
 expression simplify(expression F, int L) {
     expression newF;
     newF.reserve(F.size());
 
     //Clauses can never grow, so we can reserve space
-    for(const clause& C : F) {
+    for(const watchedClause& wc : F) {
+        clause C = wc.C;
         // 1) Remove satisfied clauses
         if(find(C.begin(), C.end(), L) != C.end()) continue;
 
@@ -63,8 +50,8 @@ bool solve(expression F, vector<Assignment>& M, const bool DEBUG_FLAG) {
 
     //Look for first unassigned literal
     int v = 0;
-    for(const clause& C : F) {
-        for(const int& l : C) {
+    for(const watchedClause& wc : F) {
+        for(const int& l : wc.C) {
             if(M[abs(l)] == Assignment::UNASSIGNED){
                 v = abs(l);
                 break;
@@ -110,19 +97,19 @@ bool unitPropagate(expression& F, vector<Assignment>& M, const bool DEBUG_FLAG) 
     while(propogating) {
         propogating = false;
 
-        for(const clause& C : F) {
+        for(const watchedClause& wc : F) {
             //UNSAT condition: empty clause exists
-            if(C.empty()) return false;
+            if(wc.empty()) return false;
 
-            if(C.size() == 1) {
+            if(wc.size() == 1) {
                 if(DEBUG_FLAG) {
                     cout << "Unit clause found: ";
-                    printClause(C);
+                    printClause(wc.C);
                     cout << endl;
                 }
 
                 //Propagate L
-                int L = C[0];
+                int L = wc.C[0];
                 int v = abs(L);
                 Assignment desired = (L > 0) ? Assignment::TRUE
                                              : Assignment::FALSE;
