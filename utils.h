@@ -7,6 +7,9 @@
 
 using namespace std;
 
+extern int NUM_VARS;
+extern int NUM_CLAUSES;
+
 void printAssignments(vector<Assignment>& M);
 
 void error(const string& message);

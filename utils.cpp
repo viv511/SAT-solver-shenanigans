@@ -1,5 +1,8 @@
 #include "utils.h"
 
+int NUM_VARS = 0;
+int NUM_CLAUSES = 0;
+
 void printAssignments(vector<Assignment>& M) {
     cout << "SAT" << endl;
     cout << "v ";
