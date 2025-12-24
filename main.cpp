@@ -85,7 +85,7 @@ vector<vector<int>> initializeWatchlist(expression& F, int nV) {
     return WL;
 }
 
-const bool DEBUG_FLAG = false;
+const bool DEBUG_FLAG = true;
 
 bool verifyAssignment(expression& F, vector<Assignment>& M) {
     for(int i = 0; i < F.size(); i++) {
@@ -116,13 +116,13 @@ bool verifyAssignment(expression& F, vector<Assignment>& M) {
 }
 
 int main() {
-    expression CNF_expr = parseCNF("benchmarks/uf20-0100.cnf");
-    // expression CNF_expr = parseCNF("benchmarks/uf250-01.cnf");
+    // expression CNF_expr = parseCNF("benchmarks/uf20-0100.cnf");
+    expression CNF_expr = parseCNF("benchmarks/uf250-02.cnf");
     expression copy = CNF_expr; //copy for later verification
     
     vector<Assignment> map = initializeAssignment(NUM_VARS);
     vector<vector<int>> wList = initializeWatchlist(CNF_expr, NUM_VARS);
-    vector<TrailEntry> trail; //empty trail to start
+    literalTrail trail; //empty trail to start
     vector<int> decisionLevel; //track decision levels
     decisionLevel.push_back(0); //initial level 0
 
