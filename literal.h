@@ -2,10 +2,6 @@
 #pragma once
 
 #include <iostream>
-#include <string>
-#include <unordered_map>
-#include <cmath>
-#include <algorithm>
 
 using namespace std;
 
@@ -18,6 +14,8 @@ enum class val {
     FALSE,
     UNASSIGNED
 };
+
+int litToIndex(const literal& l);
 
 inline bool isNeg(literal lit) {
     return lit < 0;

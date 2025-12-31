@@ -11,4 +11,6 @@ enum class Assignment {
 };
 
 vector<Assignment> initializeAssignment(int numVars);
+void printAssignments(vector<Assignment>& M);
+
 

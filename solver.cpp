@@ -1,134 +1,361 @@
-#include "assignments.h"
-#include "expression.h"
 #include "solver.h"
-#include <utility>
 
-expression simplify(expression F, int L) {
-    expression newF;
-    newF.reserve(F.size());
-
-    //Clauses can never grow, so we can reserve space
-    for(const watchedClause& wc : F) {
-        clause C = wc.C;
-        // 1) Remove satisfied clauses
-        if(find(C.begin(), C.end(), L) != C.end()) continue;
-
-        clause newC;
-        newC.reserve(C.size());
-
-        // 2) Remove negated literal
-        for(const int& l : C) {
-            if (l != -L) newC.push_back(l);
-        }
-
-        newF.push_back(std::move(newC));
-    }
-
-    return newF;
+// == CONSTRUCTOR == //
+Solver::Solver(bool debugFlag) {
+    this->DEBUG = debugFlag;
 }
 
+// == CNF/DIMACS PARSING == //
+void Solver::readCNF(string filename) {
+    expression tmpF;
+    clause tmpC;
 
-bool solve(expression F, vector<Assignment>& M, const bool DEBUG_FLAG) {
-    //TODO in-place undo tracking
+    //Read file
+    ifstream infile(filename);
+    string s;
 
-    //Unit Propagation, return false if UNSAT
-    if(!unitPropagate(F, M, DEBUG_FLAG)) {
-        return false;
+    //P-line
+    bool foundPLine = false;
+    string p;
+    string cnf;
+
+    while (getline(infile, s)) {
+        stringstream ss(s);
+
+        if(s.empty() || s[0] == 'c') continue; //ignore comments + empty lines
+
+        if(s[0] == 'p') {
+            if(foundPLine) error("Multiple p-lines found");
+            foundPLine = true;
+            ss >> p >> cnf >> this->NUM_VARS >> this->NUM_CLAUSES;
+
+            if(p != "p" || cnf != "cnf" || this->NUM_VARS < 1 || this->NUM_CLAUSES < 1) {
+                error("Invalid p-line");
+            }
+
+            tmpF.reserve(this->NUM_CLAUSES);
+            continue;
+        }
+
+        int lit;
+        
+        while (ss >> lit) {
+            if (lit == 0) {
+                if (!tmpC.empty()) {
+                    tmpF.push_back(watchedClause(tmpC));
+                    tmpC.clear();
+                }
+            } else {
+                tmpC.push_back(lit);
+            }
+        }
     }
+
+    //Redundant check for trailing 0
+    if(!tmpC.empty()) {
+        tmpF.push_back(watchedClause(tmpC));
+    }
+
+    //ERROR CHECKS
+    if(tmpF.size() != this->NUM_CLAUSES) {
+        error("Clause count mismatch!\nExpected " +
+          to_string(this->NUM_CLAUSES) + ", got " +
+          to_string(tmpF.size()));
+    }
+    if(tmpF.empty()) error("Empty expression found");
+    if(!foundPLine) error("No p-line found");
+
+    this->F = tmpF;
+
+    init();
+}
+
+// == MAIN SOLVER == //
+bool Solver::solve() {
+    cout << "\nSolving an expression with " << NUM_VARS << " variables and " << NUM_CLAUSES << " clauses:\n";
+
+    if(this->DEBUG) {
+        printExpression(this->F);
+    }
+
+    cout << "\n---------------------------------------------------\n";
+
+    expression copy = this->F; //copy for later verification
+
+    auto start = chrono::high_resolution_clock::now();
+    bool result = solve2WL();
+    auto finish = chrono::high_resolution_clock::now();
+
+    chrono::duration<double> elapsed = finish - start;
+    cout << "\nTime to solve: " << elapsed.count() << " seconds" << endl;
+
+    bool verified = verifyAssignment(copy, this->M);
     
-    //UNSAT!
-    if(hasEmptyClause(F)) {
-        return false;
-    }
-
-    //SATISFIABLE!
-    //TODO: Change to add current SAT as negated to ALLSAT
-    if(F.empty()) {
-        printAssignments(M);
-        return true;
-    }
-
-    //Look for first unassigned literal
-    int v = 0;
-    for(const watchedClause& wc : F) {
-        for(const int& l : wc.C) {
-            if(M[abs(l)] == Assignment::UNASSIGNED){
-                v = abs(l);
-                break;
-            }
+    if(!result) cout << "UNSAT\n";
+    else {
+        if(!verified) {
+            cout << "\nERROR: Assignment does not satisfy expression!\n";
+            error("ASSIGNMENT VERIFICATION FAILED!!!");
         }
-        if(v != 0) break; //keep searching until found
+        else{
+            cout << "\nVerified: Assignment satisfies expression.\n\n";
+        }
     }
 
-    if(v == 0) {
-        //All variables have been assigned --> SAT
-        printAssignments(M);
-        return true;
-    }
-
-    //branch var = true and var = false
-    if(DEBUG_FLAG) {
-        cout << "Branching on variable: " << v << endl;
-    }
-
-    expression F1 = simplify(F, v);
-    vector<Assignment> M1 = M;
-    M1[v] = Assignment::TRUE;
-
-    expression F2 = simplify(F, -v);
-    vector<Assignment> M2 = M;
-    M2[v] = Assignment::FALSE;
-
-    if(solve(F1, M1, DEBUG_FLAG)) return true;
-    if(solve(F2, M2, DEBUG_FLAG)) return true;
-
-    return false;
+    return result;
 }
 
-bool unitPropagate(expression& F, vector<Assignment>& M, const bool DEBUG_FLAG) {
-    if(DEBUG_FLAG) {
-        cout << "Unit propagation on: ";
-        printExpression(F);
-        cout << endl;
+// == INITIALIZATION FUNCTIONS == //
+void Solver::init() {
+    M = initializeAssignment(NUM_VARS);
+    watchlist = initializeWatchlist(NUM_VARS);
+    trail.clear();
+    decisionLevel.clear();
+    decisionLevel.push_back(0);
+}
+
+std::vector<std::vector<int>> Solver::initializeWatchlist(int nV) {
+    std::vector<std::vector<int>> WL(2 * nV);
+
+    for(size_t i = 0; i < this->F.size(); i++) {
+        watchedClause& wc = F[i];
+        literal w1 = wc.getW1();
+        literal w2 = wc.getW2();
+
+        WL[litToIndex(w1)].push_back(i);
+        if(w1 != w2) {
+            WL[litToIndex(w2)].push_back(i);
+        }
     }
 
-    bool propogating = true;
+    return WL;
+}
 
-    while(propogating) {
-        propogating = false;
+// == HELPER FUNCTIONS == //
 
-        for(const watchedClause& wc : F) {
-            //UNSAT condition: empty clause exists
-            if(wc.empty()) return false;
+bool Solver::propagate(int falsifiedLiteral) {
+    std::queue<literal> propQueue;
+    propQueue.push(falsifiedLiteral);
 
-            if(wc.size() == 1) {
-                if(DEBUG_FLAG) {
-                    cout << "Unit clause found: ";
-                    printClause(wc.C);
-                    cout << endl;
-                }
+    while(!propQueue.empty()) {
+        literal currentFalsified = propQueue.front();
+        propQueue.pop();
 
-                //Propagate L
-                int L = wc.C[0];
-                int v = abs(L);
-                Assignment desired = (L > 0) ? Assignment::TRUE
-                                             : Assignment::FALSE;
+        int desiredIndex = litToIndex(currentFalsified);
 
-                //If assignment already exists, must match existing assignment
-                if(M[v] != Assignment::UNASSIGNED && M[v] != desired) {
-                    return false;
-                }
+        size_t i = 0;
+        while(i < this->watchlist[desiredIndex].size()) {
+            int clauseIndexInExpr = this->watchlist[desiredIndex][i];
+            watchedClause& wc = this->F[clauseIndexInExpr];
 
-                if(M[v] == Assignment::UNASSIGNED) {
-                    //If L, assign true, if !L assign false
-                    M[v] = desired;
-                    F = simplify(F, L);
-                    propogating = true;
-                    break;
-                }   
+            literal otherWC = wc.getOtherWatch(currentFalsified);
+
+            //Case 1 --- Already good
+            if(isTrue(otherWC, this->M)) {
+                i++;
+                continue;
             }
+
+            //Case 2 --- Find new watch
+            bool foundNewWatch = false;
+            for(size_t j = 0; j < wc.size(); j++) {
+            if(j == wc.w1Index || j == wc.w2Index) continue; //skip w1 and w2
+
+                literal possibleNewWatch = wc.C[j];
+
+                if(!isFalse(possibleNewWatch, this->M)) {
+                    foundNewWatch = true;
+            
+                    wc.moveWatch(currentFalsified, j);
+
+                //Trick: overwrite current w/ last, then remove last element --> O(1)
+                //Order doesn't matter, simply the contents. And speed >>>
+                    this->watchlist[desiredIndex][i] = this->watchlist[desiredIndex].back();
+                    this->watchlist[desiredIndex].pop_back();
+
+                    int newWCindex = litToIndex(possibleNewWatch);
+                    this->watchlist[newWCindex].push_back(clauseIndexInExpr);
+                    break;
+                }
+            }
+
+            if(foundNewWatch) {
+                continue;
+            }
+
+            //Case 3 --- No new watch (either unit or conflict)
+
+            //CONFLICT:
+            if(isFalse(otherWC, this->M)) {
+                return false;
+            }
+
+            //UNIT:
+            assign(otherWC);
+            propQueue.push(-otherWC);
+
+            i++;
         }
     }
 
     return true;
+}
+
+int Solver::findUnassigned() {
+    for(auto& wc : this->F) {
+        bool clauseSatisfied = false;
+        
+        for(auto lit : wc.C) {
+            if(isTrue(lit, this->M)) {
+                clauseSatisfied = true;
+                break;
+            }
+        }
+        
+        if(clauseSatisfied) continue;
+        
+        for(auto lit : wc.C) {
+            if(M[abs(lit)] == Assignment::UNASSIGNED) {
+                return abs(lit);
+            }
+        }
+    }
+
+    return 0;
+}
+
+void Solver::assign(int l) {
+    int v = abs(l);
+    Assignment a = (l > 0) ? Assignment::TRUE : Assignment::FALSE;
+
+    if(this->M[v] != Assignment::UNASSIGNED && this->M[v] != a) {
+        cout << "CONFLICTING ASSIGNMENT FOR VARIABLE " << v << " AS " << ((a == Assignment::TRUE) ? "TRUE" : "FALSE") << endl;
+        error("ASSIGN ERROR: Conflicting assignment for " + to_string(v));       
+    }
+
+    if(this->M[v] == Assignment::UNASSIGNED) {
+        this->M[v] = a;
+        this->trail.push_back(l); //make sure we are book keeping !!!
+    }
+}
+
+void Solver::undo(size_t target) {
+    // assert(target <= this->trail.size());
+
+    while(this->trail.size() != target) {
+        int l = this->trail.back();
+
+        //remove the assignments we've given
+        this->M[abs(l)] = Assignment::UNASSIGNED;
+        this->trail.pop_back();
+    }
+}
+
+bool Solver::solve2WL() {
+    queue<literal> initialUnits;
+
+    for(auto wc : this->F) {
+        if(wc.isUnit()) {
+            initialUnits.push(wc.getW1()); //either watch works
+        }
+    }
+
+    while(!initialUnits.empty()) {
+        literal L = initialUnits.front();
+        initialUnits.pop();
+        
+        if(this->M[abs(L)] != Assignment::UNASSIGNED) continue;
+        
+        assign(L);
+        if(!propagate(-L)) {
+            return false;
+        }
+    }
+
+    int v = findUnassigned();
+    
+    if(v == 0) {
+        //SAT!
+        printAssignments(this->M);
+        return true;
+    }
+
+    if(DEBUG) {
+        cout << "Deciding variable " << v << "\tat level " << decisionLevel.size() + 1 << endl;
+    }
+
+    //Assign v = TRUE
+    this->decisionLevel.push_back(this->trail.size()); //store current level size
+    assign(v); //assign v as true
+
+    if(propagate(-v)) {
+        if(solve2WL()) {
+            return true;
+        }
+    }
+
+    undo(this->decisionLevel.back()); //undo to previous state
+    this->decisionLevel.pop_back(); //go back to prev level size
+
+    //Assign v = FALSE
+    this->decisionLevel.push_back(this->trail.size()); //store current level size
+    assign(-v); //assign v as false
+
+    if(propagate(v)) {
+        if(solve2WL()) {
+            return true;
+        }
+    }
+
+    undo(this->decisionLevel.back()); //undo to previous state
+    this->decisionLevel.pop_back(); //go back to prev level size
+    
+    return false;
+}
+
+// == MISC FUNCTIONS == //
+bool verifyAssignment(expression& formula, vector<Assignment>& assignments) {
+    for(int i = 0; i < formula.size(); i++) {
+        watchedClause& wc = formula[i];
+        bool clauseSatisfied = false;
+        for(literal l : wc.C) {
+            if(isTrue(l, assignments)) {
+                clauseSatisfied = true;
+                break;
+            }
+        }
+        if(!clauseSatisfied) {
+            cout << "Clause " << i << " not satisfied: (";
+            for(literal l : wc.C) {
+                cout << l << " ";
+            }
+            cout << ")\n";
+            cout << "Assignments: ";
+            for(literal l : wc.C) {
+                int v = abs(l);
+                cout << "v" << v << "=" << (assignments[v] == Assignment::TRUE ? "T" : (assignments[v] == Assignment::FALSE ? "F" : "U")) << " ";
+            }
+            cout << "\n";
+            return false;
+        }
+    }
+    return true;
+}
+
+bool isTrue(literal l, vector<Assignment>& assignments) {
+    int v = abs(l);
+    if(l > 0) {
+        return assignments[v] == Assignment::TRUE;
+    } else {
+        return assignments[v] == Assignment::FALSE;
+    }
+}
+
+bool isFalse(literal l, vector<Assignment>& assignments) {
+    return isTrue(-l, assignments);
+}
+
+bool isUnassigned(literal l, vector<Assignment>& assignments) {
+    int v = abs(l);
+    return assignments[v] == Assignment::UNASSIGNED;
 }

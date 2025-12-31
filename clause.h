@@ -1,4 +1,3 @@
-//A clause is a disjunction of literals
 #pragma once
 
 #include <iostream>

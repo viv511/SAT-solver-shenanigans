@@ -43,6 +43,7 @@ Implemented proper DIMACS file reading, specifically so that I can test my sat s
 HUGE SPEED UP ALREADY!!
 
 **_Testing uf250-01 from the benchmarks_**
+
 1. Time to solve: 33.8272 seconds
 2. Time to solve: 35.0956 seconds
 3. Time to solve: 33.1517 seconds
@@ -74,22 +75,24 @@ I think I need to play the optimization game some more, especially with this thi
 
 ### 12.23.25
 
-VSIDS implementation was unsuccessful, but I spent a lot of time setting up the CDCL structure and backbone by going from trails as a vector of int to a vector of TrailEntry's. I also fixed some issues of duplicate propagates, which might have been the cause of the "hanging" that I was experiencing earlier. I'm really really happy with the current results---even though I haven't finished implementing full CDCL yet. 
+VSIDS implementation was unsuccessful, but I spent a lot of time setting up the CDCL structure and backbone by going from trails as a vector of int to a vector of TrailEntry's. I also fixed some issues of duplicate propagates, which might have been the cause of the "hanging" that I was experiencing earlier. I'm really really happy with the current results---even though I haven't finished implementing full CDCL yet.
 
 Current Benchmarks:
+
 - CAN solve the sudoku.cnf file I got from (insert website), took 0.029 seconds
 - uf250-01 ==> 0.003 seconds
-- uf250-01 ==> 0.002 
+- uf250-01 ==> 0.002
 
 WOW! I need to make sure this isn't a bug though...
 
 VERIFYING uf250-067:
+
 - Time: ~0.002 seconds
 
-My result: SAT v -1 2 3 -4 -5 -6 -7 8 9 10 -11 -12 14 15 16 -17 -18 -19 -20 22 -23 -24 25 -26 -27 -28 -29 30 -31 -32 -33 -34 -35 36 -37 38 -39 -41 42 43 -44 45 46 47 -48 -49 -50 51 -52 -53 -54 -55 -56 57 58 -59 -60 -61 62 -63 64 65 66 67 -68 -69 70 71 -72 73 -74 75 -76 -77 -78 79 80 -81 -83 84 -85 87 -88 89 90 91 92 -93 94 95 -96 97 -98 -99 100 -101 102 -103 -104 -105 106 107 -108 109 110 -111 -112 -113 -114 -115 -116 -117 -118 -119 120 -121 -122 -123 -124 -125 -126 -127 -128 129 130 -131 132 -133 -134 -135 -136 137 138 -139 -140 141 -142 -143 144 145 146 -147 -148 149 -150 151 -152 153 -154 155 -156 157 -158 159 -160 161 162 163 164 165 -166 -167 -168 -169 170 -171 172 173 -174 -175 -176 -177 -178 -179 -180 181 182 -183 -184 185 -186 -187 -188 -189 -190 191 192 -193 194 195 196 -197 -198 199 200 201 -202 -203 -204 -205 -206 207 -208 -209 210 -211 212 213 -214 215 216 217 218 -219 220 221 222 -223 -224 -225 226 -227 228 229 -230 -231 232 233 234 -235 236 -237 -238 239 -240 241 -242 -243 244 245 246 -247 248 249 250 
+My result: SAT v -1 2 3 -4 -5 -6 -7 8 9 10 -11 -12 14 15 16 -17 -18 -19 -20 22 -23 -24 25 -26 -27 -28 -29 30 -31 -32 -33 -34 -35 36 -37 38 -39 -41 42 43 -44 45 46 47 -48 -49 -50 51 -52 -53 -54 -55 -56 57 58 -59 -60 -61 62 -63 64 65 66 67 -68 -69 70 71 -72 73 -74 75 -76 -77 -78 79 80 -81 -83 84 -85 87 -88 89 90 91 92 -93 94 95 -96 97 -98 -99 100 -101 102 -103 -104 -105 106 107 -108 109 110 -111 -112 -113 -114 -115 -116 -117 -118 -119 120 -121 -122 -123 -124 -125 -126 -127 -128 129 130 -131 132 -133 -134 -135 -136 137 138 -139 -140 141 -142 -143 144 145 146 -147 -148 149 -150 151 -152 153 -154 155 -156 157 -158 159 -160 161 162 163 164 165 -166 -167 -168 -169 170 -171 172 173 -174 -175 -176 -177 -178 -179 -180 181 182 -183 -184 185 -186 -187 -188 -189 -190 191 192 -193 194 195 196 -197 -198 199 200 201 -202 -203 -204 -205 -206 207 -208 -209 210 -211 212 213 -214 215 216 217 218 -219 220 221 222 -223 -224 -225 226 -227 228 229 -230 -231 232 233 234 -235 236 -237 -238 239 -240 241 -242 -243 244 245 246 -247 248 249 250
 
 Comparing with a working SAT solver:
-***"ERROR: Assignment does not satisfy expression!"***
+**_"ERROR: Assignment does not satisfy expression!"_**
 
 Upon further inspection (I added a verifier that plugs the values back in (should have done this a long time ago)), it seems that my SAT solver actually returns bogus values. So... the debugging continues
 
@@ -99,8 +102,12 @@ I think I need to take a break from the code, go and read the theory again and w
 
 Deleting all the changes, reverting back to last commit.
 
-# TO-DO:
+### 12.30.25
 
+Code refactoring + cleaning up
+
+# TO-DO:
+- make nicer CNF reading dimacs file
 - Possible steps for the future:
   - ~~DPLL Algorithm~~
   - ~~DIMACS style input~~

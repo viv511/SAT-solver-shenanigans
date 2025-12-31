@@ -1,5 +1,4 @@
 #include "clause.h"
-
 val evalClause(clause C, unordered_map<int,bool>& assignments) {
     bool unassignedLiteral = false;
 
