@@ -110,8 +110,8 @@ void Solver::init() {
     M = initializeAssignment(NUM_VARS);
     watchlist = initializeWatchlist(NUM_VARS);
     trail.clear();
-    decisionLevel.clear();
-    decisionLevel.push_back(0);
+    trailBounds.clear();
+    trailBounds.push_back(0);
 }
 
 std::vector<std::vector<int>> Solver::initializeWatchlist(int nV) {
@@ -235,7 +235,7 @@ void Solver::assign(int l) {
 
     if(this->M[v] == Assignment::UNASSIGNED) {
         this->M[v] = a;
-        this->trail.push_back(l); //make sure we are book keeping !!!
+        this->trail.push_back(l);
     }
 }
 
@@ -281,11 +281,11 @@ bool Solver::solve2WL() {
     }
 
     if(DEBUG) {
-        cout << "Deciding variable " << v << "\tat level " << decisionLevel.size() + 1 << endl;
+        cout << "Deciding variable " << v << "\tat level " << trailBounds.size() + 1 << endl;
     }
 
     //Assign v = TRUE
-    this->decisionLevel.push_back(this->trail.size()); //store current level size
+    this->trailBounds.push_back(this->trail.size()); //store current level size
     assign(v); //assign v as true
 
     if(propagate(-v)) {
@@ -294,11 +294,11 @@ bool Solver::solve2WL() {
         }
     }
 
-    undo(this->decisionLevel.back()); //undo to previous state
-    this->decisionLevel.pop_back(); //go back to prev level size
+    undo(this->trailBounds.back()); //undo to previous state
+    this->trailBounds.pop_back(); //go back to prev level size
 
     //Assign v = FALSE
-    this->decisionLevel.push_back(this->trail.size()); //store current level size
+    this->trailBounds.push_back(this->trail.size()); //store current level size
     assign(-v); //assign v as false
 
     if(propagate(v)) {
@@ -307,8 +307,8 @@ bool Solver::solve2WL() {
         }
     }
 
-    undo(this->decisionLevel.back()); //undo to previous state
-    this->decisionLevel.pop_back(); //go back to prev level size
+    undo(this->trailBounds.back()); //undo to previous state
+    this->trailBounds.pop_back(); //go back to prev level size
     
     return false;
 }

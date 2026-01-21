@@ -106,8 +106,29 @@ Deleting all the changes, reverting back to last commit.
 
 Code refactoring + cleaning up
 
+### 12.31.25
+
+Working on CDCL + 1-UIP
+Changing returns in propagate from T/F to -1 if true, else the conflicting clause index
+
+
+<!-- 
+
+1: while TRUE do
+2: ldecision := Decide ()
+3: If no ldecision then return satisfiable
+4: Γ := Simplify (Γ (ldecision ← 1))
+5: while Γ contains Cfalsified do
+6: Cconflict := Analyze (Cfalsified)
+7: If Cconflict = ⊥ then return unsatisfiable
+8: BackTrack (Cconflict)
+9: Γ := Simplify (Γ ∪ {Cconflict})
+10: end while
+11: end while
+
+ -->
+
 # TO-DO:
-- make nicer CNF reading dimacs file
 - Possible steps for the future:
   - ~~DPLL Algorithm~~
   - ~~DIMACS style input~~
@@ -120,8 +141,7 @@ Code refactoring + cleaning up
   - Restarts
   - Memory layout optimizations
 
-<!-- Credits/References -->
-
+# Credits/References
 - Dr. Marijn Heule / Dr. John Mackey for the initial inspiration
 - Various YT lectures and recordings the intuition and basics of SAT solvers
 - https://users.aalto.fi/~tjunttil/2020-DP-AUT/notes-sat/overview.html
@@ -135,5 +155,15 @@ Code refactoring + cleaning up
 - https://cse.unl.edu/~choueiry/S17-235H/files/SATslides07.pdf
 - https://ceur-ws.org/Vol-3201/paper2.pdf
 - https://simewu.com/SAT-solver/ (for examples?)
+- cite assistance of copilot for code completion (dunno how to actually cite)
 
-Currently Reading: SAT/SMT by example --- Progress: Page 1/720
+# Reading/Literature Log:
+
+CURRENT:
+- SAT/SMT by example --- Progress: Page 1/720
+
+FINISHED:
+- ?
+
+TO READ:
+- ?

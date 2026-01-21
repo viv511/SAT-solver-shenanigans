@@ -19,11 +19,12 @@ class Solver {
         std::vector<Assignment> getAssignments() const { return M; }
 
     private:
-        expression F;
-        std::vector<Assignment> M;
-        std::vector<std::vector<int>> watchlist;
-        std::vector<int> trail;
-        std::vector<int> decisionLevel;
+        expression F; //The formula in CNF
+        std::vector<Assignment> M; //Current variable assignments
+        std::vector<std::vector<int>> watchlist; //Watchlist for 2WL
+        std::vector<int> trail; //Stores assigned literals in order
+        std::vector<int> trailBounds; //Stores indices in trail where each decision level starts
+        
         bool DEBUG;
         int NUM_VARS;
         int NUM_CLAUSES;

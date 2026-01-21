@@ -21,8 +21,8 @@ void runEasyTests(Solver sol) {
 
 void runHardTests(Solver sol) {
     vector<string> testFiles = {
-        // "tests/benchmarks/uf250-01.cnf", //0.5s
-        "tests/benchmarks/uf250-02.cnf",
+        "tests/benchmarks/uf250-01.cnf", //0.5s
+        // "tests/benchmarks/uf250-02.cnf",
         // "tests/benchmarks/uf250-03.cnf",
         // "tests/benchmarks/uf250-04.cnf",
         // "tests/benchmarks/uf250-05.cnf",
