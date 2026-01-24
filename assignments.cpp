@@ -13,7 +13,7 @@ vector<Assignment> initializeAssignment(int numVars) {
 }
 
 void printAssignments(vector<Assignment>& M) {
-    cout << "SAT" << endl;
+    cout << "\n\nSAT" << endl;
     cout << "v ";
     for(int i = 1; i < M.size(); i++) {
         //We don't care about unassigned variables, as long as SAT

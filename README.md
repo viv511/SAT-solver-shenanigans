@@ -111,6 +111,9 @@ Code refactoring + cleaning up
 Working on CDCL + 1-UIP
 Changing returns in propagate from T/F to -1 if true, else the conflicting clause index
 
+### 1.23.26 
+
+Generational lock in for CDCL
 
 <!-- 
 

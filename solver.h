@@ -24,23 +24,31 @@ class Solver {
         std::vector<std::vector<int>> watchlist; //Watchlist for 2WL
         std::vector<int> trail; //Stores assigned literals in order
         std::vector<int> trailBounds; //Stores indices in trail where each decision level starts
-        
+        std::vector<int> decisionLevel; //Storse the decision level of each v
+        std::vector<int> reasoned; //For each v, -1 if decision, else the clause index that implied v
+
         bool DEBUG;
         int NUM_VARS;
         int NUM_CLAUSES;
 
-        //Initialization functions
+        //===== Initialization functions =====//
         void init();
         std::vector<std::vector<int>> initializeWatchlist(int nV);
 
-        //Helper functions
-        bool propagate(int falsifiedLiteral);
+        //===== Helper functions =====//
         int findUnassigned();
-        void assign(int l);
+
+        //CDCL requires return of conflict clause index OR -1 if no conflict
+        int propagate(int falsifiedLiteral);
+
+        void assign(int l, int reasonedValue);
         void undo(size_t targetSize);
 
-        //Core solver function
+        std::tuple<clause, int> analyze(int conflictClauseIndex);
+
+        //===== Core solver function =====//
         bool solve2WL();
+        bool solveCDCL();
 };
 
 //Misc functions

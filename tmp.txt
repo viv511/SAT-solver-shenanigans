@@ -1,0 +1,447 @@
+I have a working DPLL 2WL solver, but i want to try to implement a CDCL based solver:
+
+full solver.cpp file:
+
+#include "solver.h"
+
+// == CONSTRUCTOR == //
+Solver::Solver(bool debugFlag) {
+    this->DEBUG = debugFlag;
+}
+
+// == CNF/DIMACS PARSING == //
+void Solver::readCNF(string filename) {
+    expression tmpF;
+    clause tmpC;
+
+    //Read file
+    ifstream infile(filename);
+    string s;
+
+    //P-line
+    bool foundPLine = false;
+    string p;
+    string cnf;
+
+    while (getline(infile, s)) {
+        stringstream ss(s);
+
+        if(s.empty() || s[0] == 'c') continue; //ignore comments + empty lines
+
+        if(s[0] == 'p') {
+            if(foundPLine) error("Multiple p-lines found");
+            foundPLine = true;
+            ss >> p >> cnf >> this->NUM_VARS >> this->NUM_CLAUSES;
+
+            if(p != "p" || cnf != "cnf" || this->NUM_VARS < 1 || this->NUM_CLAUSES < 1) {
+                error("Invalid p-line");
+            }
+
+            tmpF.reserve(this->NUM_CLAUSES);
+            continue;
+        }
+
+        int lit;
+        
+        while (ss >> lit) {
+            if (lit == 0) {
+                if (!tmpC.empty()) {
+                    tmpF.push_back(watchedClause(tmpC));
+                    tmpC.clear();
+                }
+            } else {
+                tmpC.push_back(lit);
+            }
+        }
+    }
+
+    //Redundant check for trailing 0
+    if(!tmpC.empty()) {
+        tmpF.push_back(watchedClause(tmpC));
+    }
+
+    //ERROR CHECKS
+    if(tmpF.size() != this->NUM_CLAUSES) {
+        error("Clause count mismatch!\nExpected " +
+          to_string(this->NUM_CLAUSES) + ", got " +
+          to_string(tmpF.size()));
+    }
+    if(tmpF.empty()) error("Empty expression found");
+    if(!foundPLine) error("No p-line found");
+
+    this->F = tmpF;
+
+    init();
+}
+
+// == MAIN SOLVER == //
+bool Solver::solve() {
+    cout << "\nSolving an expression with " << NUM_VARS << " variables and " << NUM_CLAUSES << " clauses:\n";
+
+    if(this->DEBUG) {
+        printExpression(this->F);
+    }
+
+    cout << "\n---------------------------------------------------\n";
+
+    expression copy = this->F; //copy for later verification
+
+    auto start = chrono::high_resolution_clock::now();
+    bool result = solve2WL();
+    auto finish = chrono::high_resolution_clock::now();
+
+    chrono::duration<double> elapsed = finish - start;
+    cout << "\nTime to solve: " << elapsed.count() << " seconds" << endl;
+
+    bool verified = verifyAssignment(copy, this->M);
+    
+    if(!result) cout << "UNSAT\n";
+    else {
+        if(!verified) {
+            cout << "\nERROR: Assignment does not satisfy expression!\n";
+            error("ASSIGNMENT VERIFICATION FAILED!!!");
+        }
+        else{
+            cout << "\nVerified: Assignment satisfies expression.\n\n";
+        }
+    }
+
+    return result;
+}
+
+// == INITIALIZATION FUNCTIONS == //
+void Solver::init() {
+    M = initializeAssignment(NUM_VARS);
+    watchlist = initializeWatchlist(NUM_VARS);
+    trail.clear();
+    trailBounds.clear();
+    trailBounds.push_back(0);
+}
+
+std::vector<std::vector<int>> Solver::initializeWatchlist(int nV) {
+    std::vector<std::vector<int>> WL(2 * nV);
+
+    for(size_t i = 0; i < this->F.size(); i++) {
+        watchedClause& wc = F[i];
+        literal w1 = wc.getW1();
+        literal w2 = wc.getW2();
+
+        WL[litToIndex(w1)].push_back(i);
+        if(w1 != w2) {
+            WL[litToIndex(w2)].push_back(i);
+        }
+    }
+
+    return WL;
+}
+
+// == HELPER FUNCTIONS == //
+
+bool Solver::propagate(int falsifiedLiteral) {
+    std::queue<literal> propQueue;
+    propQueue.push(falsifiedLiteral);
+
+    while(!propQueue.empty()) {
+        literal currentFalsified = propQueue.front();
+        propQueue.pop();
+
+        int desiredIndex = litToIndex(currentFalsified);
+
+        size_t i = 0;
+        while(i < this->watchlist[desiredIndex].size()) {
+            int clauseIndexInExpr = this->watchlist[desiredIndex][i];
+            watchedClause& wc = this->F[clauseIndexInExpr];
+
+            literal otherWC = wc.getOtherWatch(currentFalsified);
+
+            //Case 1 --- Already good
+            if(isTrue(otherWC, this->M)) {
+                i++;
+                continue;
+            }
+
+            //Case 2 --- Find new watch
+            bool foundNewWatch = false;
+            for(size_t j = 0; j < wc.size(); j++) {
+            if(j == wc.w1Index || j == wc.w2Index) continue; //skip w1 and w2
+
+                literal possibleNewWatch = wc.C[j];
+
+                if(!isFalse(possibleNewWatch, this->M)) {
+                    foundNewWatch = true;
+            
+                    wc.moveWatch(currentFalsified, j);
+
+                //Trick: overwrite current w/ last, then remove last element --> O(1)
+                //Order doesn't matter, simply the contents. And speed >>>
+                    this->watchlist[desiredIndex][i] = this->watchlist[desiredIndex].back();
+                    this->watchlist[desiredIndex].pop_back();
+
+                    int newWCindex = litToIndex(possibleNewWatch);
+                    this->watchlist[newWCindex].push_back(clauseIndexInExpr);
+                    break;
+                }
+            }
+
+            if(foundNewWatch) {
+                continue;
+            }
+
+            //Case 3 --- No new watch (either unit or conflict)
+
+            //CONFLICT:
+            if(isFalse(otherWC, this->M)) {
+                return false;
+            }
+
+            //UNIT:
+            assign(otherWC);
+            propQueue.push(-otherWC);
+
+            i++;
+        }
+    }
+
+    return true;
+}
+
+int Solver::findUnassigned() {
+    for(auto& wc : this->F) {
+        bool clauseSatisfied = false;
+        
+        for(auto lit : wc.C) {
+            if(isTrue(lit, this->M)) {
+                clauseSatisfied = true;
+                break;
+            }
+        }
+        
+        if(clauseSatisfied) continue;
+        
+        for(auto lit : wc.C) {
+            if(M[abs(lit)] == Assignment::UNASSIGNED) {
+                return abs(lit);
+            }
+        }
+    }
+
+    return 0;
+}
+
+void Solver::assign(int l) {
+    int v = abs(l);
+    Assignment a = (l > 0) ? Assignment::TRUE : Assignment::FALSE;
+
+    if(this->M[v] != Assignment::UNASSIGNED && this->M[v] != a) {
+        cout << "CONFLICTING ASSIGNMENT FOR VARIABLE " << v << " AS " << ((a == Assignment::TRUE) ? "TRUE" : "FALSE") << endl;
+        error("ASSIGN ERROR: Conflicting assignment for " + to_string(v));       
+    }
+
+    if(this->M[v] == Assignment::UNASSIGNED) {
+        this->M[v] = a;
+        this->trail.push_back(l);
+    }
+}
+
+void Solver::undo(size_t target) {
+    // assert(target <= this->trail.size());
+
+    while(this->trail.size() != target) {
+        int l = this->trail.back();
+
+        //remove the assignments we've given
+        this->M[abs(l)] = Assignment::UNASSIGNED;
+        this->trail.pop_back();
+    }
+}
+
+bool Solver::solve2WL() {
+    queue<literal> initialUnits;
+
+    for(auto wc : this->F) {
+        if(wc.isUnit()) {
+            initialUnits.push(wc.getW1()); //either watch works
+        }
+    }
+
+    while(!initialUnits.empty()) {
+        literal L = initialUnits.front();
+        initialUnits.pop();
+        
+        if(this->M[abs(L)] != Assignment::UNASSIGNED) continue;
+        
+        assign(L);
+        if(!propagate(-L)) {
+            return false;
+        }
+    }
+
+    int v = findUnassigned();
+    
+    if(v == 0) {
+        //SAT!
+        printAssignments(this->M);
+        return true;
+    }
+
+    if(DEBUG) {
+        cout << "Deciding variable " << v << "\tat level " << trailBounds.size() + 1 << endl;
+    }
+
+    //Assign v = TRUE
+    this->trailBounds.push_back(this->trail.size()); //store current level size
+    assign(v); //assign v as true
+
+    if(propagate(-v)) {
+        if(solve2WL()) {
+            return true;
+        }
+    }
+
+    undo(this->trailBounds.back()); //undo to previous state
+    this->trailBounds.pop_back(); //go back to prev level size
+
+    //Assign v = FALSE
+    this->trailBounds.push_back(this->trail.size()); //store current level size
+    assign(-v); //assign v as false
+
+    if(propagate(v)) {
+        if(solve2WL()) {
+            return true;
+        }
+    }
+
+    undo(this->trailBounds.back()); //undo to previous state
+    this->trailBounds.pop_back(); //go back to prev level size
+    
+    return false;
+}
+
+bool Solver::solveCDCL() {
+    while(true) {
+        int v = findUnassigned();
+        if(v == 0) {
+            //SAT!
+            printAssignments(this->M);
+            return true;
+        }
+
+        //F := Simplify(F(v = TRUE))
+
+        // while(F contains C_falsified) {
+            // C_conflict := Analyze(C_falsified)
+            // if(C_conflict == NULL) {
+            //     return UNSAT
+            // }
+
+            //Backtrack(C_conflict)
+
+            //F := Simplify(F U {C_conflict})
+        // }
+    }
+}
+
+
+// == MISC FUNCTIONS == //
+bool verifyAssignment(expression& formula, vector<Assignment>& assignments) {
+    for(int i = 0; i < formula.size(); i++) {
+        watchedClause& wc = formula[i];
+        bool clauseSatisfied = false;
+        for(literal l : wc.C) {
+            if(isTrue(l, assignments)) {
+                clauseSatisfied = true;
+                break;
+            }
+        }
+        if(!clauseSatisfied) {
+            cout << "Clause " << i << " not satisfied: (";
+            for(literal l : wc.C) {
+                cout << l << " ";
+            }
+            cout << ")\n";
+            cout << "Assignments: ";
+            for(literal l : wc.C) {
+                int v = abs(l);
+                cout << "v" << v << "=" << (assignments[v] == Assignment::TRUE ? "T" : (assignments[v] == Assignment::FALSE ? "F" : "U")) << " ";
+            }
+            cout << "\n";
+            return false;
+        }
+    }
+    return true;
+}
+
+bool isTrue(literal l, vector<Assignment>& assignments) {
+    int v = abs(l);
+    if(l > 0) {
+        return assignments[v] == Assignment::TRUE;
+    } else {
+        return assignments[v] == Assignment::FALSE;
+    }
+}
+
+bool isFalse(literal l, vector<Assignment>& assignments) {
+    return isTrue(-l, assignments);
+}
+
+bool isUnassigned(literal l, vector<Assignment>& assignments) {
+    int v = abs(l);
+    return assignments[v] == Assignment::UNASSIGNED;
+}
+
+solver.h
+#pragma once
+
+#include <iostream>
+#include <queue>
+#include <sstream>
+#include <fstream>
+#include <chrono>
+#include <iostream>
+
+#include "assignments.h"
+#include "expression.h"
+#include "utils.h"
+
+class Solver {
+    public:
+        Solver(bool debugFlag = false);
+        void readCNF(string filename);
+        bool solve();
+        std::vector<Assignment> getAssignments() const { return M; }
+
+    private:
+        expression F; //The formula in CNF
+        std::vector<Assignment> M; //Current variable assignments
+        std::vector<std::vector<int>> watchlist; //Watchlist for 2WL
+        std::vector<int> trail; //Stores assigned literals in order
+        std::vector<int> trailBounds; //Stores indices in trail where each decision level starts
+        
+        bool DEBUG;
+        int NUM_VARS;
+        int NUM_CLAUSES;
+
+        //Initialization functions
+        void init();
+        std::vector<std::vector<int>> initializeWatchlist(int nV);
+
+        //Helper functions
+        bool propagate(int falsifiedLiteral);
+        int findUnassigned();
+        void assign(int l);
+        void undo(size_t targetSize);
+
+        //Core solver function
+        bool solve2WL();
+        bool solveCDCL();
+};
+
+//Misc functions
+bool verifyAssignment(expression& formula, vector<Assignment>& assignments);
+bool isTrue(literal l, vector<Assignment>& assignments);
+bool isFalse(literal l, vector<Assignment>& assignments);
+bool isUnassigned(literal l, vector<Assignment>& assignments);
+
+i understand CDCL intuition and how it actually works, but dont know how to actually go about implementing the datastructures and stuff (i would assume that i need to have more vector<int>s for decision tracking and stuff
+
+i want to have a full CDCL working based off of the *correct* skeleton that i provided no heuristics or different stuff, just a first UIP based backjump strategy (might change to full restart later but whatever)
