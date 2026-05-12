@@ -5,8 +5,7 @@ Making my own Boolean SAT (satisfiable) Solver!
 I heard about SAT solvers from our Discrete Math class @ CMU (15-151) taught by Dr. John Mackey and Dr. William Kuszmaul! I went on a little deep-dive into how they work and eventually decided to try to make my own. This log serves a progress tracker for myself and a place to record all the advancements/tricks/tips I've learned.
 
 # Version 0 (Basic DPLL Solver):
-
-Started: 11.21.25 ==> Ended: 11.30.25
+*Started: 11.21.25 ==> Ended: 11.30.25*
 
 ### 11.22.25
 
@@ -25,8 +24,7 @@ Made parsing work! Able to input a string and have it create and expression and 
 SUCCESS! Version 0 is complete!! The SAT solver works on a variety of tests and is even faster then a few sites that I've seen. Theres a lot of room for improvement though, especially in terms of space allocation and backtracking. There is definitely a more elegant way to approach it, so I'm going to spend more time reading about other successful solvers and try to incorporate what they do into my own. I think I need to move on from the DPLL approach though. I'll also go talk to Daniel to see how their group were able to generate Costas Arrays and actually run their solver on it.
 
 # Version 1 (2-Watched Literals Scheme + minor improvements)
-
-Started: 12.1.25 ==> Ended: ???
+*Started: 12.1.25 ==> Ended: 12.22.25*
 
 ### 12.1.25 - 12.12.25
 
@@ -73,6 +71,9 @@ This greatly improved performance on the initial test that I was using "uf250-01
 
 I think I need to play the optimization game some more, especially with this thing called "VSIDS" and CDCL. CDCL is the most viable next option, especially since it leads to less backtracking which is better for me.
 
+# Version 2 (CDCL + messing with heuristics)
+*Started 12.23.25 ==> Ended: ???*
+
 ### 12.23.25
 
 VSIDS implementation was unsuccessful, but I spent a lot of time setting up the CDCL structure and backbone by going from trails as a vector of int to a vector of TrailEntry's. I also fixed some issues of duplicate propagates, which might have been the cause of the "hanging" that I was experiencing earlier. I'm really really happy with the current results---even though I haven't finished implementing full CDCL yet.
@@ -111,6 +112,45 @@ Code refactoring + cleaning up
 Working on CDCL + 1-UIP
 Changing returns in propagate from T/F to -1 if true, else the conflicting clause index
 
+ideally lock in for CDCL (??)
+but midterms/stress from other stuff, i might take a pause on this for now
+
+# Pause on Version 2, moving from working on a Solver to working on heuristics and learning other problems in the field
+
+### 2.9.26
+
+Started researching a bit into symmetry breaking / other optimizations in preprocessing.
+I have an idea that might be helpful to generate variable heuristics --- so we'll see.
+
+### 3.3.26
+Switching up languages!! (DW——still english, pero quien sabe)
+
+Using Python off of a recommendation from Vipin (goated) to use PySAT to experiment with my idea.
+
+For now, generate a way to make CNFs for the Costas Array as a test example. And then use that to benchmark times with and without my idea.
+
+### 3.4.26
+Fully working CNF encoder for Costas Arrays! Also, I figured out how to use PySAT to both construct the cnf effectively and use minisat/cadical to solve it. Starting to work on trying out the heuristic idea!
+
+### 3.6.26
+Mr. Subercaseaux replied back to my email :))) I'm super pumped to talk to him and get myself more involved within the field. (also grinding out the idea to make sure I can email him with something + maybe present something new?) 
+
+### 3.7.26
+Worked on the heatmap to visualize the performance of the heuristic. It doesn't seem to be working that well, particularly because the Costas Problem has so many solutions, so I might turn my attention to another problem. 
+
+### 3.14.26
+Spent a few hours learning about Golomb Rulers and their properties + construction methods.
+
+### 3.16.26
+I was bored in writing class and I was drawing marks on my paper when I realized that the sequence 2^i - 1 will always produce a Golomb Ruler (although not optimal) and that was pretty cool. I havent formally shown this to be true but it seems to be true from testing and it makes sense intuitively because of the uniquness of binary representation
+
+### 3.22.26
+Got an email back from Mr. Subercaseaux about perhaps working with him! (super excited about that) he also mentioned that he thought my ideas was pretty interesting, so I want to make sure I have something tangible to show him before we meet. 
+
+### 5.11.26
+It's been a shakey and rough couple of months, both with many academic and personal challenges, but summer has started and I want to take another shot at this. The small goal today is try to understand the workflow between Python and C code w/ MiniSAT to try to start automating the process before beginning to tweak the C code directly. Furhter, I also want to have something done to show Dr. Mackey and Mr. Subercaseaux by next week, so I'll be putting in more time this week to get this done soon.
+
+FIRE okay I fixed the MiniSAT make and now I can use Python subprocess to encode, call minisat locally, and then print out all at once!
 
 <!-- 
 
@@ -139,10 +179,11 @@ Changing returns in propagate from T/F to -1 if true, else the conflicting claus
   - VSIDS branching heuristic
   - Add a make file (c++ things)
   - Restarts
+  - Shatter/symmetry breaking in preprocessing
   - Memory layout optimizations
 
 # Credits/References
-- Dr. Marijn Heule / Dr. John Mackey for the initial inspiration
+- Dr. Marijn Heule, Dr. John Mackey, & Bernardo Subercaseaux for the initial inspiration
 - Various YT lectures and recordings the intuition and basics of SAT solvers
 - https://users.aalto.fi/~tjunttil/2020-DP-AUT/notes-sat/overview.html
 - https://jix.github.io/varisat/manual/0.2.0/formats/dimacs.html
