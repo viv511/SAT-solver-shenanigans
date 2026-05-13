@@ -201,7 +201,14 @@ FIRE okay I fixed the MiniSAT make and now I can use Python subprocess to encode
 # Reading/Literature Log:
 
 CURRENT:
-- SAT/SMT by example --- Progress: Page 1/720
+- SAT/SMT by example
+  - Progress: Page 1/720
+- Computational Complexity: A Modern Approach by Arora & Barak
+  - [x] Preface
+  - [x] Introduction
+  - **Part 1: Basic Complexity Classes**
+    - [x] Chapter 1
+    - [ ] Chapter 2
 
 FINISHED:
 - ?
