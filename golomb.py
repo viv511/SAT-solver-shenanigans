@@ -6,8 +6,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time, random
 
-GOLOMB_RULER_SIZE = 10
-UPPER_L = 55
+GOLOMB_RULER_SIZE = 11
+UPPER_L = 75
 
 def x(i, v):
     return i * (UPPER_L + 1) + v + 1
@@ -197,13 +197,6 @@ def displayBoards(truth, reversedTruth, scoreboard):
 
     plt.show()
 
-def updateBoard(inputBoard, updateBoard):
-    for i in range(len(inputBoard)):
-        if updateBoard[i] > 0:
-            inputBoard[i] += 5.0
-        else:
-            inputBoard[i] -= 1.0
-    return inputBoard
 
 def golombTesting():
     F, baseCutoff = encodeRuler()

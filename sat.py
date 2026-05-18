@@ -1,13 +1,67 @@
 from costas import *
 from golomb import *
 import subprocess
+import time
 
 # CONFIGURABLE PARAMATERS!!
-numIterations = 30
-pctRandom = 96
+numIterations = 20
+pctRandom = 95
+trueWeightage = 6.0
+falseWeightage = 1.0
+
+# More positive the board, the more likely it is to be true (vice versa!)
+def updateBoard(inputBoard, updateBoard):
+    for i in range(len(inputBoard)):
+        if updateBoard[i] > 0:
+            inputBoard[i] += trueWeightage
+        else:
+            inputBoard[i] -= falseWeightage
+    return inputBoard
+
+'''
+length = cardinality of "base variables"
+baseClauses = clauses that only involve base variables (the "core" of the problem)
+    > think of this as the "basic rules"
+additionalClauses = the majority of the clauses, the constraints that make the problem hard
+    > think of this as the "conditions"
+'''
+def generateScorecard(length, baseClauses, additionalClauses):
+    progressBarLen = 50 #just because i like looking at nice looking progress bars
+
+    scorecard = [0.0] * length
+    generationTime = time.perf_counter()
+
+    for i in range(numIterations):
+        random.shuffle(baseClauses)
+
+        randF = CNF()
+        randF.extend(baseClauses)
+
+        # Select random subset of constraint clauses
+        sampled = random.sample(additionalClauses, int(len(additionalClauses) * pctRandom / 100))
+        randF.extend(sampled)
+
+        _, _ = solveLocal(randF, "randSubsets.cnf")
+        markIndexArray = displayRuler(modelFromRuler("result.out"))
+
+        # markIndexArray, _ = golombSAT(randF, False)
+        baseVarsAssignment = rulerToBoard(markIndexArray)
+
+        # Takes a alpha assignment for the partial CNF and updates scorecard via the weights
+        scorecard = updateBoard(scorecard, baseVarsAssignment)
+
+        # nice looking progress bar because why not
+        done = int((i + 1) / numIterations * progressBarLen)
+        bar = "#" * done + "-" * (progressBarLen - done)
+        print(f"\r[{bar}] {i+1}/{numIterations}", end="", flush=True)
+    
+    print()
+    generationTime = time.perf_counter() - generationTime
+
+    return scorecard, generationTime
 
 def solveLocal(F, cnfFile):
-    with open("golomb.cnf", "w") as f:
+    with open(cnfFile, "w") as f:
         F.to_fp(f)
 
     start = time.perf_counter()
@@ -38,52 +92,52 @@ def modelFromRuler(resultFile):
 # Encode Golomb Ruler
 F, baseCutoff = encodeRuler()
 
+
+# we will start by manually giving minisat the array
+# then modify minisat's functions (pickbranchlit) to use this scorecard
+# so to test it ill just run a solveLocal for now!
+
+'''
+for reference:
+
+GOLOMB_RULER_SIZE = 11
+UPPER_L = 75
+numIterations = 20
+pctRandom = 95
+trueWeightage = 6.0
+falseWeightage = 1.0
+
+produces Full CNF time: 33.83583987498423 seconds
+Ruler: [0, 7, 9, 15, 25, 44, 47, 58, 70, 71, 75]
+Valid? True
+
+'''
+# im excited to see what the scorecard will look like w the same params
+
+# testing the modified minisat
+_, solveTime = solveLocal(F, "golomb.cnf")
+print(f"\nFull CNF time: {solveTime} seconds\n") 
+rulerAns = displayRuler(modelFromRuler("result.out"))
+print("Ruler:", rulerAns)
+print("Valid?", verifyRuler(rulerAns))
+
+exit(1)
+
 # Write PySAT CNF to file to run modified MiniSAT on it
 result, timeToSolve = solveLocal(F, "golomb.cnf")
-print(f"\nNormal solve time: {timeToSolve} seconds\n")
-
-# print(result.stdout)
-# this is the actual stats, dont care about it right now exactly
-
+print(f"\nFull CNF time: {timeToSolve} seconds\n") # print(result.stdout) # this is the actual stats, dont care about it right now exactly
 ruler = displayRuler(modelFromRuler("result.out"))
 print("Ruler:", ruler)
 print("Valid?", verifyRuler(ruler))
-print("\n")
 
-# Separate clauses
-baseClauses = F.clauses[:baseCutoff]
-constraintClauses = F.clauses[baseCutoff:]
-print(f"base clauses: {len(baseClauses)}, constraint clauses: {len(constraintClauses)}")
+print(f"base clauses: {baseCutoff}, additional clauses: {len(F.clauses) - baseCutoff}\n")
 
-# Make clean scorecard
-scoreboard = [0.0] * (UPPER_L + 1)
+scorecard, heuristicTime = generateScorecard(UPPER_L + 1, F.clauses[:baseCutoff], F.clauses[baseCutoff:]) 
 
-scoreboardTime = time.perf_counter()
-
-for i in range(numIterations):
-    randF = CNF()
-    random.shuffle(baseClauses)
-    randF.extend(baseClauses)
-
-    # Select random subset of constraint clauses
-    sampled = random.sample(constraintClauses, int(len(constraintClauses) * pctRandom / 100))
-    randF.extend(sampled)
-
-    # NOTE: Although the end result is using a modified MiniSAT, to build the initial heuristic,
-    # im using the out of the box MiniSAT22 from PySAT to find partial solutions quickly.
-    r, _ = golombSAT(randF, False)
-    r = rulerToBoard(r)
-    scoreboard = updateBoard(scoreboard, r)
-    print(f"iteration {i + 1}/{numIterations} complete.")
-
-scoreboardTime = time.perf_counter() - scoreboardTime
-
-print(f"Heuristic Generation time: {scoreboardTime} seconds")
-# displayBoard(scoreboard)
-
-print("\nFinal Scoreboard:")
-print(scoreboard)
-
+print(f"Heuristic Generation time: {heuristicTime} seconds")
+# print("\nFinal Scoreboard:")
+# displayBoard(scorecard)
+print(scorecard)
 
 
 

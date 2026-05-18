@@ -152,6 +152,12 @@ It's been a shakey and rough couple of months, both with many academic and perso
 
 FIRE okay I fixed the MiniSAT make and now I can use Python subprocess to encode, call minisat locally, and then print out all at once!
 
+### 5.16.26
+Cleaned up the code, but haven't modified MiniSAT yet
+
+### 5.17.26
+Spent extensive time studying how exactly MiniSAT works.
+
 <!-- 
 
 1: while TRUE do
@@ -167,6 +173,26 @@ FIRE okay I fixed the MiniSAT make and now I can use Python subprocess to encode
 11: end while
 
  -->
+
+
+<!-- 
+
+another idea:
+
+INSTEAD OF:
+if abs(score) > threshold:
+    use heuristic
+else:
+    use VSIDS
+
+TRY THIS?
+with probability p(abs(score)):
+    use heuristic
+otherwise:
+    use VSIDS
+
+ -->
+
 
 # TO-DO:
 - Possible steps for the future:
