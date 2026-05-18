@@ -158,41 +158,12 @@ Cleaned up the code, but haven't modified MiniSAT yet
 ### 5.17.26
 Spent extensive time studying how exactly MiniSAT works.
 
-<!-- 
+### 5.18.26 
+***GREAT SUCCESS!!!!*** 
 
-1: while TRUE do
-2: ldecision := Decide ()
-3: If no ldecision then return satisfiable
-4: Γ := Simplify (Γ (ldecision ← 1))
-5: while Γ contains Cfalsified do
-6: Cconflict := Analyze (Cfalsified)
-7: If Cconflict = ⊥ then return unsatisfiable
-8: BackTrack (Cconflict)
-9: Γ := Simplify (Γ ∪ {Cconflict})
-10: end while
-11: end while
+Modified MiniSAT to use a hardcoded scorecard that I got from the python generation function and it took a long long time to figure out how to fix the Makefile and other tiny linking bugs and I ended up adding a few functions and modifying the pickBranchLit function mainly and then ran it. 
 
- -->
-
-
-<!-- 
-
-another idea:
-
-INSTEAD OF:
-if abs(score) > threshold:
-    use heuristic
-else:
-    use VSIDS
-
-TRY THIS?
-with probability p(abs(score)):
-    use heuristic
-otherwise:
-    use VSIDS
-
- -->
-
+INSANE! with fixed constants, the normal MiniSAT took around 30 seconds but now it takes around 3 seconds to solve the same problem! Really happy with this result, but I want to make sure that this isn't a fluke, so I'm going to make it more robust, bring in a control MiniSAT folder, and then present it to Dr. Mackey and Mr. Subercaseaux!
 
 # TO-DO:
 - Possible steps for the future:

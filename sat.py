@@ -42,7 +42,7 @@ def generateScorecard(length, baseClauses, additionalClauses):
         sampled = random.sample(additionalClauses, int(len(additionalClauses) * pctRandom / 100))
         randF.extend(sampled)
 
-        _, _ = solveLocal(randF, "randSubsets.cnf")
+        _, _ = solveLocalNormal(randF, "randSubsets.cnf")
         markIndexArray = displayRuler(modelFromRuler("result.out"))
 
         # markIndexArray, _ = golombSAT(randF, False)
