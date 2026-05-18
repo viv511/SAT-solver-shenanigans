@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time, random
 
+# if u update, make sure you update solver.h lines 39-40
 GOLOMB_RULER_SIZE = 11
 UPPER_L = 75
 

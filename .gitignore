@@ -1,1 +1,5 @@
 venv
+minisat/config.mk
+minisat/build
+.DS_Store
+__pycache__/

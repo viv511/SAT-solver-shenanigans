@@ -2,6 +2,7 @@ from costas import *
 from golomb import *
 import subprocess
 import time
+import os
 
 # CONFIGURABLE PARAMATERS!!
 numIterations = 20
@@ -60,13 +61,27 @@ def generateScorecard(length, baseClauses, additionalClauses):
 
     return scorecard, generationTime
 
-def solveLocal(F, cnfFile):
+def solveLocalNormal(F, cnfFile):
     with open(cnfFile, "w") as f:
         F.to_fp(f)
 
     start = time.perf_counter()
     result = subprocess.run(
             ["./minisat/build/release/bin/minisat", cnfFile, "result.out"],
+            capture_output=True,
+            text=True
+        )
+    end = time.perf_counter()
+
+    return result, end - start
+
+def solveLocalModified(F, cnfFile):
+    with open(cnfFile, "w") as f:
+        F.to_fp(f)
+
+    start = time.perf_counter()
+    result = subprocess.run(
+            ["./modifiedMinisat/build/release/bin/minisat", cnfFile, "result.out"],
             capture_output=True,
             text=True
         )
@@ -92,7 +107,6 @@ def modelFromRuler(resultFile):
 # Encode Golomb Ruler
 F, baseCutoff = encodeRuler()
 
-
 # we will start by manually giving minisat the array
 # then modify minisat's functions (pickbranchlit) to use this scorecard
 # so to test it ill just run a solveLocal for now!
@@ -113,40 +127,45 @@ Valid? True
 
 '''
 # im excited to see what the scorecard will look like w the same params
+# holy crap 3 seconds??
 
-# testing the modified minisat
-_, solveTime = solveLocal(F, "golomb.cnf")
-print(f"\nFull CNF time: {solveTime} seconds\n") 
+# NORMAL MINISAT SOLVE
+_, normalSolveTime = solveLocalNormal(F, "golomb.cnf")
+print(f"\nFull CNF time: {normalSolveTime} seconds\n") 
 rulerAns = displayRuler(modelFromRuler("result.out"))
 print("Ruler:", rulerAns)
 print("Valid?", verifyRuler(rulerAns))
 
-exit(1)
 
-# Write PySAT CNF to file to run modified MiniSAT on it
-result, timeToSolve = solveLocal(F, "golomb.cnf")
-print(f"\nFull CNF time: {timeToSolve} seconds\n") # print(result.stdout) # this is the actual stats, dont care about it right now exactly
+# GENERATING HEURISTIC SCORECARD
+print(f"base clauses: {baseCutoff}, additional clauses: {len(F.clauses) - baseCutoff}\n")
+scorecard, heuristicTime = generateScorecard(UPPER_L + 1, F.clauses[:baseCutoff], F.clauses[baseCutoff:]) 
+print(f"Heuristic Generation time: {heuristicTime} seconds")
+# print(scorecard)
+
+# MODIFIED MINISAT SOLVE
+_, heuristicSolveTime = solveLocalModified(F, "golomb.cnf")
+print(f"\nFull CNF time: {heuristicSolveTime} seconds\n") # print(result.stdout) # this is the actual stats, dont care about it right now exactly
 ruler = displayRuler(modelFromRuler("result.out"))
 print("Ruler:", ruler)
 print("Valid?", verifyRuler(ruler))
-
-print(f"base clauses: {baseCutoff}, additional clauses: {len(F.clauses) - baseCutoff}\n")
-
-scorecard, heuristicTime = generateScorecard(UPPER_L + 1, F.clauses[:baseCutoff], F.clauses[baseCutoff:]) 
-
-print(f"Heuristic Generation time: {heuristicTime} seconds")
-# print("\nFinal Scoreboard:")
-# displayBoard(scorecard)
-print(scorecard)
 
 
 
 '''
 CREDITS:
-- John Mackey
+- John Mackey, Marijn Heule, & Bernardo Subercaseaux for the inspiration (and future support!?)
 - Vipin Bhat for the guidance + initial Costas Arrays YEET Session
+- my roommate (Rushil Surti!) for listening to me yap about this lol
 - https://ieeexplore.ieee.org/document/8261784
-- dna ig cause the human genome sequencing project is where i got the idea from
+- shotgun sequencing w/ dna ig cause the human genome sequencing project is where i got the idea from
+
+
+
+
+
+
+
 
 TODO: 
 Reduce clause count by introducing auxiliary vars for each difference-triangle entry.
@@ -209,3 +228,5 @@ def costasProperty():
 
     return clauses
 '''
+
+
