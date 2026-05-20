@@ -5,10 +5,10 @@ import time
 import os
 
 # CONFIGURABLE PARAMATERS!!
-numIterations = 20
-pctRandom = 95
-trueWeightage = 6.0
-falseWeightage = 1.0
+numIterations = 5
+pctRandom = 93
+trueWeightage = 5.5
+falseWeightage = 1.5
 
 # More positive the board, the more likely it is to be true (vice versa!)
 def updateBoard(inputBoard, updateBoard):
@@ -27,14 +27,12 @@ additionalClauses = the majority of the clauses, the constraints that make the p
     > think of this as the "conditions"
 '''
 def generateScorecard(length, baseClauses, additionalClauses):
-    progressBarLen = 50 #just because i like looking at nice looking progress bars
-
+    # progressBarLen = 50 #just because i like looking at nice looking progress bars
     scorecard = [0.0] * length
-    generationTime = time.perf_counter()
 
-    for i in range(numIterations):
-        random.shuffle(baseClauses)
+    start = time.perf_counter()
 
+    for _ in range(numIterations):
         randF = CNF()
         randF.extend(baseClauses)
 
@@ -42,43 +40,26 @@ def generateScorecard(length, baseClauses, additionalClauses):
         sampled = random.sample(additionalClauses, int(len(additionalClauses) * pctRandom / 100))
         randF.extend(sampled)
 
-        _, _ = solveLocalNormal(randF, "randSubsets.cnf")
-        markIndexArray = displayRuler(modelFromRuler("result.out"))
-
-        # markIndexArray, _ = golombSAT(randF, False)
-        baseVarsAssignment = rulerToBoard(markIndexArray)
+        r, _ = golombSAT(randF, False)
+        assignmentFromSubset = rulerToBoard(r)
 
         # Takes a alpha assignment for the partial CNF and updates scorecard via the weights
-        scorecard = updateBoard(scorecard, baseVarsAssignment)
+        scorecard = updateBoard(scorecard, assignmentFromSubset)
 
         # nice looking progress bar because why not
-        done = int((i + 1) / numIterations * progressBarLen)
-        bar = "#" * done + "-" * (progressBarLen - done)
-        print(f"\r[{bar}] {i+1}/{numIterations}", end="", flush=True)
-    
-    print()
-    generationTime = time.perf_counter() - generationTime
+        # done = int((i + 1) / numIterations * progressBarLen)
+        # bar = "#" * done + "-" * (progressBarLen - done)
+        # print(f"\r[{bar}] {i+1}/{numIterations}", end="", flush=True)
+
+    end = time.perf_counter()
+
+    generationTime = end - start
+
+    print("Generation done!\n")
 
     return scorecard, generationTime
 
-def solveLocalNormal(F, cnfFile):
-    with open(cnfFile, "w") as f:
-        F.to_fp(f)
-
-    start = time.perf_counter()
-    result = subprocess.run(
-            ["./minisat/build/release/bin/minisat", cnfFile, "result.out"],
-            capture_output=True,
-            text=True
-        )
-    end = time.perf_counter()
-
-    return result, end - start
-
-def solveLocalModified(F, cnfFile):
-    with open(cnfFile, "w") as f:
-        F.to_fp(f)
-
+def solveLocalModified(cnfFile):
     start = time.perf_counter()
     result = subprocess.run(
             ["./modifiedMinisat/build/release/bin/minisat", cnfFile, "result.out"],
@@ -107,50 +88,36 @@ def modelFromRuler(resultFile):
 # Encode Golomb Ruler
 F, baseCutoff = encodeRuler()
 
-# we will start by manually giving minisat the array
-# then modify minisat's functions (pickbranchlit) to use this scorecard
-# so to test it ill just run a solveLocal for now!
-
-'''
-for reference:
-
-GOLOMB_RULER_SIZE = 11
-UPPER_L = 75
-numIterations = 20
-pctRandom = 95
-trueWeightage = 6.0
-falseWeightage = 1.0
-
-produces Full CNF time: 33.83583987498423 seconds
-Ruler: [0, 7, 9, 15, 25, 44, 47, 58, 70, 71, 75]
-Valid? True
-
-'''
-# im excited to see what the scorecard will look like w the same params
-# holy crap 3 seconds??
+# Write CNF to file for modified MiniSAT
+with open("golomb.cnf", "w") as f:
+    F.to_fp(f)
 
 # NORMAL MINISAT SOLVE
-_, normalSolveTime = solveLocalNormal(F, "golomb.cnf")
-print(f"\nFull CNF time: {normalSolveTime} seconds\n") 
-rulerAns = displayRuler(modelFromRuler("result.out"))
-print("Ruler:", rulerAns)
-print("Valid?", verifyRuler(rulerAns))
+solver = Minisat22()
+solver.append_formula(F.clauses)
 
+start = time.perf_counter()
+res = solver.solve()
+end = time.perf_counter()
+
+normalSolveTime = end - start
+print("Ruler:\t", getRuler(solver.get_model()))
 
 # GENERATING HEURISTIC SCORECARD
-print(f"base clauses: {baseCutoff}, additional clauses: {len(F.clauses) - baseCutoff}\n")
+print(f"\nbase clauses: {baseCutoff}, additional clauses: {len(F.clauses) - baseCutoff}\n")
 scorecard, heuristicTime = generateScorecard(UPPER_L + 1, F.clauses[:baseCutoff], F.clauses[baseCutoff:]) 
-print(f"Heuristic Generation time: {heuristicTime} seconds")
 # print(scorecard)
 
 # MODIFIED MINISAT SOLVE
-_, heuristicSolveTime = solveLocalModified(F, "golomb.cnf")
-print(f"\nFull CNF time: {heuristicSolveTime} seconds\n") # print(result.stdout) # this is the actual stats, dont care about it right now exactly
-ruler = displayRuler(modelFromRuler("result.out"))
-print("Ruler:", ruler)
-print("Valid?", verifyRuler(ruler))
+_, heuristicSolveTime = solveLocalModified("golomb.cnf")
+ruler = getRuler(modelFromRuler("result.out"))
 
+print("Ruler:\t", ruler)
+# print("Valid?", verifyRuler(ruler))
 
+print("\nNORMAL SOLVE TIME:\t\t\t", normalSolveTime)
+print("HEURISTIC SOLVE TIME:\t\t\t", heuristicSolveTime + heuristicTime)
+print("╰-> SPLIT:\t\t\t\t", heuristicTime, "+", heuristicSolveTime, "\n")
 
 '''
 CREDITS:

@@ -254,36 +254,16 @@ Lit Solver::pickBranchLit()
         return l;
     else
         return pickBranchLit_VSIDS();
-
-    // static const int heuristicCutoffLevel = 50;
-
-    // if (decisionLevel() < heuristicCutoffLevel) {
-    //     Lit l = pickBranchLit_ScorecardHeuristic();
-        
-    //     if (l != lit_Undef)
-    //         return l;
-    // }
-     
-    // // in any remaining case, default to normal
-    // // assert(decisionLevel() >= heuristicCutoffLevel || pickBranchLit_ScorecardHeuristic() == lit_Undef);
-    // return pickBranchLit_VSIDS(); 
 }
-
-// PROBLEM TO FIX:
-// a bijection between (i,v) and Var, and your heuristic must iterate over (i,v) space, not raw Var.
-
-
 
 Lit Solver::pickBranchLit_ScorecardHeuristic()
 {
     // hardcode it for now!
     static const double scorecard[] = {
-        120.0, 29.0, 15.0, 22.0, 8.0, 1.0, 1.0, -6.0, 15.0, 22.0, -13.0, 1.0, 15.0, 8.0, 8.0, 1.0, -6.0, -6.0, -20.0, 8.0, -6.0, 1.0, -13.0, -13.0, -6.0, -6.0, -20.0, -13.0, 8.0, -13.0, 8.0, -6.0, -6.0, -20.0, -6.0, -6.0, 1.0, 1.0, -6.0, -13.0, -20.0, -20.0, 1.0, 1.0, 1.0, -6.0, -6.0, -20.0, -6.0, -13.0, -13.0, -6.0, -13.0, -6.0, -6.0, 1.0, -13.0, -6.0, 1.0, -6.0, -13.0, -6.0, -6.0, -6.0, 8.0, 1.0, -13.0, 1.0, 8.0, -6.0, 8.0, 15.0, 36.0, 1.0, -6.0, 64.0
+        27.5, 6.5, -7.5, -7.5, -7.5, -0.5, -0.5, -7.5, -7.5, 6.5, -7.5, -7.5, -7.5, -7.5, -0.5, -7.5, -7.5, -7.5, -7.5, -0.5, -7.5, -7.5, -7.5, 6.5, -7.5, -0.5, 6.5, -7.5, -0.5, -7.5, -7.5, -7.5, -7.5, -0.5, -7.5, -0.5, -0.5, -7.5, -7.5, -0.5, -0.5, -7.5, -0.5, 6.5, -7.5, -7.5, -0.5, -7.5, -0.5, -7.5, 6.5, -0.5, -7.5, -7.5, -7.5, -0.5, -7.5, -0.5, -0.5, 6.5, -7.5, -7.5, -0.5, -7.5, -0.5, -7.5, -7.5, -0.5, 6.5, -0.5, -7.5, 13.5, 6.5, 13.5, 20.5, -7.5
     };
-    // static const int L = sizeof(scorecard) / sizeof(scorecard[0]);
-
-    // true average is 11.31578947368421, i wonder if its worht computing this and passing it in as well
-    static const double THRESHOLD = 10.0;
+    
+    static const double THRESHOLD = 7.0;
 
     Var bestPick = var_Undef;
     double bestScore = THRESHOLD;

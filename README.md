@@ -133,7 +133,7 @@ For now, generate a way to make CNFs for the Costas Array as a test example. And
 Fully working CNF encoder for Costas Arrays! Also, I figured out how to use PySAT to both construct the cnf effectively and use minisat/cadical to solve it. Starting to work on trying out the heuristic idea!
 
 ### 3.6.26
-Mr. Subercaseaux replied back to my email :))) I'm super pumped to talk to him and get myself more involved within the field. (also grinding out the idea to make sure I can email him with something + maybe present something new?) 
+Mr. Subercaseaux replied back to my email!! I'm super pumped to talk to him and get myself more involved within the field. (also grinding out the idea to make sure I can email him with something + maybe present something new?) 
 
 ### 3.7.26
 Worked on the heatmap to visualize the performance of the heuristic. It doesn't seem to be working that well, particularly because the Costas Problem has so many solutions, so I might turn my attention to another problem. 
@@ -146,6 +146,8 @@ I was bored in writing class and I was drawing marks on my paper when I realized
 
 ### 3.22.26
 Got an email back from Mr. Subercaseaux about perhaps working with him! (super excited about that) he also mentioned that he thought my ideas was pretty interesting, so I want to make sure I have something tangible to show him before we meet. 
+
+...
 
 ### 5.11.26
 It's been a shakey and rough couple of months, both with many academic and personal challenges, but summer has started and I want to take another shot at this. The small goal today is try to understand the workflow between Python and C code w/ MiniSAT to try to start automating the process before beginning to tweak the C code directly. Furhter, I also want to have something done to show Dr. Mackey and Mr. Subercaseaux by next week, so I'll be putting in more time this week to get this done soon.
@@ -165,7 +167,44 @@ Modified MiniSAT to use a hardcoded scorecard that I got from the python generat
 
 INSANE! with fixed constants, the normal MiniSAT took around 30 seconds but now it takes around 3 seconds to solve the same problem! Really happy with this result, but I want to make sure that this isn't a fluke, so I'm going to make it more robust, bring in a control MiniSAT folder, and then present it to Dr. Mackey and Mr. Subercaseaux!
 
-# TO-DO:
+Started doing some code clean ups, and making a new "normal" MiniSAT! Can confirm it is not a fluke and we are saving >10 seconds. This can definitely be pushed further, but this is good enough concrete progress that I'm happy to email them about! 
+
+I'm going to continue to tweak constants till I achieve a greater result.
+
+AAAAAAAAND nevermind because I fully just inflated the time from the read/write i/o operations—if you use minisat not locally and with just pysat its so much faster and its not even a comparison ;-;
+
+im trying to make it better and recover by using a bigger sized cnf but i think i see why there are specialized solvers.... learning this the hard way
+
+### 5.19.26
+
+I have finished with fixing as much as I can for now, and I realized that I don't need that many iterations to have a noticable impact on the heuristic!
+
+NORMAL SOLVE TIME:                       8.483141333039384
+HEURISTIC SOLVE TIME:                    5.629106416075956
+╰-> SPLIT:                               1.6016819160431623 + 4.027424500032794 
+
+Given:
+numIterations = 5
+pctRandom = 93
+trueWeightage = 5.5
+falseWeightage = 1.5
+GOLOMB_RULER_SIZE = 11
+UPPER_L = 75
+
+So I can finally go to sleep and count this as a W
+
+### 5.20.26
+
+Spent most of the day putting all of the work into a slideshow to share with Dr. Mackey, Mr. Subercaseaux, and Dr. Naik. This also served as a great benchmark of progress for me to consolidate all of my thoughts and work into one place. Added the slideshow to the project repo just for the sake of documentation as well.
+
+I actually forgot to remake the modifiedMinisat, so using the same constants as above except with threshold as 7:
+NORMAL SOLVE TIME:                       7.193725958000869
+HEURISTIC SOLVE TIME:                    3.3133613319369033
+╰-> SPLIT:                               1.8338789159897715 + 1.4794824159471318 
+
+FIRE! Thats like 1/2 of the time now and it improved by a lot more. I can definitely push this further, but I think this is good for now to send the slideshow and emails.
+
+# SAT SOLVER TO-DO:
 - Possible steps for the future:
   - ~~DPLL Algorithm~~
   - ~~DIMACS style input~~
@@ -193,7 +232,9 @@ INSANE! with fixed constants, the normal MiniSAT took around 30 seconds but now 
 - https://cse.unl.edu/~choueiry/S17-235H/files/SATslides07.pdf
 - https://ceur-ws.org/Vol-3201/paper2.pdf
 - https://simewu.com/SAT-solver/ (for examples?)
-- cite assistance of copilot for code completion (dunno how to actually cite)
+- https://github.com/niklasso/minisat
+- Wikipedia
+- Minimal usage of Copilot for python code completion
 
 # Reading/Literature Log:
 

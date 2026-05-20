@@ -90,7 +90,7 @@ def encodeRuler():
 
     return cnf, necessaryClauses
 
-def displayRuler(model):
+def getRuler(model):
     ruler = [0] * GOLOMB_RULER_SIZE
 
     filteredVars = set(lit for lit in model if lit > 0)
@@ -134,7 +134,7 @@ def golombSAT(F, prettyPrint):
         if prettyPrint:
             print("SAT\n")
         model = solver.get_model()
-        return displayRuler(model), end - start
+        return getRuler(model), end - start
     else:
         if prettyPrint:
             print("UNSAT")
