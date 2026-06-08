@@ -5,10 +5,10 @@ import time
 import os
 
 # CONFIGURABLE PARAMATERS!!
-numIterations = 5
-pctRandom = 93
-trueWeightage = 5.5
-falseWeightage = 1.5
+numIterations = 10
+pctRandom = 97
+trueWeightage = 5
+falseWeightage = 1
 
 # More positive the board, the more likely it is to be true (vice versa!)
 def updateBoard(inputBoard, updateBoard):
@@ -27,12 +27,12 @@ additionalClauses = the majority of the clauses, the constraints that make the p
     > think of this as the "conditions"
 '''
 def generateScorecard(length, baseClauses, additionalClauses):
-    # progressBarLen = 50 #just because i like looking at nice looking progress bars
+    progressBarLen = 50 #just because i like looking at nice looking progress bars
     scorecard = [0.0] * length
 
     start = time.perf_counter()
 
-    for _ in range(numIterations):
+    for i in range(numIterations):
         randF = CNF()
         randF.extend(baseClauses)
 
@@ -47,15 +47,15 @@ def generateScorecard(length, baseClauses, additionalClauses):
         scorecard = updateBoard(scorecard, assignmentFromSubset)
 
         # nice looking progress bar because why not
-        # done = int((i + 1) / numIterations * progressBarLen)
-        # bar = "#" * done + "-" * (progressBarLen - done)
-        # print(f"\r[{bar}] {i+1}/{numIterations}", end="", flush=True)
+        done = int((i + 1) / numIterations * progressBarLen)
+        bar = "#" * done + "-" * (progressBarLen - done)
+        print(f"\r[{bar}] {i+1}/{numIterations}", end="", flush=True)
 
     end = time.perf_counter()
 
     generationTime = end - start
 
-    print("Generation done!\n")
+    print(" Generation done!\n")
 
     return scorecard, generationTime
 
@@ -63,7 +63,7 @@ def solveLocalModified(cnfFile):
     start = time.perf_counter()
     result = subprocess.run(
             ["./modifiedMinisat/build/release/bin/minisat", cnfFile, "result.out"],
-            capture_output=True,
+            capture_output=False,
             text=True
         )
     end = time.perf_counter()
@@ -85,8 +85,15 @@ def modelFromRuler(resultFile):
     
     return model
 
+# somehow `make`` the `modifiedMinisat` folder?
+
 # Encode Golomb Ruler
+print("Golomb Ruler of order", ORDER, "and length", LENGTH)
+
 F, baseCutoff = encodeRuler()
+
+print(f"\ntotal clauses: {len(F.clauses)}")
+print(f"└──> base clauses: {baseCutoff}, additional clauses: {len(F.clauses) - baseCutoff}\n")
 
 # Write CNF to file for modified MiniSAT
 with open("golomb.cnf", "w") as f:
@@ -101,12 +108,25 @@ res = solver.solve()
 end = time.perf_counter()
 
 normalSolveTime = end - start
-print("Ruler:\t", getRuler(solver.get_model()))
+
+if res:
+    ruler = getRuler(solver.get_model())
+    print("Ruler:\t", ruler)
+    print("Valid?", verifyRuler(ruler))
+
+else:
+    print("UNSAT... issue with encoding?")
+    exit(1)
+
+print(f"Time to solve: {normalSolveTime} seconds")
+
+exit(1)
+
 
 # GENERATING HEURISTIC SCORECARD
 print(f"\nbase clauses: {baseCutoff}, additional clauses: {len(F.clauses) - baseCutoff}\n")
-scorecard, heuristicTime = generateScorecard(UPPER_L + 1, F.clauses[:baseCutoff], F.clauses[baseCutoff:]) 
-# print(scorecard)
+scorecard, heuristicTime = generateScorecard(LENGTH + 1, F.clauses[:baseCutoff], F.clauses[baseCutoff:]) 
+print(scorecard)
 
 # MODIFIED MINISAT SOLVE
 _, heuristicSolveTime = solveLocalModified("golomb.cnf")
@@ -117,7 +137,7 @@ print("Ruler:\t", ruler)
 
 print("\nNORMAL SOLVE TIME:\t\t\t", normalSolveTime)
 print("HEURISTIC SOLVE TIME:\t\t\t", heuristicSolveTime + heuristicTime)
-print("╰-> SPLIT:\t\t\t\t", heuristicTime, "+", heuristicSolveTime, "\n")
+print("└──> SPLIT:\t\t\t\t", heuristicTime, "+", heuristicSolveTime, "\n")
 
 '''
 CREDITS:

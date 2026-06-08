@@ -179,9 +179,11 @@ im trying to make it better and recover by using a bigger sized cnf but i think 
 
 I have finished with fixing as much as I can for now, and I realized that I don't need that many iterations to have a noticable impact on the heuristic!
 
+```
 NORMAL SOLVE TIME:                       8.483141333039384
 HEURISTIC SOLVE TIME:                    5.629106416075956
-╰-> SPLIT:                               1.6016819160431623 + 4.027424500032794 
+└──> SPLIT:                              1.6016819160431623 + 4.027424500032794 
+```
 
 Given:
 numIterations = 5
@@ -198,11 +200,35 @@ So I can finally go to sleep and count this as a W
 Spent most of the day putting all of the work into a slideshow to share with Dr. Mackey, Mr. Subercaseaux, and Dr. Naik. This also served as a great benchmark of progress for me to consolidate all of my thoughts and work into one place. Added the slideshow to the project repo just for the sake of documentation as well.
 
 I actually forgot to remake the modifiedMinisat, so using the same constants as above except with threshold as 7:
+
+```
 NORMAL SOLVE TIME:                       7.193725958000869
 HEURISTIC SOLVE TIME:                    3.3133613319369033
-╰-> SPLIT:                               1.8338789159897715 + 1.4794824159471318 
+└──> SPLIT:                              1.8338789159897715 + 1.4794824159471318 
+```
 
 FIRE! Thats like 1/2 of the time now and it improved by a lot more. I can definitely push this further, but I think this is good for now to send the slideshow and emails.
+
+### 6.1.26
+
+Met with Mr. Subercaseaux and he had a lot of valuable feedback. I'm really excited to continue working and learning from him. I'm going to try to see if I can come up with a better encoding for the Golomb Ruler and review the notes that I took during the meeting to see if I can implement any of the suggestions that he made as well as understand the "estimating asymptotic behavior if we used randomness" that he mentioned (the calculations to derive the n^4/(4L) upper bound)
+
+### 6.3.26
+
+Used a much better encoding for Golomb Ruler problem based on some suggestion from Mr. Subercaseaux. For order 11 we went from ~300k -> 30k for order 12 it was like 500k -> 50k. I think I'm going to use the order 13 with length 119 as the next test case as it takes usually ~16 seconds with normal minisat.
+
+### 6.7.26 - 6.8.26
+*wish i could have worked on this a lot more this week, but life and things got in the way*
+
+- Running some basic tests with the new encoding and it seems to be working much better
+- Found a bug with the old encoding
+  - meant to compare the two, but during comparison I found a few bugs that caused encodingOne to return a bunch of bogus results, so I had to fix those before I could do a proper comparison
+- Want to methodically test the new encoding so I wrote a simple `compare.py` to run a bunch of solving trials
+  - also helps with visualizing how fixed order and decreasing length affects the solve time
+
+
+
+
 
 # SAT SOLVER TO-DO:
 - Possible steps for the future:
@@ -252,4 +278,4 @@ FINISHED:
 - ?
 
 TO READ:
-- ?
+- https://www.math.ias.edu/files/Book-online-Aug0619.pdf

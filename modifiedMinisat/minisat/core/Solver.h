@@ -37,7 +37,7 @@ namespace Minisat {
 class Solver {
 public:
     static const int GOLOMB_RULER_SIZE = 11;
-    static const int UPPER_L = 75;
+    static const int UPPER_L = 73;
 
     // Constructor/Destructor:
     //
