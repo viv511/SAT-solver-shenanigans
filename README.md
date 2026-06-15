@@ -226,7 +226,13 @@ Used a much better encoding for Golomb Ruler problem based on some suggestion fr
 - Want to methodically test the new encoding so I wrote a simple `compare.py` to run a bunch of solving trials
   - also helps with visualizing how fixed order and decreasing length affects the solve time
 
+### 6.14.26
 
+- Finally fixed the bug w/ the modified minisat scorecard tracking
+  - since I changed the encoding I had to update the `pickBranchLit_ScorecardHeuristic` function
+- Added trace functionality, such that the current state of the ruler is written to a file
+- Working on animation to play it back and visualize it
+  - Saved traces folder + trace.py to visualize it -- rly good work done today i think
 
 
 

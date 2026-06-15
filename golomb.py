@@ -10,8 +10,8 @@ from encoding1 import *
 from encoding2 import *
 
 # if u update, make sure you update modifiedMinisat/minisat/core/Solver.h lines 39-40
-ORDER = 12
-LENGTH = 87
+ORDER = 11
+LENGTH = 75
 
 def encodeRuler():
     # return encodingOne(ORDER, LENGTH)

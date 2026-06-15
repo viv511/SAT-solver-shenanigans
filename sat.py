@@ -5,7 +5,7 @@ import time
 import os
 
 # CONFIGURABLE PARAMATERS!!
-numIterations = 10
+numIterations = 5
 pctRandom = 97
 trueWeightage = 5
 falseWeightage = 1
@@ -27,7 +27,7 @@ additionalClauses = the majority of the clauses, the constraints that make the p
     > think of this as the "conditions"
 '''
 def generateScorecard(length, baseClauses, additionalClauses):
-    progressBarLen = 50 #just because i like looking at nice looking progress bars
+    progressBarLen = 30 #just because i like looking at nice looking progress bars
     scorecard = [0.0] * length
 
     start = time.perf_counter()
@@ -63,7 +63,7 @@ def solveLocalModified(cnfFile):
     start = time.perf_counter()
     result = subprocess.run(
             ["./modifiedMinisat/build/release/bin/minisat", cnfFile, "result.out"],
-            capture_output=False,
+            capture_output=True,
             text=True
         )
     end = time.perf_counter()
@@ -120,8 +120,7 @@ else:
 
 print(f"Time to solve: {normalSolveTime} seconds")
 
-exit(1)
-
+# exit(1)
 
 # GENERATING HEURISTIC SCORECARD
 print(f"\nbase clauses: {baseCutoff}, additional clauses: {len(F.clauses) - baseCutoff}\n")

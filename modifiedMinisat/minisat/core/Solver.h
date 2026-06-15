@@ -28,6 +28,8 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 #include "minisat/utils/Options.h"
 #include "minisat/core/SolverTypes.h"
 
+// vivek added
+#include <fstream>
 
 namespace Minisat {
 
@@ -36,13 +38,18 @@ namespace Minisat {
 
 class Solver {
 public:
+    // Vivek added:
     static const int GOLOMB_RULER_SIZE = 11;
-    static const int UPPER_L = 73;
+    static const int UPPER_L = 75;
+    std::ofstream traceFile;
 
     // Constructor/Destructor:
     //
     Solver();
     virtual ~Solver();
+
+    // Visualizations (Vivek added)
+    void addTrace();
 
     // Problem specification:
     //
@@ -306,9 +313,10 @@ protected:
 
 //=================================================================================================
 // VIVEK ADDED THIS
-inline Var xInverse(int i, int v) {
-    return i * (Solver::UPPER_L + 1) + v;
-}
+// OLD, used for encodingTwo (the worse encoding)
+// inline Var xInverse(int i, int v) {
+//     return i * (Solver::UPPER_L + 1) + v;
+// }
 
 // Implementation of inline methods:
 

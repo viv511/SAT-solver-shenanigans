@@ -5,7 +5,9 @@ iniconfig==2.3.0
 kiwisolver==1.4.9
 matplotlib==3.10.8
 numpy==2.4.2
+opencv-python==4.13.0.92
 packaging==26.0
+pandas==3.0.3
 pillow==12.1.1
 pluggy==1.6.0
 pyparsing==3.3.2

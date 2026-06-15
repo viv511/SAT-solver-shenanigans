@@ -20,6 +20,7 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 
 #include <math.h>
 
+#include "Solver.h"
 #include "minisat/mtl/Alg.h"
 #include "minisat/mtl/Sort.h"
 #include "minisat/utils/System.h"
@@ -101,11 +102,21 @@ Solver::Solver() :
   , conflict_budget    (-1)
   , propagation_budget (-1)
   , asynch_interrupt   (false)
-{}
+{
+    traceFile.open("trace.txt");
 
+    if(!traceFile.is_open()) {
+        fprintf(stderr, "Error opening trace file!\n");
+        exit(1);
+    }
+}
+
+// Vivek added: traceFile.open & close 
 
 Solver::~Solver()
 {
+    fprintf(stderr, "closing trace file\n");
+    if(traceFile.is_open()) traceFile.close();
 }
 
 
@@ -243,11 +254,36 @@ void Solver::cancelUntil(int level) {
 
 
 //=================================================================================================
+// Vivek added (trace/visualization help)
+void Solver::addTrace() {
+    for(int v = 0; v <= Solver::UPPER_L; v++) {
+        lbool val = value(v);
+
+        if (val == l_True) {
+            traceFile << "█";
+            // traceFile << "1";
+        }
+        else if (val == l_False) {
+            traceFile << "░";
+            // traceFile << "0";
+        }
+        else {
+            // traceFile << "?";
+            traceFile << "-";
+        }
+    }
+
+    traceFile << "\n";
+    traceFile.flush();
+}
 
 // Vivek added
 // this was the original function, but i modified it to now choose between the heuristic and the normal method
 Lit Solver::pickBranchLit()
 {
+    // vivek added trace, disable on speed testing
+    addTrace();
+
     Lit l = pickBranchLit_ScorecardHeuristic();
 
     if (l != lit_Undef)
@@ -260,52 +296,37 @@ Lit Solver::pickBranchLit_ScorecardHeuristic()
 {
     // hardcode it for now!
     static const double scorecard[] = {
-        110.0, 5.0, -9.0, 12.0, 5.0, 12.0, -2.0, -23.0, -2.0, -9.0, -9.0, -16.0, -9.0, -2.0, -23.0, -23.0, -16.0, -16.0, -9.0, -9.0, -30.0, -23.0, -23.0, -23.0, -9.0, -23.0, -2.0, -30.0, -30.0, -9.0, -9.0, -23.0, -9.0, -16.0, -16.0, -23.0, -30.0, -2.0, -23.0, -16.0, -30.0, -23.0, -23.0, -23.0, -9.0, -16.0, -9.0, -16.0, -2.0, -16.0, -16.0, -9.0, -9.0, -2.0, -23.0, 5.0, -16.0, -16.0, -23.0, -2.0, -9.0, -16.0, -16.0, -16.0, -16.0, -16.0, -2.0, 5.0, -16.0, 12.0, 33.0, 5.0, 12.0, 40.0
+        25.0, 1.0, 1.0, -5.0, 7.0, -5.0, 1.0, 1.0, -5.0, 1.0, 1.0, 1.0, -5.0, 7.0, -5.0, -5.0, 1.0, 7.0, -5.0, -5.0, 1.0, 1.0, -5.0, -5.0, -5.0, 1.0, -5.0, -5.0, 1.0, 1.0, -5.0, 7.0, -5.0, -5.0, -5.0, -5.0, -5.0, -5.0, -5.0, -5.0, 1.0, 13.0, 1.0, -5.0, -5.0, -5.0, -5.0, 7.0, -5.0, 1.0, 7.0, -5.0, -5.0, 1.0, -5.0, -5.0, -5.0, -5.0, 7.0, -5.0, 1.0, -5.0, -5.0, 1.0, 1.0, 1.0, -5.0, -5.0, -5.0, 1.0, 1.0, 1.0, 7.0, 13.0, 13.0, 1.0
     };
     
-    static const double THRESHOLD = 30.0;
+    static const double THRESHOLD = 8.0;
 
     Var bestPick = var_Undef;
     double bestScore = THRESHOLD;
 
-    for (int i=0; i<Solver::GOLOMB_RULER_SIZE; i++) {
-        for (int v=0; v<=Solver::UPPER_L; v++) {
-            Var x = xInverse(i, v);
+    assert((Solver::UPPER_L + 1) == SCORECARD_SIZE);
 
-            if(x >= nVars()) continue; //oob 
-            if(value(x) != l_Undef) continue; // already assigned, skip
-            if(!decision[x]) continue; // not eligible for decision, skip
+    for(int i=0; i<=Solver::UPPER_L; i++) {
+        Var markI = i;
 
-            // printf("considering var %d with score %f\n", x, scorecard[v]);
+        if(markI >= nVars()) continue; //oob 
+        if(value(markI) != l_Undef) continue; // already assigned, skip
+        if(!decision[markI]) continue; // not eligible for decision, skip
 
-            double score = fabs(scorecard[v]);
+        // printf("considering var %d with score %f\n", x, scorecard[v]);
 
-            if (score > bestScore) {
-                // printf("used heuristic! picked var %d with score %f\n", x, score);
-                bestScore = score;
-                bestPick = x;
-            }
+        double score = fabs(scorecard[i]);
+
+        if (score > bestScore) {
+            // printf("used heuristic! picked var %d with score %f\n", x, score);
+            bestScore = score;
+            bestPick = markI;
         }
     }
 
     // if the bestPick is still var_Undef, then default to the normal heuristic
     if (bestPick != var_Undef) {
-        /*
-        NOTE: the sign might seem reversed, but it has to do with how MiniSAT implements mkLit
-        https://github.com/niklasso/minisat/blob/37dc6c67e2af26379d88ce349eb9c4c6160e8543/minisat/core/SolverTypes.h#L63
-        Uses a bit-packed encoding for literals and NOT DIMACS
-
-        inline  Lit  mkLit     (Var var, bool sign) { Lit p; p.x = var + var + (int)sign; return p; }
-
-        var + var = 2 * var which makes the LSB = 0.
-        then when we add the int(sign), if false LSB stays 0, if true LSB becomes 1
-
-        this allows negation to be a xor with 1 (to flip polarity), which is hella fast
-
-        tl;dr bool is "reversed" because minisat uses a different way of representing literals
-        */
-
-        Lit pickedLit = mkLit(bestPick, scorecard[bestPick % (Solver::UPPER_L + 1)] < 0);
+        Lit pickedLit = mkLit(bestPick, scorecard[bestPick] < 0);
         return pickedLit;
     }
 
