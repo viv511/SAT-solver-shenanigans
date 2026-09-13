@@ -11,7 +11,7 @@ FPS = 1000
 FRAME_JUMP = 10 
 
 # both in the "traces" folder
-INPUT_TRACE_FILE = "traces/o11-l75.txt"
+INPUT_TRACE_FILE = "results/traces/o11-l75.txt"
 OUTPUT_VIDEO_FILE = INPUT_TRACE_FILE.replace(".txt", ".mp4")
 
 def displayChar(c):

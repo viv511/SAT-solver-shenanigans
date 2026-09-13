@@ -13,6 +13,8 @@ def encodingTwo(O, L):
     # mark @ 0 for convention
     cnf.append([x(0)])
 
+    # todo: do we force x(L)?
+
     # exactly n marks <==> sum of all x_i's is n
     baseVars = [x(i) for i in range(L + 1)]
     exactlyN = CardEnc.equals(lits=baseVars, bound=O, top_id=max(baseVars), encoding=EncType.totalizer)
@@ -54,6 +56,19 @@ def encodingTwo(O, L):
             amoDistance = CardEnc.atmost(lits=deltaVars, bound=1, top_id=(offsetCounter-1), encoding=EncType.bitwise)
             cnf.extend(amoDistance.clauses)
             offsetCounter = amoDistance.nv + 1
+
+    # todo: is bitwise optimal here? try seqcounter or ladder?
+    # todo: use idpool?
+    '''
+        from pysat.formula import IDPool
+        vpool = IDPool()
+
+        def x(i):
+            return vpool.id(("x", i))
+
+        def delta(i, d):
+            return vpool.id(("d", i, d))
+    '''
 
 
     return cnf, baseClauses

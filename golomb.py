@@ -9,6 +9,12 @@ import time, random
 from encoding1 import *
 from encoding2 import *
 
+'''
+todo:
+
+Your current setup is actually ideal for this: treat LENGTH as a maximum coordinate/buffer, build the CNF once for positions 0..LENGTH, and use SAT assumptions to test smaller candidate lengths without rebuilding anything. If x(i) means “position i is a mark,” then asking whether a ruler has length <= B is equivalent to temporarily assuming x(B+1), ..., x(LENGTH) are all false. In PySAT that is simply solver.solve(assumptions=[-x(i) for i in range(B + 1, LENGTH + 1)]). The assumptions are temporary, so the next solve can use a different bound, and—crucially—the solver keeps its learned clauses from previous solves. Since satisfiability is monotonic (if a ruler of length B exists, then one of length B+1 also exists), you can binary-search the optimum: for ORDER=11, the basic lower bound is 11*10//2 = 55, so with MAX_LENGTH=75 you start with lo=55, hi=75; test mid=65, and if UNSAT set lo=66, otherwise set hi=65; continue until lo == hi, which is the optimal length. In code, the core is: def assumptions_for_bound(bound, max_length): return [-x(i) for i in range(bound + 1, max_length + 1)] and def find_optimal_length(solver, order, max_length): lo = order * (order - 1) // 2; hi = max_length; while lo < hi: mid = (lo + hi) // 2; if solver.solve(assumptions=assumptions_for_bound(mid, max_length)): hi = mid; else: lo = mid + 1; return lo. Then build your encoding once with cnf = encodingTwo(ORDER, MAX_LENGTH), create one solver, call optimal = find_optimal_length(solver, ORDER, MAX_LENGTH), and finally call solver.solve(assumptions=assumptions_for_bound(optimal, MAX_LENGTH)) and extract the model with getRuler; because the previous bound optimal-1 was proven UNSAT, the returned ruler must actually have final mark exactly optimal. The important distinction is that you should not permanently add -x(i) clauses between searches; use assumptions= so every candidate bound is temporary while MiniSat retains its learned information.
+'''
+
 # if u update, make sure you update modifiedMinisat/minisat/core/Solver.h lines 39-40
 ORDER = 11
 LENGTH = 75
