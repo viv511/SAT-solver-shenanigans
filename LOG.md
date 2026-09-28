@@ -228,10 +228,42 @@ Used a much better encoding for Golomb Ruler problem based on some suggestion fr
 - Working on animation to play it back and visualize it
   - Saved traces folder + trace.py to visualize it -- rly good work done today i think
 
+### 9.13.26
+
+- Reorganized the repo to have a more clear structure and let future work happen more seamlessly
+
+### 9.27.26
+
+- Implementing an encoding & test for the crossing numbers to show viability of the heuristic on a different problem
+- Dr. Mackey's star-parity relaxation is quite crazy, it is a much better encoding that a discrete geometry approach, and a lot more efficient than other encodings
+   - I'm currently trying to see if I can use my heuristic on this to solve it faster than normal
+- Current stats (testing on https://homes.cs.washington.edu/~kevinz/sat-solver/):
+   - K6 took very little time to solve
+   - K8 took ~1.7 seconds
+   - K9 crashed the website LOL
+   - K9 seems like a decent challenge then :)
+- Worked on the K_8 case with at most 18 crossings (optimal) for testing
+- Unfortunately it looks like this heuristic doesn't work well on this problem
+
+Scorecard generation time: 0.035373666032683104 seconds
+crossings (heuristic): 18
+
+NORMAL SOLVE TIME:                       0.8106179999886081
+HEURISTIC SOLVE TIME:                    9.682252208003774
+└──> SPLIT:                              0.035373666032683104 + 9.646878541971091 
+
+The heuristic makes it worse --- I suspect that this is because the crossing # 's encoding's solution space is not very correlated across relaxed subinstance solving, in comparison to the Golomb ruler/Costas array. I don't yet deeply understand the mathematics behind the encoding and output solution (e.g. "automorphisms" are still fuzzy for me), but perhaps in the future I can employ some symmetry breaking techniques or other tricks to make the output something more unique/correlated
+
+# TODO:
+- Clean up repository again, make it a smoother workflow?
+- Make a slideshow to show to Dr. Mackey/Mr. Subercaseaux?
+
+
 # THINGS TO NOTE: 
 - make golomb ruler animation have variable width for a sliding window animation
 - think about "mapping" smaller golomb ruler solves to uknown lengths to improve the heuristic??
    - store a fixed database and run some precomps
+   - same idea for a costas array, project smaller heatmaps to larger?
 
 # TODO for `vivsat_cpp` 
 - ~~DPLL Algorithm~~

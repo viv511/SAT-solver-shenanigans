@@ -55,20 +55,20 @@ def generateScorecard(length, baseClauses, additionalClauses):
 
     generationTime = end - start
 
-    print(" Generation done!\n")
+    print("Generation done!\n")
 
     return scorecard, generationTime
 
 def solveLocalModified(cnfFile):
-    start = time.perf_counter()
-    result = subprocess.run(
-            ["./modifiedMinisat/build/release/bin/minisat", cnfFile, "result.out"],
-            capture_output=True,
-            text=True
-        )
-    end = time.perf_counter()
+   start = time.perf_counter()
+   result = subprocess.run(
+         ["./modifiedMinisat/build/release/bin/minisat", cnfFile, "result.out"],
+         capture_output=True,
+         text=True
+      )
+   end = time.perf_counter()
 
-    return result, end - start
+   return result, end - start
 
 def modelFromRuler(resultFile):
     with open(resultFile, "r") as f:
