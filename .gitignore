@@ -3,3 +3,4 @@ minisat/config.mk
 minisat/build
 .DS_Store
 __pycache__/
+scorecard.txt

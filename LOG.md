@@ -254,6 +254,11 @@ HEURISTIC SOLVE TIME:                    9.682252208003774
 
 The heuristic makes it worse --- I suspect that this is because the crossing # 's encoding's solution space is not very correlated across relaxed subinstance solving, in comparison to the Golomb ruler/Costas array. I don't yet deeply understand the mathematics behind the encoding and output solution (e.g. "automorphisms" are still fuzzy for me), but perhaps in the future I can employ some symmetry breaking techniques or other tricks to make the output something more unique/correlated
 
+### 10.1.26
+Its my birthday today :)
+- funnily enough found some errors and made the entire testing process easier by making the scorecard not hardcoded
+- improved crossing #s testing a bit more so hopefully the chat with mackey goes good tmr!
+
 # TODO:
 - Clean up repository again, make it a smoother workflow?
 - Make a slideshow to show to Dr. Mackey/Mr. Subercaseaux?

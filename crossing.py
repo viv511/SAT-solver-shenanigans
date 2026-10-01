@@ -15,34 +15,38 @@ import random
 import subprocess
 
 from pysat.formula import CNF
-from pysat.solvers import Minisat22
 
 # CONSTANTS
 # K_n: star-parity relaxation, at most k crossings
+# n = 9
+# k = 36
 n = 8
 k = 18
 
 # For scorecard generation
-numIterations = 5
-pctRandom = 90
-trueWeightage = 7
-falseWeightage = 2
+THRESHOLD = 10        # solver only uses a variable if |score| > THRESHOLD
+NUM_ITERATIONS = 5
+PCT_RAND = 90
+TRUE_WEIGHT = 7
+FALSE_WEIGHT = 2
 
+# More positive the board, the more likely it is to be true (vice versa!)
 def updateBoard(inputBoard, updateBoard):
    for i in range(len(inputBoard)):
       if updateBoard[i] > 0:
-         inputBoard[i] += trueWeightage
+         inputBoard[i] += TRUE_WEIGHT
       else:
-         inputBoard[i] -= falseWeightage
+         inputBoard[i] -= FALSE_WEIGHT
    return inputBoard
 
-def solve(cnf):
-   solver = Minisat22()
-   solver.append_formula(cnf.clauses)
-   res = solver.solve()
-   model = solver.get_model() if res else None
-   solver.delete()
-   return res, model
+def solveModified(cnf, cnfFile):
+   with open(cnfFile, "w") as f:
+      cnf.to_fp(f)
+
+   result, elapsed = solveLocalModified(cnfFile)
+   model = modelFromResult("result.out")
+
+   return model, elapsed, result.stderr.strip()
 
 def encodeCrossing(n, k):
    m = n - 1
@@ -134,75 +138,60 @@ def generateScorecard(length, baseClauses, additionalClauses):
 
    start = time.perf_counter()
 
-   for i in range(numIterations):
+   for i in range(NUM_ITERATIONS):
       randF = CNF()
       randF.extend(baseClauses)
 
-      # Select random subset of constraint clauses
-      sampled = random.sample(additionalClauses, int(len(additionalClauses) * pctRandom / 100))
+      # select random subset of constraint clauses
+      sampled = random.sample(additionalClauses, int(len(additionalClauses) * PCT_RAND / 100))
       randF.extend(sampled)
 
-      res, model = solve(randF)
-      if not res:
-         print(f"\nwarning: subinstance {i} was UNSAT (IMPOSSIBLE!!)")
-         exit(1)
+      model, _, _ = solveModified(randF, "Fsubset.cnf")
 
       assignmentFromSubset = crossingToBoard(model, length)
 
-      # Takes a alpha assignment for the partial CNF and updates scorecard via the weights
+      # takes a alpha assignment for the partial CNF and updates scorecard via the weights
       scorecard = updateBoard(scorecard, assignmentFromSubset)
 
       # nice looking progress bar because why not
-      done = int((i + 1) / numIterations * progressBarLen)
+      done = int((i + 1) / NUM_ITERATIONS * progressBarLen)
       bar = "#" * done + "-" * (progressBarLen - done)
-      print(f"\r[{bar}] {i + 1}/{numIterations}", end="", flush=True)
+      print(f"\r[{bar}]", end="", flush=True)
 
    end = time.perf_counter()
    generationTime = end - start
 
-   print("Generation done!\n")
+   print(" Generation done!\n")
 
    return scorecard, generationTime
 
+def writeScorecard(path, threshold, variables, scores):
+   with open(path, "w") as f:
+      f.write(f"{threshold}\n")
+      for var, score in zip(variables, scores): #woah zip in the wild W 150
+          f.write(f"{var} {score}\n")
+
 F, base, varCount = encodeCrossing(n, k)
+print(f"n = {n}, k = {k}")
 print(f"total clauses: {len(F.clauses)}")
 print(f"└──> base clauses: {base}, additional clauses: {len(F.clauses) - base}\n")
 
-with open("crossing.cnf", "w") as f:
-   F.to_fp(f)
-
-solver = Minisat22()
-solver.append_formula(F.clauses)
-
-start = time.perf_counter()
-res = solver.solve()
-end = time.perf_counter()
-normalSolveTime = end - start
-
-if res:
-   print("SAT")
-   model = solver.get_model()
-   crossings = [x for x in model if x > 0 and x <= varCount]
-   print(f"crossings: {len(crossings)}")
-else:
-   print("UNSAT... issue with encoding?")
-   exit(1)
+# BASELINE SOLVE (empty scorecard ==> plain minisat)
+writeScorecard("scorecard.txt", 0, [], [])
+model, normalSolveTime, solverLog = solveModified(F, "crossing.cnf")
 
 print(f"Time to solve: {normalSolveTime} seconds")
-solver.delete()
+print(solverLog)
 
 # GENERATING HEURISTIC SCORECARD
-print(f"\nbase clauses: {base}, additional clauses: {len(F.clauses) - base}\n")
 scorecard, heuristicTime = generateScorecard(varCount, F.clauses[:base], F.clauses[base:])
-# print(len(scorecard), "\n", scorecard)
-print(f"\nScorecard generation time: {heuristicTime} seconds")
+writeScorecard("scorecard.txt", THRESHOLD, range(1, varCount + 1), scorecard)
+print("# of variables above threshold: ", sum(1 for s in scorecard if abs(s) > THRESHOLD))
 
-# MODIFIED MINISAT SOLVE
-_, heuristicSolveTime = solveLocalModified("crossing.cnf")
-model = modelFromResult("result.out")
-crossingsHeuristic = countCrossings(model, varCount)
+# HEURISTIC SOLVE
+model, heuristicSolveTime, solverLog = solveModified(F, "crossing.cnf")
 
-print(f"crossings (heuristic): {len(crossingsHeuristic)}")
+print(solverLog)
 
 print("\nNORMAL SOLVE TIME:\t\t\t", normalSolveTime)
 print("HEURISTIC SOLVE TIME:\t\t\t", heuristicSolveTime + heuristicTime)

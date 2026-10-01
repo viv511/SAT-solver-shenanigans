@@ -19,7 +19,8 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 **************************************************************************************************/
 
 #include <math.h>
-
+#include <vector>
+#include <utility>
 #include "Solver.h"
 #include "minisat/mtl/Alg.h"
 #include "minisat/mtl/Sort.h"
@@ -282,7 +283,7 @@ void Solver::addTrace() {
 Lit Solver::pickBranchLit()
 {
     // vivek added trace, disable on speed testing
-    addTrace();
+   //  addTrace();
 
     Lit l = pickBranchLit_ScorecardHeuristic();
 
@@ -294,43 +295,45 @@ Lit Solver::pickBranchLit()
 
 Lit Solver::pickBranchLit_ScorecardHeuristic()
 {
-    // hardcode it for now!
-    static const double scorecard[] = {
-        25.0, 1.0, 1.0, -5.0, 7.0, -5.0, 1.0, 1.0, -5.0, 1.0, 1.0, 1.0, -5.0, 7.0, -5.0, -5.0, 1.0, 7.0, -5.0, -5.0, 1.0, 1.0, -5.0, -5.0, -5.0, 1.0, -5.0, -5.0, 1.0, 1.0, -5.0, 7.0, -5.0, -5.0, -5.0, -5.0, -5.0, -5.0, -5.0, -5.0, 1.0, 13.0, 1.0, -5.0, -5.0, -5.0, -5.0, 7.0, -5.0, 1.0, 7.0, -5.0, -5.0, 1.0, -5.0, -5.0, -5.0, -5.0, 7.0, -5.0, 1.0, -5.0, -5.0, 1.0, 1.0, 1.0, -5.0, -5.0, -5.0, 1.0, 1.0, 1.0, 7.0, 13.0, 13.0, 1.0
-    };
-    
-    static const double THRESHOLD = 8.0;
+   static std::vector<std::pair<Var, double>> scorecard;   
+   static double THRESHOLD = 0;
+   static bool scorecardLoaded = false;
 
-    Var bestPick = var_Undef;
-    double bestScore = THRESHOLD;
+   if(!scorecardLoaded) {
+      scorecardLoaded = true;
+      std::ifstream in("scorecard.txt");
+      int varid;
+      double score;
 
-    assert((Solver::UPPER_L + 1) == SCORECARD_SIZE);
+      if (in >> THRESHOLD) {
+         while (in >> varid >> score) {
+            // -1 here for DIMACS
+            scorecard.push_back(std::make_pair(varid - 1, score));
+         }
+      }
 
-    for(int i=0; i<=Solver::UPPER_L; i++) {
-        Var markI = i;
+      fprintf(stderr, "scorecard initialized: size=%zu, threshold=%.2f\n", scorecard.size(), THRESHOLD);
+   }
 
-        if(markI >= nVars()) continue; //oob 
-        if(value(markI) != l_Undef) continue; // already assigned, skip
-        if(!decision[markI]) continue; // not eligible for decision, skip
+   int bestIndex = -1;
+   double bestScore = THRESHOLD;
 
-        // printf("considering var %d with score %f\n", x, scorecard[v]);
+   for (size_t i = 0; i < scorecard.size(); i++) {
+      Var v = scorecard[i].first;
 
-        double score = fabs(scorecard[i]);
+      if (v >= nVars()) continue; //oob
+      if (value(v) != l_Undef) continue; // already assigned, skip
+      if (!decision[v]) continue; // not eligible for decision, skip
 
-        if (score > bestScore) {
-            // printf("used heuristic! picked var %d with score %f\n", x, score);
-            bestScore = score;
-            bestPick = markI;
-        }
-    }
+      double s = fabs(scorecard[i].second);
+      if (s > bestScore) {
+         bestScore = s;
+         bestIndex = i;
+      }
+   }
 
-    // if the bestPick is still var_Undef, then default to the normal heuristic
-    if (bestPick != var_Undef) {
-        Lit pickedLit = mkLit(bestPick, scorecard[bestPick] < 0);
-        return pickedLit;
-    }
-
-    return lit_Undef;
+   if (bestIndex == -1) return lit_Undef; // default back to VSIDS!
+   return mkLit(scorecard[bestIndex].first, (scorecard[bestIndex].second < 0));
 }
 
 
