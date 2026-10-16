@@ -259,6 +259,21 @@ Its my birthday today :)
 - funnily enough found some errors and made the entire testing process easier by making the scorecard not hardcoded
 - improved crossing #s testing a bit more so hopefully the chat with mackey goes good tmr!
 
+### 10.2.26
+- Found some critical issues with my benchmarking... 
+   - I was not accounting for some overhead and when I standardized both tests: normal and heuristic solves, the heuristic was actually worse than the normal solve time for the golomb ruler problem which was pretty disheartening
+- Fortunately, the talk with Dr. Mackey went well and he provided me some good feedback that I'll try integrating
+- He also talked a lot more about Ramsey theory things, which I need to definitely learn a lot more about
+- I'll also talk to Vipin + others to try to get a lot more data to hopefully tackle the Costas problem again
+- Also from Mackey: *"dont put all your eggs in one basket"* 
+
+### 10.15.26
+- Went back to /vivsat_cpp and implemented the CDCL alg which I had previously paused on
+    - Started to implement some stuff that will make CDCL easier later on (qhead + propagate params + return type)
+- I'd like to eventually write my own SAT solver for the SAT 2027 comp, but we'll see how that goes :p
+
+
+
 # TODO:
 - Clean up repository again, make it a smoother workflow?
 - Make a slideshow to show to Dr. Mackey/Mr. Subercaseaux?

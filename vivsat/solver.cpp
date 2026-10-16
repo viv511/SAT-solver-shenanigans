@@ -78,8 +78,6 @@ bool Solver::solve() {
         printExpression(this->F);
     }
 
-    cout << "\n---------------------------------------------------\n";
-
     expression copy = this->F; //copy for later verification
 
     auto start = chrono::high_resolution_clock::now();
@@ -112,6 +110,7 @@ void Solver::init() {
     trail.clear();
     trailBounds.clear();
     trailBounds.push_back(0);
+    qhead = 0;
 }
 
 std::vector<std::vector<int>> Solver::initializeWatchlist(int nV) {
@@ -133,13 +132,9 @@ std::vector<std::vector<int>> Solver::initializeWatchlist(int nV) {
 
 // == HELPER FUNCTIONS == //
 
-bool Solver::propagate(int falsifiedLiteral) {
-    std::queue<literal> propQueue;
-    propQueue.push(falsifiedLiteral);
-
-    while(!propQueue.empty()) {
-        literal currentFalsified = propQueue.front();
-        propQueue.pop();
+int Solver::propagate() {
+    while(qhead < trail.size()) {
+        literal currentFalsified = -trail[qhead++];
 
         int desiredIndex = litToIndex(currentFalsified);
 
@@ -168,8 +163,8 @@ bool Solver::propagate(int falsifiedLiteral) {
             
                     wc.moveWatch(currentFalsified, j);
 
-                //Trick: overwrite current w/ last, then remove last element --> O(1)
-                //Order doesn't matter, simply the contents. And speed >>>
+                    //Trick: overwrite current w/ last, then remove last element --> O(1)
+                    //Order doesn't matter, simply the contents. And speed >>>
                     this->watchlist[desiredIndex][i] = this->watchlist[desiredIndex].back();
                     this->watchlist[desiredIndex].pop_back();
 
@@ -187,18 +182,16 @@ bool Solver::propagate(int falsifiedLiteral) {
 
             //CONFLICT:
             if(isFalse(otherWC, this->M)) {
-                return false;
+                return clauseIndexInExpr;
             }
 
             //UNIT:
             assign(otherWC);
-            propQueue.push(-otherWC);
-
             i++;
         }
     }
 
-    return true;
+    return -1;
 }
 
 int Solver::findUnassigned() {
@@ -249,12 +242,15 @@ void Solver::undo(size_t target) {
         this->M[abs(l)] = Assignment::UNASSIGNED;
         this->trail.pop_back();
     }
+
+    // reset qhead if it is beyond the trail size after an undo
+    if(qhead > this->trail.size()) qhead = this->trail.size();
 }
 
 bool Solver::solve2WL() {
     queue<literal> initialUnits;
 
-    for(auto wc : this->F) {
+    for(auto& wc : this->F) {
         if(wc.isUnit()) {
             initialUnits.push(wc.getW1()); //either watch works
         }
@@ -264,10 +260,11 @@ bool Solver::solve2WL() {
         literal L = initialUnits.front();
         initialUnits.pop();
         
-        if(this->M[abs(L)] != Assignment::UNASSIGNED) continue;
+        if(isFalse(L, M)) return false;
+        if(isTrue(L, M)) continue;
         
         assign(L);
-        if(!propagate(-L)) {
+        if(propagate() != -1) {
             return false;
         }
     }
@@ -275,12 +272,12 @@ bool Solver::solve2WL() {
     int v = findUnassigned();
     
     if(v == 0) {
-        //SAT!
-        printAssignments(this->M);
+        cout << "SAT" << endl;
+        if (this->DEBUG) printAssignments(this->M);
         return true;
     }
 
-    if(DEBUG) {
+    if(this->DEBUG) {
         cout << "Deciding variable " << v << "\tat level " << trailBounds.size() + 1 << endl;
     }
 
@@ -288,7 +285,7 @@ bool Solver::solve2WL() {
     this->trailBounds.push_back(this->trail.size()); //store current level size
     assign(v); //assign v as true
 
-    if(propagate(-v)) {
+    if(propagate() == -1) {
         if(solve2WL()) {
             return true;
         }
@@ -301,7 +298,7 @@ bool Solver::solve2WL() {
     this->trailBounds.push_back(this->trail.size()); //store current level size
     assign(-v); //assign v as false
 
-    if(propagate(v)) {
+    if(propagate() == -1) {
         if(solve2WL()) {
             return true;
         }
@@ -315,7 +312,7 @@ bool Solver::solve2WL() {
 
 // == MISC FUNCTIONS == //
 bool verifyAssignment(expression& formula, vector<Assignment>& assignments) {
-    for(int i = 0; i < formula.size(); i++) {
+    for(size_t i = 0; i < formula.size(); i++) {
         watchedClause& wc = formula[i];
         bool clauseSatisfied = false;
         for(literal l : wc.C) {

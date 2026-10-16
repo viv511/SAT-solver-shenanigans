@@ -24,9 +24,9 @@ n = 8
 k = 18
 
 # For scorecard generation
-THRESHOLD = 10        # solver only uses a variable if |score| > THRESHOLD
+THRESHOLD = 10
 NUM_ITERATIONS = 5
-PCT_RAND = 90
+PCT_RAND = 95
 TRUE_WEIGHT = 7
 FALSE_WEIGHT = 2
 
@@ -171,28 +171,29 @@ def writeScorecard(path, threshold, variables, scores):
       for var, score in zip(variables, scores): #woah zip in the wild W 150
           f.write(f"{var} {score}\n")
 
-F, base, varCount = encodeCrossing(n, k)
-print(f"n = {n}, k = {k}")
-print(f"total clauses: {len(F.clauses)}")
-print(f"└──> base clauses: {base}, additional clauses: {len(F.clauses) - base}\n")
+if __name__ == "__main__":
+   F, base, varCount = encodeCrossing(n, k)
+   print(f"n = {n}, k = {k}")
+   print(f"total clauses: {len(F.clauses)}")
+   print(f"└──> base clauses: {base}, additional clauses: {len(F.clauses) - base}\n")
 
-# BASELINE SOLVE (empty scorecard ==> plain minisat)
-writeScorecard("scorecard.txt", 0, [], [])
-model, normalSolveTime, solverLog = solveModified(F, "crossing.cnf")
+   # BASELINE SOLVE (empty scorecard ==> plain minisat)
+   writeScorecard("scorecard.txt", 0, [], [])
+   model, normalSolveTime, solverLog = solveModified(F, "crossing.cnf")
 
-print(f"Time to solve: {normalSolveTime} seconds")
-print(solverLog)
+   print(f"Time to solve: {normalSolveTime} seconds")
+   print(solverLog)
 
-# GENERATING HEURISTIC SCORECARD
-scorecard, heuristicTime = generateScorecard(varCount, F.clauses[:base], F.clauses[base:])
-writeScorecard("scorecard.txt", THRESHOLD, range(1, varCount + 1), scorecard)
-print("# of variables above threshold: ", sum(1 for s in scorecard if abs(s) > THRESHOLD))
+   # GENERATING HEURISTIC SCORECARD
+   scorecard, heuristicTime = generateScorecard(varCount, F.clauses[:base], F.clauses[base:])
+   writeScorecard("scorecard.txt", THRESHOLD, range(1, varCount + 1), scorecard)
+   print("# of variables above threshold: ", sum(1 for s in scorecard if abs(s) > THRESHOLD))
 
-# HEURISTIC SOLVE
-model, heuristicSolveTime, solverLog = solveModified(F, "crossing.cnf")
+   # HEURISTIC SOLVE
+   model, heuristicSolveTime, solverLog = solveModified(F, "crossing.cnf")
 
-print(solverLog)
+   print(solverLog)
 
-print("\nNORMAL SOLVE TIME:\t\t\t", normalSolveTime)
-print("HEURISTIC SOLVE TIME:\t\t\t", heuristicSolveTime + heuristicTime)
-print("└──> SPLIT:\t\t\t\t", heuristicTime, "+", heuristicSolveTime, "\n")
+   print("\nNORMAL SOLVE TIME:\t\t\t", normalSolveTime)
+   print("HEURISTIC SOLVE TIME:\t\t\t", heuristicSolveTime + heuristicTime)
+   print("└──> SPLIT:\t\t\t\t", heuristicTime, "+", heuristicSolveTime, "\n")

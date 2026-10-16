@@ -13,14 +13,13 @@ vector<Assignment> initializeAssignment(int numVars) {
 }
 
 void printAssignments(vector<Assignment>& M) {
-    cout << "SAT" << endl;
+    cout << "\n---------------------------------------------------\n";
     cout << "v ";
     for(int i = 1; i < M.size(); i++) {
         //We don't care about unassigned variables, as long as SAT
         if(M[i] != Assignment::UNASSIGNED) {
             cout << (M[i] == Assignment::TRUE ? "" : "-") << i << " ";
         }
-        //OPTIONAL: if u need to assign all assignments, just convert the unassigned to all true or all false
     }
 
     cout << "\n---------------------------------------------------\n";
