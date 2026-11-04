@@ -81,7 +81,8 @@ bool Solver::solve() {
     expression copy = this->F; //copy for later verification
 
     auto start = chrono::high_resolution_clock::now();
-    bool result = solve2WL();
+    // bool result = solve2WL();
+    bool result = solveCDCL();
     auto finish = chrono::high_resolution_clock::now();
 
     chrono::duration<double> elapsed = finish - start;
@@ -107,6 +108,8 @@ bool Solver::solve() {
 void Solver::init() {
     M = initializeAssignment(NUM_VARS);
     watchlist = initializeWatchlist(NUM_VARS);
+    level.assign(NUM_VARS + 1, -1);
+    reason.assign(NUM_VARS + 1, -1);
     trail.clear();
     trailBounds.clear();
     trailBounds.push_back(0);
@@ -186,7 +189,7 @@ int Solver::propagate() {
             }
 
             //UNIT:
-            assign(otherWC);
+            assign(otherWC, clauseIndexInExpr);
             i++;
         }
     }
@@ -217,7 +220,7 @@ int Solver::findUnassigned() {
     return 0;
 }
 
-void Solver::assign(int l) {
+void Solver::assign(int l, int reasonClause) {
     int v = abs(l);
     Assignment a = (l > 0) ? Assignment::TRUE : Assignment::FALSE;
 
@@ -228,6 +231,8 @@ void Solver::assign(int l) {
 
     if(this->M[v] == Assignment::UNASSIGNED) {
         this->M[v] = a;
+        this->level[v] = (int)trailBounds.size() - 1;
+        this->reason[v] = reasonClause;
         this->trail.push_back(l);
     }
 }
@@ -240,11 +245,72 @@ void Solver::undo(size_t target) {
 
         //remove the assignments we've given
         this->M[abs(l)] = Assignment::UNASSIGNED;
+        this->level[abs(l)] = -1;
+        this->reason[abs(l)] = -1;
         this->trail.pop_back();
     }
 
     // reset qhead if it is beyond the trail size after an undo
     if(qhead > this->trail.size()) qhead = this->trail.size();
+}
+
+int Solver::analyze(int conflictClauseIndex, clause& learned) {
+    learned.clear();
+    learned.push_back(0);
+
+    int counter = 0;
+    literal p = 0;
+
+    int i = (int)(this->trail.size()) - 1;
+    int c = conflictClauseIndex;
+
+    do {
+        watchedClause& wc = this->F[c];
+
+        for(size_t j = 0; j < wc.size(); j++) {
+            literal q = wc.C[j];
+            int v = abs(q);
+
+            if(q == p || seen[v] || level[v] == 0) continue;
+
+            seen[v] = 1;
+
+            if(level[v] == getDL()) {
+                counter++;
+            } else {
+                learned.push_back(q);
+            }
+        }
+
+        while(!seen[abs(this->trail[i])]) {
+            i--;
+        }
+
+        p = this->trail[i];
+        c = reason[abs(p)];
+        seen[abs(p)] = 0;
+        counter--;
+    } while(counter > 0);
+
+    // use first UIP technique
+    learned[0] = -p;
+
+    // clear other seen flags
+    for(size_t j = 0; j < learned.size(); j++) {
+        seen[abs(learned[j])] = 0;
+    }
+
+    if(learned.size() == 1) return 0;
+    
+    size_t maxLevel = 1;
+    for(size_t j = 1; j < learned.size(); j++) {
+        if(level[abs(learned[j])] > level[abs(learned[maxLevel])]) {
+            maxLevel = j;
+        }
+    }
+    std::swap(learned[1], learned[maxLevel]);
+
+    return level[abs(learned[1])];
 }
 
 bool Solver::solve2WL() {
@@ -277,10 +343,6 @@ bool Solver::solve2WL() {
         return true;
     }
 
-    if(this->DEBUG) {
-        cout << "Deciding variable " << v << "\tat level " << trailBounds.size() + 1 << endl;
-    }
-
     //Assign v = TRUE
     this->trailBounds.push_back(this->trail.size()); //store current level size
     assign(v); //assign v as true
@@ -308,6 +370,46 @@ bool Solver::solve2WL() {
     this->trailBounds.pop_back(); //go back to prev level size
     
     return false;
+}
+
+bool Solver::solveCDCL() {
+    seen.assign(NUM_VARS + 1, 0);
+
+    for(auto& wc : F) {
+        if(!wc.isUnit()) continue;
+        literal L = wc.getW1();
+        if(isFalse(L, M)) return false;
+        if(isUnassigned(L, M)) assign(L);
+    }
+
+    while(true) {
+        int confl = propagate();
+
+        if(confl != -1) {
+            if(getDL() == 0) return false;
+
+            clause learned;
+            int bjLevel = analyze(confl, learned);
+
+            undo(trailBounds[bjLevel + 1]);
+            trailBounds.resize(bjLevel + 1);
+
+            if(learned.size() == 1) {
+                assign(learned[0]);
+            } else {
+                int idx = F.size();
+                F.push_back(watchedClause(learned));
+                watchlist[litToIndex(learned[0])].push_back(idx);
+                watchlist[litToIndex(learned[1])].push_back(idx);
+                assign(learned[0], idx);
+            }
+        } else {
+            int v = findUnassigned();
+            if(v == 0) { cout << "SAT" << endl; if(DEBUG) printAssignments(M); return true; }
+            trailBounds.push_back(trail.size());
+            assign(v);
+        }
+    }
 }
 
 // == MISC FUNCTIONS == //

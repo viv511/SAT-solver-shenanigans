@@ -25,7 +25,10 @@ class Solver {
         std::vector<int> trail; //Stores assigned literals in order
         size_t qhead = 0; //Index of next literal to propagate (instead of wasting queue space, keep a size_t idx)
         std::vector<int> trailBounds; //Stores indices in trail where each decision level starts
-        
+        std::vector<int> level; //level[v] = decision level v was assigned at (-1 if unassigned)
+        std::vector<int> reason; //reason[v] = index of clause that forced v (-1 if decision/unassigned)
+        std::vector<char> seen; //for cdcl conflict 
+
         bool DEBUG;
         int NUM_VARS;
         int NUM_CLAUSES;
@@ -37,12 +40,14 @@ class Solver {
         //Helper functions
         int propagate();
         int findUnassigned();
-        void assign(int l);
+        void assign(int l, int reasonClause = -1);
         void undo(size_t targetSize);
+        int analyze(int conflictClauseIndex, clause& learned); // @returns the decision level to backtrack to
+        inline int getDL() { return (int)trailBounds.size() - 1; }
 
         //Core solver function
         bool solve2WL();
-        bool solveCDCL(); //todo
+        bool solveCDCL();
 };
 
 //Misc functions

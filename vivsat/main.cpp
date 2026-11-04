@@ -13,7 +13,6 @@ void testSpecificFile(Solver& s, string filename) {
     s.solve();
 }
 
-// assert(ufNum == 20 || ufNum == 75 || ufNum == 250)
 void runTests(int ufNum) {
     testFiles.clear();
     string prefix = "uf" + to_string(ufNum) + "-";
@@ -49,7 +48,8 @@ void runTests(int ufNum) {
 int main() {
     Solver solver(DEBUG_FLAG);
 
-    runTests(250);
+    // must be either 20, 75, 175, or 250
+    runTests(75);
     // testSpecificFile(solver, "tests/sudoku.cnf");
 
     return 0;

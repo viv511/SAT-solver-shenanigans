@@ -1,16 +1,17 @@
 # Credits/References
-- Dr. Marijn Heule, Dr. John Mackey, (hopefully soon Dr.) Bernardo Subercaseaux for the initial inspiration
+- Dr. Marijn Heule, Dr. John Mackey, and Mr. Bernardo Subercaseaux for the initial inspiration
 - Various YT lectures and recordings the intuition and basics of SAT solvers
+- All the sources in [READINGS.md](READINGS.md) for the various papers, books, and readings
 - https://users.aalto.fi/~tjunttil/2020-DP-AUT/notes-sat/overview.html
+- https://codingnest.com/modern-sat-solvers-fast-neat-underused-part-1-of-n // https://codingnest.com/tag/sat/ (lovely resource)
 - https://jix.github.io/varisat/manual/0.2.0/formats/dimacs.html
 - https://www.cs.cmu.edu/~wcohen/15451-f10/lectures/dpll.pdf
-- https://homes.cs.washington.edu/~kevinz/sat-solver/ (for initial verification/comparison speed-wise)
+- https://homes.cs.washington.edu/~kevinz/sat-solver/
 - https://en.wikipedia.org/wiki/DPLL_algorithm
 - https://www.cs.utexas.edu/~vl/teaching/lbai/dpll.pdf
-- https://codingnest.com/modern-sat-solvers-fast-neat-underused-part-1-of-n/ (lovely resource)
 - https://school.a4cp.org/summer2011/slides/Gent/SATCP3.pdf
 - https://cse.unl.edu/~choueiry/S17-235H/files/SATslides07.pdf
-- https://ceur-ws.org/Vol-3201/paper2.pdf
 - https://simewu.com/SAT-solver/ (for examples?)
 - https://github.com/niklasso/minisat
+- https://github.com/amazon-science/calfwsat
 - Wikipedia
