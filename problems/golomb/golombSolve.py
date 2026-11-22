@@ -1,19 +1,3 @@
-"""
-golombSolve.py
-
-Same structure as crossing.py: baseline and heuristic solves both use the
-modified MiniSat binary (empty scorecard ==> plain MiniSat).
-
-Each solve is repeated over SEEDS (MiniSat's -rnd-seed) and we compare the
-median conflicts, since a single run is way too noisy to compare.
-
-All times are MiniSat's own reported CPU time (parse + simplify + solve), for
-the baseline, every relaxed sample, and the heuristic solve alike, so Python
-and file/process overhead is excluded equally from both arms.
-
-Run from this folder: python3 golombSolve.py
-"""
-
 import random
 import subprocess
 import statistics
@@ -23,20 +7,18 @@ from pysat.formula import CNF
 from encoding2 import encodingTwo, getRulerTwo
 from golomb import verifyRuler
 
-DEBUG = False  # progress bar + "Generation done!" for each scorecard
+DEBUG = True
 
 # CONSTANTS
 ORDER = 12
-LENGTH = 85
+LENGTH = 93
 
 # For scorecard generation
-# with TRUE_WEIGHT = 1, FALSE_WEIGHT = 0: score = # of samples that marked the position,
-# so THRESHOLD = 9.5 means "forced if marked in >= 10 of the 20 samples"
-THRESHOLD = 4.5
-NUM_ITERATIONS = 10
-PCT_RAND = 95
-TRUE_WEIGHT = 1
-FALSE_WEIGHT = 0
+THRESHOLD = 18
+NUM_ITERATIONS = 20
+PCT_RAND = 97
+TRUE_WEIGHT = 5
+FALSE_WEIGHT = 1
 
 SEEDS = range(1, 21)
 
@@ -90,7 +72,8 @@ def rulerToBoard(ruler):
     return [1 if i in ruler else -1 for i in range(LENGTH + 1)]
 
 def generateScorecard(length, baseClauses, additionalClauses):
-    progressBarLen = 30  # just because i like looking at nice looking progress bars
+    writeScorecard("scorecard.txt", 0, [], []) # reset scorecard
+    progressBarLen = 30
     scorecard = [0.0] * length
     generationTime = 0.0  # sum of MiniSat CPU time over all relaxed solves
 

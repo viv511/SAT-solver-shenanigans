@@ -261,6 +261,10 @@ NOTE: first time trying to use Claude Code here for this project, poking at it's
     - also perhaps learning how to use harnesses and stuff like this
 - Enough progress for today, ill start w/ working with calfwsat soon!
 
+### 11.22.26
+- I thought I made some noticable progress today, but it seems as though I mistakenly let the scorecard sort of compound through each run, which is not what I wanted to do (although this iterative approach seems reasonable to test out?)
+- For now reverted back to what I had and continued testing with order 12/order 11 ranges.
+
 
 
 
