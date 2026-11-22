@@ -245,9 +245,26 @@ Its my birthday today :)
 
 ### 11.3.26
 - Cleaned up the log, markdown files, and just tried to make this readable to finally publish this on the github lol
-- Downloaded calfwsat to try to mess around with it!
 
----
+### 11.21.26
+
+NOTE: first time trying to use Claude Code here for this project, poking at it's flaws and weaknesses.
+
+- Trying to scope this project and see where I want to take it next
+- First spent some time cleaning up the repo and moving things around to be more organized
+- Architecturally I want to make this heuristic approach as a black box file that can be used for any combinatorial problem (also shifting towards those specifically)
+- Research wise I want to focus on SAT only, attempting to create a paradigm that can be applied to speed up any (?) combinatorial problem that can be encoded into SAT
+- Made the golomb encoding more generalizable like the Costas encoding one, so that we're testing off the same binary (!! dont make the same mistake twice lol)
+- Tried to treat scorecard as a starting point that the solver can let go of, rather than have it as a rule that we impose again and again, but somehow still the hard override did better than soft...
+- **used claude code for the first time w/ this project to see what holes could be poked**
+  - suggested some good ideas that i tried to explore, although it was very hard to reason and work with -- perhaps more self learning is required from me?
+    - also perhaps learning how to use harnesses and stuff like this
+- Enough progress for today, ill start w/ working with calfwsat soon!
+
+
+
+
+
 
 # TODO:
 - Clean up repository again, make it a smoother workflow?

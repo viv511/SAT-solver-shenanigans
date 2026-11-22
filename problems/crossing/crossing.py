@@ -106,7 +106,7 @@ def crossingToBoard(model, baseVarCount):
 def solveLocalModified(cnfFile):
    start = time.perf_counter()
    result = subprocess.run(
-         ["./modifiedMinisat/build/release/bin/minisat", cnfFile, "result.out"],
+         ["./solvers/modifiedMinisat/build/release/bin/minisat", cnfFile, "result.out"],
          capture_output=True,
          text=True
       )
