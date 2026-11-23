@@ -1,35 +1,41 @@
+"""
+golombSolve.py
+
+Find a Golomb ruler with ORDER marks and length <= TARGET_LENGTH using a scorecard
+built from an EASIER instance (same order, length SOURCE_LENGTH):
+
+    1. BUILD: solve the easy SOURCE instance NUM_SAMPLES times (PCT_RAND = 100 ==> real rulers),
+       stretch each ruler onto the target length, score every position, save to SCORECARD_FILE
+    2. SOLVE: the TARGET once with plain MiniSat and once with the saved scorecard
+
+Run from this folder: python3 golombSolve.py
+"""
+
+import os
 import random
+import shutil
 import subprocess
-import statistics
 
 from pysat.formula import CNF
 
 from encoding2 import encodingTwo, getRulerTwo
 from golomb import verifyRuler
 
-DEBUG = True
-
 # CONSTANTS
-ORDER = 13
-LENGTH = 120
+ORDER = 12
+SOURCE_LENGTH = 88
+TARGET_LENGTH = 86
 
-# For scorecard generation (same constants as the old "faulty" 12/93 run)
-TOP_PCT = 10 # force the top TOP_PCT% of positions 1..LENGTH-1 by |score|; None ==> use THRESHOLD
-THRESHOLD = 4.5 # score = # samples marking the position, so forced if marked in >= 5 of 10
-NUM_ITERATIONS = 10
+BUILD_SCORECARD = True # False ==> skip building, reuse the SCORECARD_FILE saved by an earlier run
+SCORECARD_FILE = f"scorecard_{ORDER}_{SOURCE_LENGTH}_to_{TARGET_LENGTH}.txt"
+
+NUM_SAMPLES = 10
 PCT_RAND = 95
-TRUE_WEIGHT = 1
-FALSE_WEIGHT = 0
-
-SEEDS = range(1, 11) # in the heuristic loop, each seed is one round
-
-# TRANSFER TEST: build ONE scorecard from real rulers of an easy instance, reuse it on every target + seed
-TRANSFER = False
-SOURCE_LENGTH = 110
-SOURCE_SOLVES = 20
-TARGET_LENGTHS = [96, 95, 94]
-TRANSFER_TOP_PCT = 10
-TRANSFER_SEEDS = range(32, 52) # fresh: seeds 1-31 were used to pick + confirm this config on 12/96
+TRUE_WEIGHT = 75   # = LENGTH + 1 - ORDER
+FALSE_WEIGHT = 12  # = ORDER
+TOP_PCT = None     # threshold mode, so FALSE marks can be forced too
+THRESHOLD = 110
+CPU_LIMIT = 600
 
 # More positive the board, the more likely it is to be true (vice versa!)
 def updateBoard(inputBoard, updateBoard):
@@ -40,23 +46,29 @@ def updateBoard(inputBoard, updateBoard):
             inputBoard[i] -= FALSE_WEIGHT
     return inputBoard
 
-# returns the model, MiniSat's CPU time, and its conflict count
+# returns the model (None if it hit CPU_LIMIT), MiniSat's CPU time, and its conflict count
 def solveModified(cnf, cnfFile, seed=1):
     with open(cnfFile, "w") as f:
         cnf.to_fp(f)
 
+    if os.path.exists("result.out"):
+        os.remove("result.out") # MiniSat doesn't write it on a timeout, so don't read a stale one
+
     result = solveLocalModified(cnfFile, seed)
-    model = modelFromResult("result.out")
     stats = result.stdout.splitlines()
     conflicts = [int(l.split()[2]) for l in stats if l.startswith("conflicts")][0]
     cpuTime = [float(l.split()[3]) for l in stats if l.startswith("CPU time")][0]
 
-    return model, cpuTime, conflicts
+    # CPU_LIMIT hit: during search MiniSat prints INDETERMINATE, during parsing/simplification INTERRUPTED
+    if "INDETERMINATE" in result.stdout or "INTERRUPTED" in result.stdout:
+        return None, cpuTime, conflicts
+
+    return modelFromResult("result.out"), cpuTime, conflicts
 
 def solveLocalModified(cnfFile, seed):
     return subprocess.run(
         ["../../solvers/modifiedMinisat/build/release/bin/minisat",
-        "-rnd-freq=0.01", f"-rnd-seed={seed}", cnfFile, "result.out"],
+        "-rnd-freq=0.01", f"-rnd-seed={seed}", f"-cpu-lim={CPU_LIMIT}", cnfFile, "result.out"],
         capture_output=True,
         text=True
     )
@@ -76,122 +88,59 @@ def modelFromResult(resultFile):
 
     return model
 
-# x(i) = i + 1, so the base variables are 1..LENGTH+1
-def rulerToBoard(ruler):
-    return [1 if i in ruler else -1 for i in range(LENGTH + 1)]
+# stretch a source ruler onto the target length: mark i of a ruler of length r[-1] goes to i * TARGET_LENGTH / r[-1]
+# SOURCE_LENGTH == TARGET_LENGTH ==> relaxed samples of the same instance, so no stretching
+def stretchToBoard(ruler):
+    scale = 1 if SOURCE_LENGTH == TARGET_LENGTH else TARGET_LENGTH / ruler[-1]
+    stretched = {round(i * scale) for i in ruler}
+    return [1 if i in stretched else -1 for i in range(TARGET_LENGTH + 1)]
 
-# NO scorecard reset: the samples are solved with the previous round's scorecard still active (iterative)
-def generateScorecard(length, baseClauses, additionalClauses):
-    progressBarLen = 30
-    scorecard = [0.0] * length
-    generationTime = 0.0  # sum of MiniSat CPU time over all relaxed solves
+def generateScorecard():
+    S, base = encodingTwo(ORDER, SOURCE_LENGTH)
+    writeScorecard("scorecard.txt", 0, [], []) # source is solved with plain MiniSat
+    scorecard = [0.0] * (TARGET_LENGTH + 1)
+    generationTime = 0.0
+    progressBarLen = 40
 
-    # no reset, add it back later if u want
-
-    for i in range(NUM_ITERATIONS):
+    for i in range(NUM_SAMPLES):
         randF = CNF()
-        randF.extend(baseClauses)
+        randF.extend(S.clauses[:base])
+        randF.extend(random.sample(S.clauses[base:], int(len(S.clauses[base:]) * PCT_RAND / 100)))
 
-        # select random subset of constraint clauses
-        sampled = random.sample(additionalClauses, int(len(additionalClauses) * PCT_RAND / 100))
-        randF.extend(sampled)
-
-        model, cpuTime, _ = solveModified(randF, "Fsubset.cnf")
+        # sample i uses MiniSat seed i, otherwise full-formula samples would all return the same ruler
+        model, cpuTime, _ = solveModified(randF, "source.cnf", i + 1)
         generationTime += cpuTime
 
-        assignmentFromSubset = rulerToBoard(getRulerTwo(model, ORDER, LENGTH))
+        if model is not None:
+            ruler = getRulerTwo(model, ORDER, SOURCE_LENGTH)
+            if ruler[1] > ruler[-1] - ruler[-2]: # symmetry break
+                ruler = sorted(ruler[-1] - i for i in ruler)
 
-        # takes a alpha assignment for the partial CNF and updates scorecard via the weights
-        scorecard = updateBoard(scorecard, assignmentFromSubset)
+            scorecard = updateBoard(scorecard, stretchToBoard(ruler))
 
         # nice looking progress bar because why not
-        if DEBUG:
-            done = int((i + 1) / NUM_ITERATIONS * progressBarLen)
-            bar = "#" * done + "-" * (progressBarLen - done)
-            print(f"\r[{bar}]", end="", flush=True)
+        done = int((i + 1) / NUM_SAMPLES * progressBarLen)
+        print(f"\r[{'#' * done}{'-' * (progressBarLen - done)}]", end="", flush=True)
 
-    if DEBUG:
-        print(" Generation done!\n")
-
+    print(" Generation done!\n")
     return scorecard, generationTime
 
-# top TOP_PCT% of positions 1..LENGTH-1 by |score| (0 and LENGTH are fixed by the encoding), ties -> lower position
-def topPositions(scorecard):
-    ranked = sorted(range(1, LENGTH), key=lambda i: -abs(scorecard[i]))
-    m = max(1, round(TOP_PCT / 100 * (LENGTH - 1)))
-    return [i for i in ranked[:m] if scorecard[i] != 0]
-
-# greedy top TRANSFER_TOP_PCT% of positions 1..length-1 by score, skipping any position that would
-# repeat a distance with the marks already chosen (incl. 0) ==> the forced marks are a valid partial ruler
-def consistentTop(scores, length):
-    m = max(1, round(TRANSFER_TOP_PCT / 100 * (length - 1)))
+# positions to force, best first: TRUE marks (score > THRESHOLD, or the top TOP_PCT%) that never repeat a
+# distance with each other or with 0, plus FALSE marks (score < -THRESHOLD) when FALSE_WEIGHT > 0
+def chooseForced(scorecard):
+    m = round(TOP_PCT / 100 * (TARGET_LENGTH - 1)) if TOP_PCT else TARGET_LENGTH
     chosen, dists = [0], set()
 
-    for i in sorted(range(1, length), key=lambda i: -scores[i]):
-        if len(chosen) - 1 == m or scores[i] == 0:
+    for i in sorted(range(1, TARGET_LENGTH), key=lambda i: -scorecard[i]):
+        if len(chosen) - 1 == m or scorecard[i] <= (0 if TOP_PCT else THRESHOLD):
             break
         new = [abs(i - j) for j in chosen]
         if len(set(new)) == len(new) and not dists.intersection(new):
             chosen.append(i)
             dists.update(new)
 
-    return chosen[1:]
-
-def transferTest():
-    # 1. BUILD ONCE: real rulers from the easy source instance (full formula, empty scorecard)
-    S, _ = encodingTwo(ORDER, SOURCE_LENGTH)
-    writeScorecard("scorecard.txt", 0, [], [])
-    rulers, buildTime = [], 0.0
-
-    for seed in range(1001, 1001 + SOURCE_SOLVES):
-        model, t, _ = solveModified(S, "source.cnf", seed)
-        rulers.append(getRulerTwo(model, ORDER, SOURCE_LENGTH))
-        buildTime += t
-
-    print(f"scorecard built from {SOURCE_SOLVES} rulers of {ORDER}/{SOURCE_LENGTH}: {buildTime:.3f}s CPU, paid ONCE for every target and seed\n")
-
-    allBase, allTransfer = 0.0, 0.0
-
-    for L in TARGET_LENGTHS:
-        # 2. MAP: stretch each source ruler onto length L, count how often each position gets a mark
-        scores = [0] * (L + 1)
-        for r in rulers:
-            for i in r:
-                scores[round(i * L / r[-1])] += 1
-
-        forced = consistentTop(scores, L)
-        shuffled = random.Random(0).sample(range(1, L), len(forced)) # control: same # of forced marks, random positions
-        F, _ = encodingTwo(ORDER, L)
-        times = {}
-
-        # 3. SOLVE: same seeds for all three arms
-        for label, positions in [("baseline", []), ("transfer", forced), ("shuffled", shuffled)]:
-            writeScorecard("scorecard.txt", 0, [i + 1 for i in positions], [scores[i] for i in forced])
-            times[label], conflictsList = [], []
-
-            for seed in TRANSFER_SEEDS:
-                model, t, conflicts = solveModified(F, "golomb.cnf", seed)
-                ruler = getRulerTwo(model, ORDER, L)
-
-                if not verifyRuler(ruler, ORDER):
-                    raise Exception(f"invalid ruler ({ORDER}/{L} {label}, seed {seed}): {ruler}")
-
-                times[label].append(t)
-                conflictsList.append(conflicts)
-
-                if DEBUG:
-                    print(f"  {ORDER}/{L} {label} seed {seed}: {conflicts} conflicts, {t:.3f}s")
-
-            print(f"{ORDER}/{L} {label:<9} median cpu {statistics.median(times[label]):7.3f}s   max {max(times[label]):7.3f}s   "
-                  f"median conflicts {statistics.median(conflictsList):>9.0f}")
-
-        wins = sum(t < b for t, b in zip(times["transfer"], times["baseline"]))
-        print(f"└──> forced marks {sorted(forced)}, transfer faster than baseline on {wins}/{len(TRANSFER_SEEDS)} seeds\n")
-
-        allBase += sum(times["baseline"])
-        allTransfer += sum(times["transfer"])
-
-    print(f"TOTAL CPU over all targets + seeds: baseline {allBase:.1f}s vs transfer {buildTime:.1f}s (build once) + {allTransfer:.1f}s = {buildTime + allTransfer:.1f}s")
+    forcedFalse = [] if TOP_PCT else [i for i in range(1, TARGET_LENGTH) if scorecard[i] < -THRESHOLD]
+    return chosen[1:], forcedFalse
 
 def writeScorecard(path, threshold, variables, scores):
     with open(path, "w") as f:
@@ -199,77 +148,37 @@ def writeScorecard(path, threshold, variables, scores):
         for var, score in zip(variables, scores):
             f.write(f"{var} {score}\n")
 
-# solves F once per seed, checks every ruler, returns median conflicts + median CPU time
-def solveSeeds(F, label):
-    conflictsList, times = [], []
+def report(label, model, cpuTime, conflicts):
+    if model is None:
+        print(f"{label:<10} TIMEOUT after {cpuTime:.3f}s CPU ({conflicts} conflicts)")
+        return
 
-    for seed in SEEDS:
-        model, t, conflicts = solveModified(F, "golomb.cnf", seed)
-        ruler = getRulerTwo(model, ORDER, LENGTH)
-
-        if not verifyRuler(ruler, ORDER):
-            raise Exception(f"invalid ruler ({label}, seed {seed}): {ruler}")
-
-        conflictsList.append(conflicts)
-        times.append(t)
-
-    print(f"{label:<10} median conflicts {statistics.median(conflictsList):>9.0f}   "
-            f"median cpu {statistics.median(times):.3f}s   all conflicts: {sorted(conflictsList)}")
-
-    return statistics.median(conflictsList), statistics.median(times)
-
-
-if TRANSFER:
-    print(f"TRANSFER: ORDER = {ORDER}, SOURCE = {ORDER}/{SOURCE_LENGTH} x {SOURCE_SOLVES} solves, TARGETS = {TARGET_LENGTHS}, "
-          f"TRANSFER_TOP_PCT = {TRANSFER_TOP_PCT}, SEEDS = {list(TRANSFER_SEEDS)}\n")
-    transferTest()
-    exit()
-
-print(f"ORDER = {ORDER}, LENGTH = {LENGTH}")
-print(f"TOP_PCT = {TOP_PCT}, THRESHOLD = {THRESHOLD}, NUM_ITERATIONS = {NUM_ITERATIONS}, PCT_RAND = {PCT_RAND}, "
-    f"TRUE_WEIGHT = {TRUE_WEIGHT}, FALSE_WEIGHT = {FALSE_WEIGHT}")
-print(f"SEEDS = {list(SEEDS)}\n")
-
-F, base = encodingTwo(ORDER, LENGTH)
-print(f"total clauses: {len(F.clauses)}")
-print(f"└──> base clauses: {base}, additional clauses: {len(F.clauses) - base}\n")
-
-# BASELINE SOLVE (empty scorecard ==> plain minisat)
-writeScorecard("scorecard.txt", 0, [], [])
-normalConflicts, normalSolveTime = solveSeeds(F, "baseline")
-print()
-
-# HEURISTIC (iterative): round 1 samples use the empty baseline scorecard, round r samples use round r-1's scorecard.
-# The cost of round r is CUMULATIVE: all generation from rounds 1..r + round r's final solve
-totals, genTimes, solveTimes, conflictsList = [], [], [], []
-cumulativeGen = 0.0
-
-for seed in SEEDS:
-    random.seed(seed)
-    scorecard, genTime = generateScorecard(LENGTH + 1, F.clauses[:base], F.clauses[base:])
-    cumulativeGen += genTime
-    # only the chosen positions go in the scorecard, threshold 0 ==> solver forces all of them, highest |score| first
-    forced = topPositions(scorecard) if TOP_PCT else [i for i, s in enumerate(scorecard) if abs(s) > THRESHOLD]
-    writeScorecard("scorecard.txt", 0, [i + 1 for i in forced], [scorecard[i] for i in forced])
-
-    model, t, conflicts = solveModified(F, "golomb.cnf", seed)
-    ruler = getRulerTwo(model, ORDER, LENGTH)
-
+    ruler = getRulerTwo(model, ORDER, TARGET_LENGTH)
     if not verifyRuler(ruler, ORDER):
-        raise Exception(f"invalid ruler (heuristic, seed {seed}): {ruler}")
+        raise Exception(f"invalid ruler ({label}): {ruler}")
 
-    totals.append(cumulativeGen + t)
-    genTimes.append(genTime)
-    solveTimes.append(t)
-    conflictsList.append(conflicts)
+    print(f"{label:<10} {cpuTime:9.3f}s CPU   {conflicts:>10} conflicts   ruler (length {ruler[-1]}): {ruler}")
 
-    if DEBUG:
-        print(f"round {seed:<3} true: {[i for i in forced if scorecard[i] > 0]}   false: {[i for i in forced if scorecard[i] < 0]}   "
-              f"conflicts {conflicts}   cpu: this round gen {genTime:.3f}, cumulative gen {cumulativeGen:.3f} + solve {t:.3f} = {cumulativeGen + t:.3f}s")
 
-# rounds are chained (not independent), so the per-round lines above are the real result; medians are just a summary
-print(f"\nCONFLICTS (median over rounds):\t\t {normalConflicts:.0f} (baseline) vs {statistics.median(conflictsList):.0f} (heuristic)")
-print(f"LAST ROUND:\t\t\t\t {conflictsList[-1]} conflicts, cumulative cpu {totals[-1]:.3f}s")
-print("NORMAL SOLVE CPU (median):\t\t", normalSolveTime)
-print("HEURISTIC CUMULATIVE CPU (median):\t", statistics.median(totals))
-print("└──> median round generation + median solve:\t", statistics.median(genTimes), "+", statistics.median(solveTimes), "\n")
+print(f"ORDER = {ORDER}, SOURCE_LENGTH = {SOURCE_LENGTH}, TARGET_LENGTH = {TARGET_LENGTH}")
+print(f"NUM_SAMPLES = {NUM_SAMPLES}, PCT_RAND = {PCT_RAND}, TRUE_WEIGHT = {TRUE_WEIGHT}, FALSE_WEIGHT = {FALSE_WEIGHT}, "
+      f"TOP_PCT = {TOP_PCT}, THRESHOLD = {THRESHOLD}, CPU_LIMIT = {CPU_LIMIT}\n")
+
+# 1. BUILD the scorecard from the easy SOURCE instance and save it
+# only the forced positions are written, threshold 0 ==> the solver forces all of them, highest |score| first
+if BUILD_SCORECARD:
+    scorecard, generationTime = generateScorecard()
+    forcedTrue, forcedFalse = chooseForced(scorecard)
+    forced = forcedTrue + forcedFalse
+    writeScorecard(SCORECARD_FILE, 0, [i + 1 for i in forced], [scorecard[i] for i in forced])
+    print(f"scorecard built in {generationTime:.3f}s CPU from {NUM_SAMPLES} solves of {ORDER}/{SOURCE_LENGTH}, saved to {SCORECARD_FILE}")
+    print(f"└──> forced TRUE {sorted(forcedTrue)}, forced FALSE {sorted(forcedFalse)}\n")
+
+# 2. SOLVE the TARGET once without and once with the scorecard
+F, _ = encodingTwo(ORDER, TARGET_LENGTH)
+
+writeScorecard("scorecard.txt", 0, [], []) # empty ==> plain MiniSat
+report("baseline", *solveModified(F, "golomb.cnf"))
+
+shutil.copy(SCORECARD_FILE, "scorecard.txt") # the solver always reads scorecard.txt
+report("heuristic", *solveModified(F, "golomb.cnf"))
