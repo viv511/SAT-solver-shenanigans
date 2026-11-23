@@ -264,13 +264,25 @@ NOTE: first time trying to use Claude Code here for this project, poking at it's
 ### 11.22.26
 - I thought I made some noticable progress today, but it seems as though I mistakenly let the scorecard sort of compound through each run, which is not what I wanted to do (although this iterative approach seems reasonable to test out?)
 - For now reverted back to what I had and continued testing with order 12/order 11 ranges.
+- Testing some better constants (most notable is shifting from a threshold to a top % ranking)
+- What if we transfer the scorecards?
+  - build the scorecard from easy instances (12/100 solves in about 0.2s, or order 11) and apply it to hard ones (12/88)
+- Not seeing enough signal in the technique that it would work well, iterative approach tried and then failed, so im not sure what to do
+- The overhead is still too large, so perhaps the transfer idea makes the most sense
+- Building once seems to be quite well (w/ transfer)
 
 
-
-
+things to read:
+- https://github.com/topics/sat-solver
+- https://repositum.tuwien.at/bitstream/20.500.12708/200796/1/Biere%20Armin%20-%202024%20-%20Clausal%20Equivalence%20Sweeping.pdf
+- https://satcompetition.github.io/2026/downloads/satcomp26slides.pdf
+- https://benjaminkiesl.github.io/publications/pruning_through_satisfaction_heule_kiesl_seidl_biere.pdf
+- https://github.com/arminbiere/kissat
+- https://github.com/amazon-science/calfwsat
 
 
 # TODO:
+- make better progress
 - Clean up repository again, make it a smoother workflow?
 - Make a slideshow to show to Dr. Mackey/Mr. Subercaseaux
 - Clean up the python files!

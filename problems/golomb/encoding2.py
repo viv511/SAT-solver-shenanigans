@@ -32,15 +32,6 @@ def encodingTwo(O, L):
     def delta(i, d):
         return deltaToID[(i, d)]
 
-
-    # exact length: last mark at L
-    cnf.append([x(L)])
-
-    # reversal symmetry: first gap < last gap
-    # if there's a mark at k (so the last gap is at most L-k), some mark must sit in [1, L-k-1]
-    for k in range(L // 2, L):
-        cnf.append([-x(k)] + [x(i) for i in range(1, L - k)])
-
     baseClauses = len(cnf.clauses)
 
     #define deltas and enforce uniqueness
@@ -62,7 +53,7 @@ def encodingTwo(O, L):
 
         # enforce uniqueness: for fixed d, at most one (AMO) delta_id can be true, forall i
         if deltaVars != []:
-            amoDistance = CardEnc.atmost(lits=deltaVars, bound=1, top_id=(offsetCounter-1), encoding=EncType.bitwise)
+            amoDistance = CardEnc.atmost(lits=deltaVars, bound=1, top_id=(offsetCounter-1), encoding=EncType.pairwise)
             cnf.extend(amoDistance.clauses)
             offsetCounter = amoDistance.nv + 1
 
