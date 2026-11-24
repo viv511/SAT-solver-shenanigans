@@ -23,19 +23,20 @@ from golomb import verifyRuler
 
 # CONSTANTS
 ORDER = 12
-SOURCE_LENGTH = 88
-TARGET_LENGTH = 86
+SOURCE_LENGTH = 96
+TARGET_LENGTH = 96
 
 BUILD_SCORECARD = True # False ==> skip building, reuse the SCORECARD_FILE saved by an earlier run
 SCORECARD_FILE = f"scorecard_{ORDER}_{SOURCE_LENGTH}_to_{TARGET_LENGTH}.txt"
 
 NUM_SAMPLES = 10
 PCT_RAND = 95
-TRUE_WEIGHT = 75   # = LENGTH + 1 - ORDER
+TRUE_WEIGHT = 85   # = LENGTH + 1 - ORDER
 FALSE_WEIGHT = 12  # = ORDER
 TOP_PCT = None     # threshold mode, so FALSE marks can be forced too
-THRESHOLD = 110
+THRESHOLD = 100
 CPU_LIMIT = 600
+SEED = 1 # MiniSat seed for the two target solves; change between runs to check the scorecard isn't a lucky seed
 
 # More positive the board, the more likely it is to be true (vice versa!)
 def updateBoard(inputBoard, updateBoard):
@@ -162,7 +163,7 @@ def report(label, model, cpuTime, conflicts):
 
 print(f"ORDER = {ORDER}, SOURCE_LENGTH = {SOURCE_LENGTH}, TARGET_LENGTH = {TARGET_LENGTH}")
 print(f"NUM_SAMPLES = {NUM_SAMPLES}, PCT_RAND = {PCT_RAND}, TRUE_WEIGHT = {TRUE_WEIGHT}, FALSE_WEIGHT = {FALSE_WEIGHT}, "
-      f"TOP_PCT = {TOP_PCT}, THRESHOLD = {THRESHOLD}, CPU_LIMIT = {CPU_LIMIT}\n")
+      f"TOP_PCT = {TOP_PCT}, THRESHOLD = {THRESHOLD}, CPU_LIMIT = {CPU_LIMIT}, SEED = {SEED}\n")
 
 # 1. BUILD the scorecard from the easy SOURCE instance and save it
 # only the forced positions are written, threshold 0 ==> the solver forces all of them, highest |score| first
@@ -178,7 +179,7 @@ if BUILD_SCORECARD:
 F, _ = encodingTwo(ORDER, TARGET_LENGTH)
 
 writeScorecard("scorecard.txt", 0, [], []) # empty ==> plain MiniSat
-report("baseline", *solveModified(F, "golomb.cnf"))
+report("baseline", *solveModified(F, "golomb.cnf", SEED))
 
 shutil.copy(SCORECARD_FILE, "scorecard.txt") # the solver always reads scorecard.txt
-report("heuristic", *solveModified(F, "golomb.cnf"))
+report("heuristic", *solveModified(F, "golomb.cnf", SEED))
