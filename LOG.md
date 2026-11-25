@@ -271,6 +271,21 @@ NOTE: first time trying to use Claude Code here for this project, poking at it's
 - The overhead is still too large, so perhaps the transfer idea makes the most sense
 - Building once seems to be quite well (w/ transfer)
 
+### 11.24.26
+- Downloaded the Sorted Costas Array data under `/data`
+- Some thoughts for future work:
+  - Add in calfwsat in the future
+  - Perhaps do some mapping stuff
+    - See if you can symmetry break and then isolate and overlay some stuff
+    - Make "hot pockets" 
+  - What if you allow a greater distance for the same # of marks, what if you try to solve 32 marks in a K x K matrix where K > 32
+
+### 11.25.26
+- Trying to do some visualization work with the Costas Arrays data I got from Vipin
+- Was able to overlay and visualize all of them, and it's very interesting to see the patterns
+- I think I have to symmetry break to get some meaningful data out of it, but I think this is a good start
+- Vipin wants to share some data that already is symmetry broken, so maybe that would be more impactful
+- Also saved a bunch of the resulting plots for art (!!!)
 
 things to read:
 - https://github.com/topics/sat-solver
