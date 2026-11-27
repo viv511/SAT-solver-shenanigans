@@ -1,0 +1,385 @@
+********************************************************************************
+v. 3.20 (March 2019)
+From CA_Database_Sticky_Options.txt:
+USER OPTIONS
+Option                              Function
+C:\Users\bhatv\Downloads\GetStarted_2019\CA_Database    ,Database path
+C:\Users\bhatv\Downloads\GetStarted_2019\CA_Database\Read_CA_Database_v3.2\Costas Extraction\    ,Output path
+T                                  ,Option to clear CSV files
+F                                  ,.TRUE. => Both Searches and Generated, .FALSE. => Generated
+T                                  ,.TRUE. => "REWIND" to rewrite files, "APPEND" to append new data
+T                                  ,.TRUE. => number Costas arrays from 1, .FALSE. => number from 0,
+6                               ,Order for Extraction mode
+28                               ,Starting order for Analysis mode
+31                               ,Ending order for Analysis mode
+1                                 ,Index of one of about 20 generator methods
+1                                  ,Index of database types, [1,2,3,4] => [ALL,Essential,Symm,G-Symm]
+4                                  ,[1,2,3,4] filter on number of ones in DAF rectangle [NONE,3X3,5X5,User Defined]
+100                             ,Maximum number of ones in specified DAF area
+rows -2 to +2, cols -2 to +2    ,Input string for rows and columns defining rectangle in DAF
+1                                  ,Index of frequency hop methods [NONE,Min,Min end-around]
+F                                  ,.TRUE. => output CSV files with DAFs
+F                                  ,.TRUE. => output CSV files with XDAFs
+F                                  ,.TRUE. => find generating polynomial in GF(q)
+0                               ,Order q of GF(q) for generating polynomial
+F                                  ,.TRUE. => Write analysis of entire database (not sticky)
+F                                  ,.TRUE. => Write counts in 3X3 central areas of DAFs (not sticky)
+F                                  ,.TRUE. => Write counts in 5X5 central ares of DAFs (not sticky)
+F                                  ,.TRUE. => Recompute minimum peak freuency hop database (not sticky)
+Costas arrays from searches of order 3 to 27
+********************************************************************************
+Costas arrays of order 6
+Total number of unique Costas arrays found:  116
+Costas arrays of order 6
+17  essential Costas arrays
+5  symmetrical Costas arrays
+16  G-symmetrical Costas arrays
+Methods: Search,Lempel-Golomb 2 VE,alpha,3,beta,1,Lempel-Golomb 2 VE with Rows reversed,alpha,1,beta,2,Lempel-Golomb 2 VE with Columns reversed,alpha,3,beta,6,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,1,beta,5
+Database All, index 1
+   1  2  5  4  6  3
+Methods: Search,Lempel-Golomb 2 VE,alpha,1,beta,3,Lempel-Golomb 2 VE with Rows reversed,alpha,3,beta,5,Lempel-Golomb 2 VE with Columns reversed,alpha,1,beta,4,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,3,beta,2
+Database All, index 2
+   1  2  6  4  3  5
+Methods: Search, Transposed, G-Symmetrical,Welch 1 T,alpha,3,offset c,0
+Database All, index 3
+   1  3  2  5  6  4
+Methods: Search, G-Symmetrical,Welch 1,alpha,3,offset c,0
+Database All, index 4
+   1  3  2  6  4  5
+Methods: Search
+Database All, index 5
+   1  3  6  4  5  2
+Methods: Search
+Database All, index 6
+   1  4  3  5  6  2
+Methods: Search
+Database All, index 7
+   1  4  5  3  2  6
+Methods: Search
+Database All, index 8
+   1  4  6  5  2  3
+Methods: Search
+Database All, index 9
+   1  5  3  4  6  2
+Methods: Search, Transposed, Symmetrical, G-Symmetrical
+Database All, index 10
+   1  5  3  6  2  4
+Methods: Search
+Database All, index 11
+   1  5  4  2  3  6
+Methods: Search, G-Symmetrical,Welch 1,alpha,5,offset c,0
+Database All, index 12
+   1  5  4  6  2  3
+Methods: Search
+Database All, index 13
+   1  5  6  2  4  3
+Methods: Search, Transposed, G-Symmetrical,Welch 1 T,alpha,5,offset c,0
+Database All, index 14
+   1  5  6  3  2  4
+Methods: Search
+Database All, index 15
+   1  6  2  4  5  3
+Methods: Search
+Database All, index 16
+   1  6  3  2  4  5
+Methods: Search
+Database All, index 17
+   1  6  3  4  2  5
+Methods: Search, Symmetrical
+Database All, index 18
+   1  6  3  5  4  2
+Methods: Search, Symmetrical
+Database All, index 19
+   1  6  4  3  5  2
+Methods: Search, G-Symmetrical,Welch 1,alpha,5,offset c,4
+Database All, index 20
+   2  3  1  5  4  6
+Methods: Search
+Database All, index 21
+   2  3  5  4  1  6
+Methods: Search
+Database All, index 22
+   2  3  6  1  5  4
+Methods: Search
+Database All, index 23
+   2  4  1  6  5  3
+Methods: Search,Lempel-Golomb 2 VE,alpha,3,beta,2,Lempel-Golomb 2 VE with Rows reversed,alpha,1,beta,4,Lempel-Golomb 2 VE with Columns reversed,alpha,3,beta,5,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,1,beta,3
+Database All, index 24
+   2  4  3  1  5  6
+Methods: Search, Transposed, G-Symmetrical,Welch 1 T,alpha,3,offset c,5
+Database All, index 25
+   2  4  3  6  1  5
+Methods: Search,Lempel-Golomb 2 VE,alpha,1,beta,6,Lempel-Golomb 2 VE with Rows reversed,alpha,3,beta,3,Lempel-Golomb 2 VE with Columns reversed,alpha,1,beta,1,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,3,beta,4
+Database All, index 26
+   2  4  5  1  6  3
+Methods: Search
+Database All, index 27
+   2  4  5  3  6  1
+Methods: Search
+Database All, index 28
+   2  5  1  6  3  4
+Methods: Search
+Database All, index 29
+   2  5  1  6  4  3
+Methods: Search
+Database All, index 30
+   2  5  3  4  1  6
+Methods: Search
+Database All, index 31
+   2  5  3  4  6  1
+Methods: Search
+Database All, index 32
+   2  5  4  6  3  1
+Methods: Search, Transposed, G-Symmetrical,Welch 1 T,alpha,5,offset c,5
+Database All, index 33
+   2  6  1  4  3  5
+Methods: Search
+Database All, index 34
+   2  6  4  3  5  1
+Methods: Search, G-Symmetrical,Welch 1,alpha,3,offset c,2
+Database All, index 35
+   2  6  4  5  1  3
+Methods: Search
+Database All, index 36
+   2  6  5  3  4  1
+Methods: Search, Transposed, G-Symmetrical,Welch 1 T,alpha,5,offset c,4
+Database All, index 37
+   3  1  2  5  4  6
+Methods: Search, G-Symmetrical,Welch 1,alpha,5,offset c,5
+Database All, index 38
+   3  1  5  4  6  2
+Methods: Search
+Database All, index 39
+   3  1  5  6  2  4
+Methods: Search
+Database All, index 40
+   3  1  6  2  5  4
+Methods: Search
+Database All, index 41
+   3  1  6  5  2  4
+Methods: Search
+Database All, index 42
+   3  2  5  1  6  4
+Methods: Search
+Database All, index 43
+   3  2  5  6  4  1
+Methods: Search
+Database All, index 44
+   3  2  6  1  4  5
+Methods: Search, G-Symmetrical,Welch 1,alpha,3,offset c,1
+Database All, index 45
+   3  2  6  4  5  1
+Methods: Search
+Database All, index 46
+   3  4  1  6  2  5
+Methods: Search
+Database All, index 47
+   3  4  2  6  5  1
+Methods: Search
+Database All, index 48
+   3  4  6  1  5  2
+Methods: Search
+Database All, index 49
+   3  5  1  2  6  4
+Methods: Search, Transposed, Symmetrical, G-Symmetrical
+Database All, index 50
+   3  5  1  4  2  6
+Methods: Search
+Database All, index 51
+   3  5  2  1  6  4
+Methods: Search, Transposed, G-Symmetrical,Welch 1 T,alpha,3,offset c,4
+Database All, index 52
+   3  5  4  1  2  6
+Methods: Search
+Database All, index 53
+   3  5  4  2  6  1
+Methods: Search
+Database All, index 54
+   3  5  6  1  4  2
+Methods: Search
+Database All, index 55
+   3  5  6  2  1  4
+Methods: Search, Symmetrical,Lempel-Golomb 2 VE,alpha,1,beta,1,Lempel-Golomb 2 VE with Rows reversed,alpha,3,beta,4,Lempel-Golomb 2 VE with Columns reversed,alpha,1,beta,6,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,3,beta,3
+Database All, index 56
+   3  6  1  5  4  2
+Methods: Search,Lempel-Golomb 2 VE,alpha,3,beta,6,Lempel-Golomb 2 VE with Rows reversed,alpha,1,beta,5,Lempel-Golomb 2 VE with Columns reversed,alpha,3,beta,1,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,1,beta,2
+Database All, index 57
+   3  6  4  5  2  1
+Methods: Search
+Database All, index 58
+   3  6  5  1  2  4
+Methods: Search
+Database All, index 59
+   4  1  2  6  5  3
+Methods: Search,Lempel-Golomb 2 VE,alpha,1,beta,5,Lempel-Golomb 2 VE with Rows reversed,alpha,3,beta,6,Lempel-Golomb 2 VE with Columns reversed,alpha,1,beta,2,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,3,beta,1
+Database All, index 60
+   4  1  3  2  5  6
+Methods: Search,Lempel-Golomb 2 VE,alpha,3,beta,4,Lempel-Golomb 2 VE with Rows reversed,alpha,1,beta,1,Lempel-Golomb 2 VE with Columns reversed,alpha,3,beta,3,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,1,beta,6
+Database All, index 61
+   4  1  6  2  3  5
+Methods: Search
+Database All, index 62
+   4  2  1  5  6  3
+Methods: Search
+Database All, index 63
+   4  2  1  6  3  5
+Methods: Search
+Database All, index 64
+   4  2  3  5  1  6
+Methods: Search, Transposed, G-Symmetrical,Welch 1 T,alpha,5,offset c,3
+Database All, index 65
+   4  2  3  6  5  1
+Methods: Search
+Database All, index 66
+   4  2  5  6  1  3
+Methods: Search, Transposed, G-Symmetrical
+Database All, index 67
+   4  2  6  3  5  1
+Methods: Search
+Database All, index 68
+   4  2  6  5  1  3
+Methods: Search
+Database All, index 69
+   4  3  1  6  2  5
+Methods: Search
+Database All, index 70
+   4  3  5  1  2  6
+Methods: Search
+Database All, index 71
+   4  3  6  1  5  2
+Methods: Search, G-Symmetrical,Welch 1,alpha,3,offset c,4
+Database All, index 72
+   4  5  1  3  2  6
+Methods: Search
+Database All, index 73
+   4  5  1  6  3  2
+Methods: Search
+Database All, index 74
+   4  5  2  1  3  6
+Methods: Search
+Database All, index 75
+   4  5  2  6  1  3
+Methods: Search
+Database All, index 76
+   4  6  1  2  5  3
+Methods: Search
+Database All, index 77
+   4  6  1  5  2  3
+Methods: Search
+Database All, index 78
+   4  6  2  1  5  3
+Methods: Search, G-Symmetrical,Welch 1,alpha,5,offset c,2
+Database All, index 79
+   4  6  2  3  1  5
+Methods: Search, Transposed, G-Symmetrical,Welch 1 T,alpha,3,offset c,3
+Database All, index 80
+   4  6  5  2  3  1
+Methods: Search
+Database All, index 81
+   5  1  2  4  3  6
+Methods: Search, G-Symmetrical,Welch 1,alpha,3,offset c,5
+Database All, index 82
+   5  1  3  2  6  4
+Methods: Search
+Database All, index 83
+   5  1  3  4  2  6
+Methods: Search, Transposed, G-Symmetrical,Welch 1 T,alpha,3,offset c,2
+Database All, index 84
+   5  1  6  3  4  2
+Methods: Search
+Database All, index 85
+   5  2  3  1  4  6
+Methods: Search, Symmetrical
+Database All, index 86
+   5  2  4  3  1  6
+Methods: Search
+Database All, index 87
+   5  2  4  3  6  1
+Methods: Search
+Database All, index 88
+   5  2  6  1  3  4
+Methods: Search
+Database All, index 89
+   5  2  6  1  4  3
+Methods: Search, Symmetrical
+Database All, index 90
+   5  3  2  4  1  6
+Methods: Search, Symmetrical,Lempel-Golomb 2 VE,alpha,3,beta,3,Lempel-Golomb 2 VE with Rows reversed,alpha,1,beta,6,Lempel-Golomb 2 VE with Columns reversed,alpha,3,beta,4,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,1,beta,1
+Database All, index 91
+   5  3  2  6  1  4
+Methods: Search, Transposed, G-Symmetrical,Welch 1 T,alpha,5,offset c,2
+Database All, index 92
+   5  3  4  1  6  2
+Methods: Search,Lempel-Golomb 2 VE,alpha,1,beta,4,Lempel-Golomb 2 VE with Rows reversed,alpha,3,beta,2,Lempel-Golomb 2 VE with Columns reversed,alpha,1,beta,3,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,3,beta,5
+Database All, index 93
+   5  3  4  6  2  1
+Methods: Search
+Database All, index 94
+   5  3  6  1  2  4
+Methods: Search
+Database All, index 95
+   5  4  1  6  2  3
+Methods: Search
+Database All, index 96
+   5  4  2  3  6  1
+Methods: Search, G-Symmetrical,Welch 1,alpha,5,offset c,1
+Database All, index 97
+   5  4  6  2  3  1
+Methods: Search
+Database All, index 98
+   6  1  3  4  2  5
+Methods: Search
+Database All, index 99
+   6  1  4  2  3  5
+Methods: Search
+Database All, index 100
+   6  1  4  3  5  2
+Methods: Search
+Database All, index 101
+   6  1  4  5  3  2
+Methods: Search
+Database All, index 102
+   6  1  5  3  2  4
+Methods: Search, Transposed, G-Symmetrical,Welch 1 T,alpha,3,offset c,1
+Database All, index 103
+   6  2  1  4  5  3
+Methods: Search
+Database All, index 104
+   6  2  1  5  3  4
+Methods: Search, G-Symmetrical,Welch 1,alpha,5,offset c,3
+Database All, index 105
+   6  2  3  1  5  4
+Methods: Search, Symmetrical
+Database All, index 106
+   6  2  3  5  4  1
+Methods: Search, Transposed, G-Symmetrical
+Database All, index 107
+   6  2  4  1  5  3
+Methods: Search
+Database All, index 108
+   6  2  4  3  1  5
+Methods: Search
+Database All, index 109
+   6  3  1  2  5  4
+Methods: Search, Symmetrical
+Database All, index 110
+   6  3  2  4  5  1
+Methods: Search
+Database All, index 111
+   6  3  4  2  1  5
+Methods: Search
+Database All, index 112
+   6  4  1  3  2  5
+Methods: Search, G-Symmetrical,Welch 1,alpha,3,offset c,3
+Database All, index 113
+   6  4  5  1  3  2
+Methods: Search, Transposed, G-Symmetrical,Welch 1 T,alpha,5,offset c,1
+Database All, index 114
+   6  4  5  2  1  3
+Methods: Search,Lempel-Golomb 2 VE,alpha,3,beta,5,Lempel-Golomb 2 VE with Rows reversed,alpha,1,beta,3,Lempel-Golomb 2 VE with Columns reversed,alpha,3,beta,2,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,1,beta,4
+Database All, index 115
+   6  5  1  3  4  2
+Methods: Search,Lempel-Golomb 2 VE,alpha,1,beta,2,Lempel-Golomb 2 VE with Rows reversed,alpha,3,beta,1,Lempel-Golomb 2 VE with Columns reversed,alpha,1,beta,5,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,3,beta,6
+Database All, index 116
+   6  5  2  3  1  4
+Number of Costas arrays output for this order:  116

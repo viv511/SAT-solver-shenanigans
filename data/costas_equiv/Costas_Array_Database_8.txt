@@ -1,0 +1,1369 @@
+********************************************************************************
+v. 3.20 (March 2019)
+From CA_Database_Sticky_Options.txt:
+USER OPTIONS
+Option                              Function
+C:\Users\bhatv\Downloads\GetStarted_2019\CA_Database    ,Database path
+C:\Users\bhatv\Downloads\GetStarted_2019\CA_Database\Read_CA_Database_v3.2\Costas Extraction\    ,Output path
+T                                  ,Option to clear CSV files
+F                                  ,.TRUE. => Both Searches and Generated, .FALSE. => Generated
+T                                  ,.TRUE. => "REWIND" to rewrite files, "APPEND" to append new data
+T                                  ,.TRUE. => number Costas arrays from 1, .FALSE. => number from 0,
+8                               ,Order for Extraction mode
+28                               ,Starting order for Analysis mode
+31                               ,Ending order for Analysis mode
+1                                 ,Index of one of about 20 generator methods
+1                                  ,Index of database types, [1,2,3,4] => [ALL,Essential,Symm,G-Symm]
+4                                  ,[1,2,3,4] filter on number of ones in DAF rectangle [NONE,3X3,5X5,User Defined]
+100                             ,Maximum number of ones in specified DAF area
+rows -2 to +2, cols -2 to +2    ,Input string for rows and columns defining rectangle in DAF
+1                                  ,Index of frequency hop methods [NONE,Min,Min end-around]
+F                                  ,.TRUE. => output CSV files with DAFs
+F                                  ,.TRUE. => output CSV files with XDAFs
+F                                  ,.TRUE. => find generating polynomial in GF(q)
+0                               ,Order q of GF(q) for generating polynomial
+F                                  ,.TRUE. => Write analysis of entire database (not sticky)
+F                                  ,.TRUE. => Write counts in 3X3 central areas of DAFs (not sticky)
+F                                  ,.TRUE. => Write counts in 5X5 central ares of DAFs (not sticky)
+F                                  ,.TRUE. => Recompute minimum peak freuency hop database (not sticky)
+Costas arrays from searches of order 3 to 27
+********************************************************************************
+Costas arrays of order 8
+Total number of unique Costas arrays found:  444
+Costas arrays of order 8
+60  essential Costas arrays
+9  symmetrical Costas arrays
+16  G-symmetrical Costas arrays
+Methods: Search
+Database All, index 1
+   1  2  5  7  6  4  8  3
+Methods: Search
+Database All, index 2
+   1  2  8  6  3  5  4  7
+Methods: Search
+Database All, index 3
+   1  3  6  2  7  8  5  4
+Methods: Search
+Database All, index 4
+   1  3  6  7  5  2  8  4
+Methods: Search
+Database All, index 5
+   1  3  6  7  5  4  8  2
+Methods: Search
+Database All, index 6
+   1  3  8  6  7  2  5  4
+Methods: Search
+Database All, index 7
+   1  4  2  8  7  3  5  6
+Methods: Search
+Database All, index 8
+   1  4  5  3  7  6  8  2
+Methods: Search
+Database All, index 9
+   1  4  5  7  6  3  8  2
+Methods: Search
+Database All, index 10
+   1  5  3  8  7  4  6  2
+Methods: Search
+Database All, index 11
+   1  5  4  7  2  8  6  3
+Methods: Search
+Database All, index 12
+   1  5  6  3  8  7  2  4
+Methods: Search
+Database All, index 13
+   1  5  6  8  3  2  7  4
+Methods: Search, Symmetrical
+Database All, index 14
+   1  5  7  4  2  8  3  6
+Methods: Search
+Database All, index 15
+   1  5  7  4  3  8  6  2
+Methods: Search
+Database All, index 16
+   1  5  8  3  2  7  4  6
+Methods: Search, Symmetrical
+Database All, index 17
+   1  5  8  4  2  7  6  3
+Methods: Search
+Database All, index 18
+   1  6  2  8  5  3  4  7
+Methods: Search
+Database All, index 19
+   1  6  2  8  7  4  5  3
+Methods: Search, G-Symmetrical
+Database All, index 20
+   1  6  4  7  8  3  5  2
+Methods: Search
+Database All, index 21
+   1  6  4  8  5  7  2  3
+Methods: Search
+Database All, index 22
+   1  6  4  8  5  7  3  2
+Methods: Search
+Database All, index 23
+   1  6  5  3  7  8  2  4
+Methods: Search
+Database All, index 24
+   1  6  5  8  2  3  7  4
+Methods: Search
+Database All, index 25
+   1  6  5  8  3  7  4  2
+Methods: Search
+Database All, index 26
+   1  6  7  4  3  5  8  2
+Methods: Search, Transposed, G-Symmetrical
+Database All, index 27
+   1  6  7  4  8  3  2  5
+Methods: Search, Symmetrical
+Database All, index 28
+   1  7  3  8  6  5  2  4
+Methods: Search, Symmetrical
+Database All, index 29
+   1  7  4  3  5  8  2  6
+Methods: Search
+Database All, index 30
+   1  7  4  5  3  6  8  2
+Methods: Search
+Database All, index 31
+   1  7  4  8  2  3  6  5
+Methods: Search
+Database All, index 32
+   1  7  4  8  3  2  5  6
+Methods: Search, Transposed, G-Symmetrical
+Database All, index 33
+   1  7  6  4  8  2  3  5
+Methods: Search
+Database All, index 34
+   1  7  8  3  5  2  6  4
+Methods: Search
+Database All, index 35
+   1  8  2  6  5  3  4  7
+Methods: Search
+Database All, index 36
+   1  8  3  6  2  7  5  4
+Methods: Search
+Database All, index 37
+   1  8  4  2  3  6  5  7
+Methods: Search
+Database All, index 38
+   1  8  5  3  4  6  2  7
+Methods: Search
+Database All, index 39
+   1  8  5  4  2  7  3  6
+Methods: Search
+Database All, index 40
+   1  8  5  4  6  2  3  7
+Methods: Search
+Database All, index 41
+   1  8  5  7  3  2  6  4
+Methods: Search
+Database All, index 42
+   1  8  6  2  3  5  4  7
+Methods: Search, Transposed, G-Symmetrical
+Database All, index 43
+   1  8  6  3  7  2  4  5
+Methods: Search
+Database All, index 44
+   1  8  7  3  5  2  6  4
+Methods: Search
+Database All, index 45
+   2  1  6  4  8  5  7  3
+Methods: Search
+Database All, index 46
+   2  1  6  7  4  8  3  5
+Methods: Search
+Database All, index 47
+   2  1  7  5  8  3  4  6
+Methods: Search
+Database All, index 48
+   2  1  8  4  6  3  7  5
+Methods: Search
+Database All, index 49
+   2  3  7  5  8  4  6  1
+Methods: Search, G-Symmetrical
+Database All, index 50
+   2  3  8  5  7  6  1  4
+Methods: Search
+Database All, index 51
+   2  3  8  7  5  1  4  6
+Methods: Search
+Database All, index 52
+   2  4  1  7  8  3  6  5
+Methods: Search
+Database All, index 53
+   2  4  3  6  7  5  1  8
+Methods: Search
+Database All, index 54
+   2  4  3  8  6  7  1  5
+Methods: Search
+Database All, index 55
+   2  4  7  3  8  5  6  1
+Methods: Search
+Database All, index 56
+   2  4  8  7  5  1  6  3
+Methods: Search
+Database All, index 57
+   2  5  1  7  6  8  3  4
+Methods: Search, G-Symmetrical
+Database All, index 58
+   2  5  3  8  7  4  6  1
+Methods: Search
+Database All, index 59
+   2  5  4  1  8  6  7  3
+Methods: Search
+Database All, index 60
+   2  5  4  6  3  1  7  8
+Methods: Search
+Database All, index 61
+   2  5  4  6  7  3  1  8
+Methods: Search
+Database All, index 62
+   2  5  6  4  1  7  3  8
+Methods: Search
+Database All, index 63
+   2  5  6  4  3  7  1  8
+Methods: Search
+Database All, index 64
+   2  5  6  4  8  7  1  3
+Methods: Search
+Database All, index 65
+   2  6  3  8  1  7  5  4
+Methods: Search
+Database All, index 66
+   2  6  3  8  7  5  1  4
+Methods: Search
+Database All, index 67
+   2  6  4  1  7  8  3  5
+Methods: Search
+Database All, index 68
+   2  6  4  3  5  8  1  7
+Methods: Search
+Database All, index 69
+   2  6  4  7  8  3  5  1
+Methods: Search
+Database All, index 70
+   2  6  7  3  5  4  1  8
+Methods: Search
+Database All, index 71
+   2  6  8  3  4  7  5  1
+Methods: Search
+Database All, index 72
+   2  6  8  7  1  4  5  3
+Methods: Search
+Database All, index 73
+   2  7  3  5  6  4  1  8
+Methods: Search
+Database All, index 74
+   2  7  3  6  1  8  5  4
+Methods: Search
+Database All, index 75
+   2  7  3  6  8  1  5  4
+Methods: Search
+Database All, index 76
+   2  7  4  5  8  6  1  3
+Methods: Search
+Database All, index 77
+   2  7  5  4  1  8  3  6
+Methods: Search
+Database All, index 78
+   2  7  6  1  3  4  8  5
+Methods: Search
+Database All, index 79
+   2  7  6  1  8  4  5  3
+Methods: Search
+Database All, index 80
+   2  7  6  3  1  5  8  4
+Methods: Search
+Database All, index 81
+   2  7  6  4  8  5  1  3
+Methods: Search
+Database All, index 82
+   2  7  6  8  1  5  3  4
+Methods: Search
+Database All, index 83
+   2  8  1  4  6  5  3  7
+Methods: Search
+Database All, index 84
+   2  8  1  5  3  6  7  4
+Methods: Search
+Database All, index 85
+   2  8  1  5  7  6  3  4
+Methods: Search
+Database All, index 86
+   2  8  1  6  5  3  7  4
+Methods: Search
+Database All, index 87
+   2  8  3  6  7  5  4  1
+Methods: Search
+Database All, index 88
+   2  8  4  5  7  6  3  1
+Methods: Search
+Database All, index 89
+   2  8  5  3  4  7  6  1
+Methods: Search
+Database All, index 90
+   2  8  5  6  4  7  1  3
+Methods: Search
+Database All, index 91
+   2  8  6  1  3  7  4  5
+Methods: Search
+Database All, index 92
+   2  8  6  3  5  4  7  1
+Methods: Search
+Database All, index 93
+   2  8  6  7  1  4  3  5
+Methods: Search
+Database All, index 94
+   2  8  6  7  3  5  4  1
+Methods: Search, Transposed, G-Symmetrical
+Database All, index 95
+   2  8  7  1  5  3  4  6
+Methods: Search
+Database All, index 96
+   3  1  5  8  4  6  7  2
+Methods: Search
+Database All, index 97
+   3  1  6  2  8  7  4  5
+Methods: Search
+Database All, index 98
+   3  1  6  8  5  4  7  2
+Methods: Search
+Database All, index 99
+   3  1  7  4  6  5  8  2
+Methods: Search
+Database All, index 100
+   3  1  7  8  2  5  4  6
+Methods: Search
+Database All, index 101
+   3  1  7  8  4  6  5  2
+Methods: Search
+Database All, index 102
+   3  2  7  5  8  4  6  1
+Methods: Search
+Database All, index 103
+   3  2  7  8  5  1  4  6
+Methods: Search
+Database All, index 104
+   3  4  1  7  6  8  2  5
+Methods: Search
+Database All, index 105
+   3  4  2  7  6  8  1  5
+Methods: Search
+Database All, index 106
+   3  4  6  2  1  7  5  8
+Methods: Search
+Database All, index 107
+   3  4  7  1  6  2  8  5
+Methods: Search
+Database All, index 108
+   3  4  7  5  2  8  1  6
+Methods: Search
+Database All, index 109
+   3  4  7  6  1  5  2  8
+Methods: Search
+Database All, index 110
+   3  4  8  5  7  2  1  6
+Methods: Search, Symmetrical
+Database All, index 111
+   3  5  1  8  2  7  6  4
+Methods: Search
+Database All, index 112
+   3  5  1  8  7  2  6  4
+Methods: Search
+Database All, index 113
+   3  5  1  8  7  4  2  6
+Methods: Search
+Database All, index 114
+   3  5  2  7  6  1  4  8
+Methods: Search
+Database All, index 115
+   3  5  4  1  7  8  2  6
+Methods: Search
+Database All, index 116
+   3  5  4  1  7  8  6  2
+Methods: Search
+Database All, index 117
+   3  5  4  7  1  2  8  6
+Methods: Search
+Database All, index 118
+   3  5  4  7  8  2  6  1
+Methods: Search
+Database All, index 119
+   3  5  4  8  1  6  7  2
+Methods: Search
+Database All, index 120
+   3  5  6  1  4  2  8  7
+Methods: Search, Transposed, G-Symmetrical
+Database All, index 121
+   3  5  6  4  8  2  1  7
+Methods: Search
+Database All, index 122
+   3  5  8  1  2  7  6  4
+Methods: Search
+Database All, index 123
+   3  5  8  1  7  4  2  6
+Methods: Search
+Database All, index 124
+   3  5  8  2  1  6  7  4
+Methods: Search
+Database All, index 125
+   3  5  8  2  6  1  7  4
+Methods: Search
+Database All, index 126
+   3  5  8  4  1  2  7  6
+Methods: Search
+Database All, index 127
+   3  5  8  4  2  1  6  7
+Methods: Search
+Database All, index 128
+   3  6  1  5  7  8  4  2
+Methods: Search, Symmetrical
+Database All, index 129
+   3  6  1  7  5  2  4  8
+Methods: Search
+Database All, index 130
+   3  6  1  8  2  7  5  4
+Methods: Search
+Database All, index 131
+   3  6  1  8  5  4  2  7
+Methods: Search
+Database All, index 132
+   3  6  1  8  7  5  2  4
+Methods: Search
+Database All, index 133
+   3  6  2  7  5  4  1  8
+Methods: Search
+Database All, index 134
+   3  6  2  7  8  1  5  4
+Methods: Search
+Database All, index 135
+   3  6  7  2  4  8  5  1
+Methods: Search
+Database All, index 136
+   3  6  7  2  8  1  5  4
+Methods: Search
+Database All, index 137
+   3  6  7  5  1  8  2  4
+Methods: Search
+Database All, index 138
+   3  6  8  1  2  7  5  4
+Methods: Search
+Database All, index 139
+   3  6  8  2  7  4  5  1
+Methods: Search
+Database All, index 140
+   3  7  1  2  8  5  4  6
+Methods: Search, Symmetrical
+Database All, index 141
+   3  7  1  4  6  5  2  8
+Methods: Search
+Database All, index 142
+   3  7  1  6  2  8  5  4
+Methods: Search
+Database All, index 143
+   3  7  1  6  5  2  8  4
+Methods: Search
+Database All, index 144
+   3  7  1  8  6  2  5  4
+Methods: Search, Symmetrical
+Database All, index 145
+   3  7  1  8  6  5  2  4
+Methods: Search
+Database All, index 146
+   3  7  5  2  1  6  8  4
+Methods: Search
+Database All, index 147
+   3  7  5  2  1  8  4  6
+Methods: Search
+Database All, index 148
+   3  7  5  2  8  1  4  6
+Methods: Search
+Database All, index 149
+   3  7  5  8  4  6  1  2
+Methods: Search
+Database All, index 150
+   3  7  6  2  8  1  4  5
+Methods: Search
+Database All, index 151
+   3  7  6  8  1  4  5  2
+Methods: Search
+Database All, index 152
+   3  7  8  2  4  1  6  5
+Methods: Search
+Database All, index 153
+   3  8  1  7  4  2  5  6
+Methods: Search
+Database All, index 154
+   3  8  4  6  7  5  2  1
+Methods: Search
+Database All, index 155
+   3  8  6  1  2  5  7  4
+Methods: Search
+Database All, index 156
+   3  8  7  2  4  1  5  6
+Methods: Search
+Database All, index 157
+   4  1  5  6  8  3  2  7
+Methods: Search
+Database All, index 158
+   4  1  5  7  8  3  6  2
+Methods: Search, G-Symmetrical
+Database All, index 159
+   4  1  6  7  5  8  3  2
+Methods: Search
+Database All, index 160
+   4  1  7  3  8  2  5  6
+Methods: Search
+Database All, index 161
+   4  1  8  3  2  6  7  5
+Methods: Search
+Database All, index 162
+   4  1  8  6  7  3  2  5
+Methods: Search
+Database All, index 163
+   4  2  3  6  8  7  1  5
+Methods: Search
+Database All, index 164
+   4  2  3  7  6  1  8  5
+Methods: Search
+Database All, index 165
+   4  2  5  6  8  1  7  3
+Methods: Search
+Database All, index 166
+   4  2  5  6  8  3  7  1
+Methods: Search
+Database All, index 167
+   4  2  5  7  8  1  6  3
+Methods: Search
+Database All, index 168
+   4  2  6  3  5  1  8  7
+Methods: Search
+Database All, index 169
+   4  2  7  8  3  6  5  1
+Methods: Search, Symmetrical
+Database All, index 170
+   4  2  8  1  5  7  6  3
+Methods: Search
+Database All, index 171
+   4  2  8  7  3  5  6  1
+Methods: Search
+Database All, index 172
+   4  3  5  1  8  6  7  2
+Methods: Search
+Database All, index 173
+   4  3  6  1  2  8  5  7
+Methods: Search
+Database All, index 174
+   4  3  6  7  1  5  2  8
+Methods: Search
+Database All, index 175
+   4  3  6  7  5  1  8  2
+Methods: Search
+Database All, index 176
+   4  3  8  5  7  1  2  6
+Methods: Search
+Database All, index 177
+   4  3  8  6  7  1  5  2
+Methods: Search
+Database All, index 178
+   4  5  1  8  2  7  6  3
+Methods: Search
+Database All, index 179
+   4  5  1  8  6  3  7  2
+Methods: Search
+Database All, index 180
+   4  5  1  8  7  2  6  3
+Methods: Search
+Database All, index 181
+   4  5  2  1  7  3  8  6
+Methods: Search
+Database All, index 182
+   4  5  2  6  8  1  7  3
+Methods: Search
+Database All, index 183
+   4  5  2  6  8  3  1  7
+Methods: Search
+Database All, index 184
+   4  5  2  7  6  8  3  1
+Methods: Search
+Database All, index 185
+   4  5  7  1  8  3  6  2
+Methods: Search
+Database All, index 186
+   4  5  7  2  1  8  6  3
+Methods: Search, Transposed, G-Symmetrical
+Database All, index 187
+   4  5  7  2  6  3  1  8
+Methods: Search
+Database All, index 188
+   4  5  7  2  6  3  8  1
+Methods: Search
+Database All, index 189
+   4  5  7  2  8  1  6  3
+Methods: Search
+Database All, index 190
+   4  5  8  1  6  3  7  2
+Methods: Search
+Database All, index 191
+   4  5  8  1  7  3  2  6
+Methods: Search
+Database All, index 192
+   4  5  8  2  6  1  7  3
+Methods: Search
+Database All, index 193
+   4  5  8  7  2  6  3  1
+Methods: Search
+Database All, index 194
+   4  6  1  2  8  5  3  7
+Methods: Search
+Database All, index 195
+   4  6  1  5  2  3  8  7
+Methods: Search
+Database All, index 196
+   4  6  2  3  7  5  8  1
+Methods: Search
+Database All, index 197
+   4  6  2  5  3  7  8  1
+Methods: Search
+Database All, index 198
+   4  6  2  5  3  8  7  1
+Methods: Search
+Database All, index 199
+   4  6  2  7  8  1  5  3
+Methods: Search
+Database All, index 200
+   4  6  2  7  8  3  1  5
+Methods: Search
+Database All, index 201
+   4  6  5  8  2  3  1  7
+Methods: Search, Transposed, G-Symmetrical
+Database All, index 202
+   4  6  7  1  5  3  2  8
+Methods: Search
+Database All, index 203
+   4  6  7  2  1  8  5  3
+Methods: Search
+Database All, index 204
+   4  6  7  2  8  1  5  3
+Methods: Search
+Database All, index 205
+   4  7  1  3  2  8  5  6
+Methods: Search
+Database All, index 206
+   4  7  1  6  2  8  5  3
+Methods: Search
+Database All, index 207
+   4  7  2  3  8  6  5  1
+Methods: Search
+Database All, index 208
+   4  7  3  2  8  5  6  1
+Methods: Search
+Database All, index 209
+   4  7  3  5  6  1  8  2
+Methods: Search
+Database All, index 210
+   4  7  5  2  1  6  8  3
+Methods: Search
+Database All, index 211
+   4  7  6  1  2  8  5  3
+Methods: Search, Transposed, G-Symmetrical
+Database All, index 212
+   4  7  6  1  5  2  3  8
+Methods: Search
+Database All, index 213
+   4  7  6  2  3  1  8  5
+Methods: Search
+Database All, index 214
+   4  7  6  3  5  1  8  2
+Methods: Search
+Database All, index 215
+   4  8  1  3  2  7  5  6
+Methods: Search
+Database All, index 216
+   4  8  2  1  3  6  7  5
+Methods: Search
+Database All, index 217
+   4  8  2  3  1  6  5  7
+Methods: Search
+Database All, index 218
+   4  8  2  5  6  1  7  3
+Methods: Search
+Database All, index 219
+   4  8  2  5  7  6  3  1
+Methods: Search, Symmetrical
+Database All, index 220
+   4  8  5  1  3  6  7  2
+Methods: Search
+Database All, index 221
+   4  8  6  1  2  5  7  3
+Methods: Search
+Database All, index 222
+   4  8  6  1  2  7  3  5
+Methods: Search
+Database All, index 223
+   5  1  3  8  7  2  6  4
+Methods: Search
+Database All, index 224
+   5  1  3  8  7  4  2  6
+Methods: Search
+Database All, index 225
+   5  1  4  8  6  3  2  7
+Methods: Search
+Database All, index 226
+   5  1  7  4  2  3  6  8
+Methods: Search
+Database All, index 227
+   5  1  7  4  3  8  2  6
+Methods: Search
+Database All, index 228
+   5  1  7  6  8  3  4  2
+Methods: Search
+Database All, index 229
+   5  1  7  8  6  3  2  4
+Methods: Search
+Database All, index 230
+   5  1  8  6  7  2  4  3
+Methods: Search
+Database All, index 231
+   5  2  3  6  4  8  1  7
+Methods: Search
+Database All, index 232
+   5  2  3  7  6  8  1  4
+Methods: Search, Transposed, G-Symmetrical
+Database All, index 233
+   5  2  3  8  4  7  6  1
+Methods: Search
+Database All, index 234
+   5  2  3  8  7  1  4  6
+Methods: Search
+Database All, index 235
+   5  2  4  7  8  3  1  6
+Methods: Search
+Database All, index 236
+   5  2  6  4  3  8  1  7
+Methods: Search
+Database All, index 237
+   5  2  6  7  1  4  3  8
+Methods: Search
+Database All, index 238
+   5  2  7  6  1  3  4  8
+Methods: Search
+Database All, index 239
+   5  2  8  3  7  1  4  6
+Methods: Search
+Database All, index 240
+   5  2  8  6  7  1  4  3
+Methods: Search, Symmetrical
+Database All, index 241
+   5  3  2  7  1  8  4  6
+Methods: Search
+Database All, index 242
+   5  3  2  7  8  1  4  6
+Methods: Search, Transposed, G-Symmetrical
+Database All, index 243
+   5  3  2  8  4  6  7  1
+Methods: Search
+Database All, index 244
+   5  3  4  1  7  6  8  2
+Methods: Search
+Database All, index 245
+   5  3  7  2  1  6  8  4
+Methods: Search
+Database All, index 246
+   5  3  7  2  1  8  4  6
+Methods: Search
+Database All, index 247
+   5  3  7  4  6  1  2  8
+Methods: Search
+Database All, index 248
+   5  3  7  4  6  2  1  8
+Methods: Search
+Database All, index 249
+   5  3  7  6  2  4  1  8
+Methods: Search
+Database All, index 250
+   5  3  8  4  7  6  1  2
+Methods: Search
+Database All, index 251
+   5  3  8  7  1  4  6  2
+Methods: Search
+Database All, index 252
+   5  4  1  2  7  3  6  8
+Methods: Search
+Database All, index 253
+   5  4  1  7  3  8  2  6
+Methods: Search
+Database All, index 254
+   5  4  1  8  2  6  7  3
+Methods: Search
+Database All, index 255
+   5  4  1  8  3  6  2  7
+Methods: Search
+Database All, index 256
+   5  4  2  7  1  8  3  6
+Methods: Search
+Database All, index 257
+   5  4  2  7  3  6  1  8
+Methods: Search, Transposed, G-Symmetrical
+Database All, index 258
+   5  4  2  7  3  6  8  1
+Methods: Search
+Database All, index 259
+   5  4  2  7  8  1  3  6
+Methods: Search
+Database All, index 260
+   5  4  2  8  1  6  3  7
+Methods: Search
+Database All, index 261
+   5  4  7  2  3  1  6  8
+Methods: Search
+Database All, index 262
+   5  4  7  3  1  6  8  2
+Methods: Search
+Database All, index 263
+   5  4  7  3  1  8  2  6
+Methods: Search
+Database All, index 264
+   5  4  7  8  2  6  1  3
+Methods: Search
+Database All, index 265
+   5  4  8  1  2  7  3  6
+Methods: Search
+Database All, index 266
+   5  4  8  1  3  6  2  7
+Methods: Search
+Database All, index 267
+   5  4  8  1  7  2  3  6
+Methods: Search
+Database All, index 268
+   5  6  1  3  2  8  4  7
+Methods: Search
+Database All, index 269
+   5  6  1  4  2  8  7  3
+Methods: Search
+Database All, index 270
+   5  6  3  2  4  8  1  7
+Methods: Search
+Database All, index 271
+   5  6  3  2  8  4  7  1
+Methods: Search
+Database All, index 272
+   5  6  3  8  7  1  4  2
+Methods: Search
+Database All, index 273
+   5  6  4  8  1  3  2  7
+Methods: Search
+Database All, index 274
+   5  7  1  2  6  4  3  8
+Methods: Search
+Database All, index 275
+   5  7  1  8  4  2  3  6
+Methods: Search
+Database All, index 276
+   5  7  2  1  6  3  4  8
+Methods: Search
+Database All, index 277
+   5  7  3  6  4  8  1  2
+Methods: Search
+Database All, index 278
+   5  7  4  2  1  8  3  6
+Methods: Search, Symmetrical
+Database All, index 279
+   5  7  4  3  1  6  2  8
+Methods: Search, Symmetrical
+Database All, index 280
+   5  7  4  3  1  8  2  6
+Methods: Search
+Database All, index 281
+   5  7  6  2  3  8  1  4
+Methods: Search
+Database All, index 282
+   5  7  6  3  1  2  8  4
+Methods: Search
+Database All, index 283
+   5  8  1  3  2  6  7  4
+Methods: Search
+Database All, index 284
+   5  8  1  6  7  3  2  4
+Methods: Search
+Database All, index 285
+   5  8  2  6  1  7  4  3
+Methods: Search, G-Symmetrical
+Database All, index 286
+   5  8  3  2  4  1  6  7
+Methods: Search
+Database All, index 287
+   5  8  4  2  1  6  3  7
+Methods: Search, Symmetrical
+Database All, index 288
+   5  8  4  3  1  6  7  2
+Methods: Search
+Database All, index 289
+   6  1  2  7  5  8  4  3
+Methods: Search
+Database All, index 290
+   6  1  3  8  7  4  2  5
+Methods: Search
+Database All, index 291
+   6  1  5  3  2  4  7  8
+Methods: Search
+Database All, index 292
+   6  1  8  2  5  7  4  3
+Methods: Search
+Database All, index 293
+   6  2  1  7  5  8  3  4
+Methods: Search
+Database All, index 294
+   6  2  3  1  8  5  4  7
+Methods: Search
+Database All, index 295
+   6  2  3  7  1  8  5  4
+Methods: Search
+Database All, index 296
+   6  2  4  1  5  3  8  7
+Methods: Search
+Database All, index 297
+   6  2  4  7  1  8  5  3
+Methods: Search
+Database All, index 298
+   6  2  4  7  8  1  5  3
+Methods: Search
+Database All, index 299
+   6  2  4  7  8  3  1  5
+Methods: Search
+Database All, index 300
+   6  2  8  1  3  4  7  5
+Methods: Search
+Database All, index 301
+   6  2  8  1  3  7  4  5
+Methods: Search
+Database All, index 302
+   6  2  8  3  4  7  1  5
+Methods: Search
+Database All, index 303
+   6  2  8  3  7  1  4  5
+Methods: Search
+Database All, index 304
+   6  2  8  5  3  4  7  1
+Methods: Search
+Database All, index 305
+   6  2  8  7  1  4  5  3
+Methods: Search
+Database All, index 306
+   6  3  1  7  2  5  4  8
+Methods: Search
+Database All, index 307
+   6  3  1  8  7  2  4  5
+Methods: Search, Symmetrical
+Database All, index 308
+   6  3  2  4  8  1  7  5
+Methods: Search
+Database All, index 309
+   6  3  2  7  1  8  4  5
+Methods: Search, Symmetrical
+Database All, index 310
+   6  3  2  7  5  1  4  8
+Methods: Search
+Database All, index 311
+   6  3  7  2  1  8  4  5
+Methods: Search
+Database All, index 312
+   6  3  7  2  4  5  8  1
+Methods: Search
+Database All, index 313
+   6  3  8  1  2  4  7  5
+Methods: Search
+Database All, index 314
+   6  3  8  1  4  5  7  2
+Methods: Search
+Database All, index 315
+   6  3  8  1  7  2  4  5
+Methods: Search
+Database All, index 316
+   6  3  8  2  4  7  5  1
+Methods: Search
+Database All, index 317
+   6  3  8  4  2  1  5  7
+Methods: Search
+Database All, index 318
+   6  4  1  5  7  8  3  2
+Methods: Search
+Database All, index 319
+   6  4  1  5  8  7  2  3
+Methods: Search
+Database All, index 320
+   6  4  1  7  3  8  2  5
+Methods: Search
+Database All, index 321
+   6  4  1  7  8  3  2  5
+Methods: Search
+Database All, index 322
+   6  4  1  8  2  5  7  3
+Methods: Search
+Database All, index 323
+   6  4  1  8  7  2  3  5
+Methods: Search, Transposed, G-Symmetrical
+Database All, index 324
+   6  4  3  5  1  7  8  2
+Methods: Search
+Database All, index 325
+   6  4  3  8  5  7  1  2
+Methods: Search
+Database All, index 326
+   6  4  5  1  8  3  2  7
+Methods: Search
+Database All, index 327
+   6  4  5  2  1  7  3  8
+Methods: Search
+Database All, index 328
+   6  4  5  2  8  7  1  3
+Methods: Search
+Database All, index 329
+   6  4  5  8  2  1  3  7
+Methods: Search
+Database All, index 330
+   6  4  5  8  2  1  7  3
+Methods: Search
+Database All, index 331
+   6  4  7  2  3  8  5  1
+Methods: Search
+Database All, index 332
+   6  4  8  1  2  5  7  3
+Methods: Search
+Database All, index 333
+   6  4  8  1  2  7  3  5
+Methods: Search
+Database All, index 334
+   6  4  8  1  7  2  3  5
+Methods: Search
+Database All, index 335
+   6  5  1  4  2  7  8  3
+Methods: Search
+Database All, index 336
+   6  5  2  3  8  4  7  1
+Methods: Search
+Database All, index 337
+   6  5  2  4  7  1  8  3
+Methods: Search
+Database All, index 338
+   6  5  2  8  3  7  1  4
+Methods: Search
+Database All, index 339
+   6  5  3  7  8  2  4  1
+Methods: Search
+Database All, index 340
+   6  5  7  2  3  1  8  4
+Methods: Search
+Database All, index 341
+   6  5  8  2  3  1  7  4
+Methods: Search
+Database All, index 342
+   6  7  2  1  4  8  5  3
+Methods: Search
+Database All, index 343
+   6  7  2  4  1  5  3  8
+Methods: Search
+Database All, index 344
+   6  8  2  1  5  3  4  7
+Methods: Search
+Database All, index 345
+   6  8  2  1  7  4  5  3
+Methods: Search
+Database All, index 346
+   6  8  2  5  3  4  1  7
+Methods: Search
+Database All, index 347
+   6  8  3  1  4  5  2  7
+Methods: Search
+Database All, index 348
+   6  8  3  7  1  2  5  4
+Methods: Search
+Database All, index 349
+   6  8  4  1  5  3  2  7
+Methods: Search, Transposed, G-Symmetrical
+Database All, index 350
+   7  1  2  8  4  6  5  3
+Methods: Search
+Database All, index 351
+   7  1  3  2  6  4  5  8
+Methods: Search
+Database All, index 352
+   7  1  3  2  8  5  6  4
+Methods: Search
+Database All, index 353
+   7  1  3  6  4  5  2  8
+Methods: Search
+Database All, index 354
+   7  1  3  8  6  2  5  4
+Methods: Search
+Database All, index 355
+   7  1  4  3  5  2  8  6
+Methods: Search
+Database All, index 356
+   7  1  4  6  5  2  3  8
+Methods: Search
+Database All, index 357
+   7  1  5  4  2  3  6  8
+Methods: Search
+Database All, index 358
+   7  1  6  3  2  4  5  8
+Methods: Search
+Database All, index 359
+   7  1  8  3  4  6  2  5
+Methods: Search
+Database All, index 360
+   7  1  8  4  2  3  6  5
+Methods: Search
+Database All, index 361
+   7  1  8  4  6  3  2  5
+Methods: Search
+Database All, index 362
+   7  1  8  5  3  4  6  2
+Methods: Search
+Database All, index 363
+   7  2  3  1  8  4  6  5
+Methods: Search
+Database All, index 364
+   7  2  3  5  1  4  8  6
+Methods: Search, Symmetrical
+Database All, index 365
+   7  2  3  6  8  4  1  5
+Methods: Search
+Database All, index 366
+   7  2  3  8  1  5  4  6
+Methods: Search, Symmetrical
+Database All, index 367
+   7  2  3  8  6  5  1  4
+Methods: Search
+Database All, index 368
+   7  2  4  5  8  1  6  3
+Methods: Search
+Database All, index 369
+   7  2  5  4  1  3  8  6
+Methods: Search
+Database All, index 370
+   7  2  6  3  1  8  4  5
+Methods: Search
+Database All, index 371
+   7  2  6  3  8  1  4  5
+Methods: Search
+Database All, index 372
+   7  2  6  4  3  5  8  1
+Methods: Search
+Database All, index 373
+   7  3  1  2  8  5  4  6
+Methods: Search
+Database All, index 374
+   7  3  1  6  5  2  4  8
+Methods: Search
+Database All, index 375
+   7  3  2  6  4  5  8  1
+Methods: Search
+Database All, index 376
+   7  3  5  2  1  6  4  8
+Methods: Search
+Database All, index 377
+   7  3  5  6  4  1  8  2
+Methods: Search
+Database All, index 378
+   7  3  5  8  2  1  6  4
+Methods: Search
+Database All, index 379
+   7  3  6  1  2  4  8  5
+Methods: Search
+Database All, index 380
+   7  3  6  1  8  2  4  5
+Methods: Search
+Database All, index 381
+   7  4  3  5  1  2  8  6
+Methods: Search
+Database All, index 382
+   7  4  3  5  6  2  8  1
+Methods: Search
+Database All, index 383
+   7  4  3  5  8  2  6  1
+Methods: Search
+Database All, index 384
+   7  4  5  3  2  6  8  1
+Methods: Search
+Database All, index 385
+   7  4  5  3  6  8  2  1
+Methods: Search
+Database All, index 386
+   7  4  5  8  1  3  2  6
+Methods: Search, G-Symmetrical
+Database All, index 387
+   7  4  6  1  2  5  3  8
+Methods: Search
+Database All, index 388
+   7  4  8  2  3  1  6  5
+Methods: Search
+Database All, index 389
+   7  5  1  2  4  8  3  6
+Methods: Search
+Database All, index 390
+   7  5  2  6  1  4  3  8
+Methods: Search
+Database All, index 391
+   7  5  6  1  3  2  8  4
+Methods: Search
+Database All, index 392
+   7  5  6  3  2  4  8  1
+Methods: Search
+Database All, index 393
+   7  5  8  2  1  6  3  4
+Methods: Search
+Database All, index 394
+   7  6  1  2  4  8  5  3
+Methods: Search, G-Symmetrical
+Database All, index 395
+   7  6  1  4  2  3  8  5
+Methods: Search
+Database All, index 396
+   7  6  2  4  1  5  3  8
+Methods: Search
+Database All, index 397
+   7  8  1  5  3  6  2  4
+Methods: Search
+Database All, index 398
+   7  8  2  4  1  6  5  3
+Methods: Search
+Database All, index 399
+   7  8  3  2  5  1  6  4
+Methods: Search
+Database All, index 400
+   7  8  3  5  1  4  2  6
+Methods: Search
+Database All, index 401
+   8  1  2  6  4  7  3  5
+Methods: Search, Transposed, G-Symmetrical
+Database All, index 402
+   8  1  3  6  2  7  5  4
+Methods: Search
+Database All, index 403
+   8  1  3  7  6  4  5  2
+Methods: Search
+Database All, index 404
+   8  1  4  2  6  7  3  5
+Methods: Search
+Database All, index 405
+   8  1  4  5  3  7  6  2
+Methods: Search
+Database All, index 406
+   8  1  4  5  7  2  6  3
+Methods: Search
+Database All, index 407
+   8  1  4  6  5  3  7  2
+Methods: Search
+Database All, index 408
+   8  1  5  7  6  3  4  2
+Methods: Search
+Database All, index 409
+   8  1  6  3  7  2  4  5
+Methods: Search
+Database All, index 410
+   8  1  7  3  4  6  5  2
+Methods: Search
+Database All, index 411
+   8  2  1  6  4  7  3  5
+Methods: Search, Transposed, G-Symmetrical
+Database All, index 412
+   8  2  3  5  1  7  6  4
+Methods: Search
+Database All, index 413
+   8  2  5  1  6  7  4  3
+Methods: Search
+Database All, index 414
+   8  2  5  1  7  6  3  4
+Methods: Search
+Database All, index 415
+   8  2  5  4  6  3  1  7
+Methods: Search
+Database All, index 416
+   8  2  5  6  4  1  7  3
+Methods: Search
+Database All, index 417
+   8  2  6  1  3  4  7  5
+Methods: Search, Transposed, G-Symmetrical
+Database All, index 418
+   8  3  2  5  1  6  7  4
+Methods: Search
+Database All, index 419
+   8  3  2  5  6  4  1  7
+Methods: Search
+Database All, index 420
+   8  3  4  1  6  2  5  7
+Methods: Search
+Database All, index 421
+   8  3  4  1  7  6  2  5
+Methods: Search
+Database All, index 422
+   8  3  4  6  2  1  7  5
+Methods: Search
+Database All, index 423
+   8  3  5  1  4  2  6  7
+Methods: Search
+Database All, index 424
+   8  3  5  1  4  2  7  6
+Methods: Search, G-Symmetrical
+Database All, index 425
+   8  3  5  2  1  6  4  7
+Methods: Search
+Database All, index 426
+   8  3  7  1  2  5  4  6
+Methods: Search
+Database All, index 427
+   8  3  7  1  4  6  5  2
+Methods: Search
+Database All, index 428
+   8  4  1  5  7  2  3  6
+Methods: Search
+Database All, index 429
+   8  4  1  6  7  2  5  3
+Methods: Search
+Database All, index 430
+   8  4  2  5  6  1  3  7
+Methods: Search
+Database All, index 431
+   8  4  2  5  7  1  6  3
+Methods: Search
+Database All, index 432
+   8  4  3  1  6  7  2  5
+Methods: Search
+Database All, index 433
+   8  4  3  6  1  2  7  5
+Methods: Search
+Database All, index 434
+   8  4  5  2  7  1  3  6
+Methods: Search
+Database All, index 435
+   8  4  6  1  2  5  3  7
+Methods: Search
+Database All, index 436
+   8  5  4  2  3  6  1  7
+Methods: Search
+Database All, index 437
+   8  5  4  6  2  3  1  7
+Methods: Search
+Database All, index 438
+   8  5  7  1  2  6  4  3
+Methods: Search
+Database All, index 439
+   8  6  1  3  2  7  4  5
+Methods: Search
+Database All, index 440
+   8  6  3  2  4  5  1  7
+Methods: Search
+Database All, index 441
+   8  6  3  2  4  7  1  5
+Methods: Search
+Database All, index 442
+   8  6  3  7  2  1  4  5
+Methods: Search
+Database All, index 443
+   8  7  1  3  6  4  5  2
+Methods: Search
+Database All, index 444
+   8  7  4  2  3  5  1  6
+Number of Costas arrays output for this order:  444

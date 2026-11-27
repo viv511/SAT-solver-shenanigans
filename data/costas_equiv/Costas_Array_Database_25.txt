@@ -1,0 +1,301 @@
+********************************************************************************
+v. 3.20 (March 2019)
+From CA_Database_Sticky_Options.txt:
+USER OPTIONS
+Option                              Function
+C:\Users\bhatv\Downloads\GetStarted_2019\CA_Database    ,Database path
+C:\Users\bhatv\Downloads\GetStarted_2019\CA_Database\Read_CA_Database_v3.2\Costas Extraction\    ,Output path
+T                                  ,Option to clear CSV files
+F                                  ,.TRUE. => Both Searches and Generated, .FALSE. => Generated
+T                                  ,.TRUE. => "REWIND" to rewrite files, "APPEND" to append new data
+T                                  ,.TRUE. => number Costas arrays from 1, .FALSE. => number from 0,
+25                               ,Order for Extraction mode
+28                               ,Starting order for Analysis mode
+31                               ,Ending order for Analysis mode
+1                                 ,Index of one of about 20 generator methods
+1                                  ,Index of database types, [1,2,3,4] => [ALL,Essential,Symm,G-Symm]
+4                                  ,[1,2,3,4] filter on number of ones in DAF rectangle [NONE,3X3,5X5,User Defined]
+100                             ,Maximum number of ones in specified DAF area
+rows -2 to +2, cols -2 to +2    ,Input string for rows and columns defining rectangle in DAF
+1                                  ,Index of frequency hop methods [NONE,Min,Min end-around]
+F                                  ,.TRUE. => output CSV files with DAFs
+F                                  ,.TRUE. => output CSV files with XDAFs
+F                                  ,.TRUE. => find generating polynomial in GF(q)
+0                               ,Order q of GF(q) for generating polynomial
+F                                  ,.TRUE. => Write analysis of entire database (not sticky)
+F                                  ,.TRUE. => Write counts in 3X3 central areas of DAFs (not sticky)
+F                                  ,.TRUE. => Write counts in 5X5 central ares of DAFs (not sticky)
+F                                  ,.TRUE. => Recompute minimum peak freuency hop database (not sticky)
+Costas arrays from searches of order 3 to 27
+********************************************************************************
+Costas arrays of order 25
+Total number of unique Costas arrays found:  88
+Costas arrays of order 25
+12  essential Costas arrays
+2  symmetrical Costas arrays
+0  G-symmetrical Costas arrays
+Methods: Search,Lempel-Golomb 2 VE,alpha,5,beta,7,Lempel-Golomb 2 VE with Rows reversed,alpha,7,beta,11,Lempel-Golomb 2 VE with Columns reversed,alpha,5,beta,19,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,7,beta,15
+Database All, index 1
+   1  7  3  5  8  21  22  4  9  19  16  15  13  6  24  18  25  11  20  10  14  2  17  12  23
+Methods: Search,Lempel-Golomb 2 VE,alpha,7,beta,5,Lempel-Golomb 2 VE with Rows reversed,alpha,5,beta,15,Lempel-Golomb 2 VE with Columns reversed,alpha,7,beta,21,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,5,beta,11
+Database All, index 2
+   1  22  3  8  4  14  2  5  9  20  18  24  13  21  12  11  23  16  10  19  6  7  25  15  17
+Methods: Search
+Database All, index 3
+   2  9  15  25  20  13  4  12  23  3  19  5  17  16  21  22  24  1  18  10  7  11  14  8  6
+Methods: Search,Lempel-Golomb 2 VE,alpha,1,beta,25,Lempel-Golomb 2 VE with Rows reversed,alpha,17,beta,17,Lempel-Golomb 2 VE with Columns reversed,alpha,1,beta,1,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,17,beta,9
+Database All, index 4
+   2  10  6  3  15  4  11  17  18  1  21  9  13  8  19  24  14  12  5  23  7  20  22  25  16
+Methods: Search,Lempel-Golomb 2 VE,alpha,7,beta,9,Lempel-Golomb 2 VE with Rows reversed,alpha,5,beta,1,Lempel-Golomb 2 VE with Columns reversed,alpha,7,beta,17,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,5,beta,25
+Database All, index 5
+   2  21  6  22  9  11  25  8  18  16  17  14  13  19  1  5  12  7  3  20  23  15  4  24  10
+Methods: Search,Lempel-Golomb 2 VE,alpha,7,beta,15,Lempel-Golomb 2 VE with Rows reversed,alpha,5,beta,19,Lempel-Golomb 2 VE with Columns reversed,alpha,7,beta,11,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,5,beta,7
+Database All, index 6
+   3  14  9  24  12  16  6  15  1  8  2  20  13  11  10  7  17  22  4  5  18  21  23  19  25
+Methods: Search,Lempel-Golomb 2 VE,alpha,5,beta,21,Lempel-Golomb 2 VE with Rows reversed,alpha,7,beta,7,Lempel-Golomb 2 VE with Columns reversed,alpha,5,beta,5,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,7,beta,19
+Database All, index 7
+   3  21  9  15  24  11  14  12  1  5  22  19  13  18  20  2  23  7  8  4  16  6  25  10  17
+Methods: Search,Lempel-Golomb 2 VE,alpha,17,beta,1,Lempel-Golomb 2 VE with Rows reversed,alpha,1,beta,3,Lempel-Golomb 2 VE with Columns reversed,alpha,17,beta,25,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,1,beta,23
+Database All, index 8
+   4  3  12  18  5  9  11  16  10  6  21  2  13  25  15  23  24  1  19  14  7  17  8  22  20
+Methods: Search
+Database All, index 9
+   4  17  9  16  15  5  11  19  13  14  3  23  6  8  22  20  2  24  21  25  12  7  10  1  18
+Methods: Search,Lempel-Golomb 2 VE,alpha,7,beta,25,Lempel-Golomb 2 VE with Rows reversed,alpha,5,beta,23,Lempel-Golomb 2 VE with Columns reversed,alpha,7,beta,1,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,5,beta,3
+Database All, index 10
+   4  20  12  19  17  8  9  21  10  15  3  5  13  16  25  22  2  24  23  7  1  14  18  11  6
+Methods: Search,Lempel-Golomb 2 VE,alpha,17,beta,5,Lempel-Golomb 2 VE with Rows reversed,alpha,1,beta,15,Lempel-Golomb 2 VE with Columns reversed,alpha,17,beta,21,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,1,beta,11
+Database All, index 11
+   5  6  15  14  20  18  10  25  19  22  12  16  13  1  8  3  11  2  24  17  4  9  21  23  7
+Methods: Search,Lempel-Golomb 2 VE,alpha,1,beta,7,Lempel-Golomb 2 VE with Rows reversed,alpha,17,beta,11,Lempel-Golomb 2 VE with Columns reversed,alpha,1,beta,19,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,17,beta,15
+Database All, index 12
+   5  9  15  25  14  1  6  20  19  17  2  23  13  4  16  12  21  3  22  24  18  10  7  8  11
+Methods: Search,Lempel-Golomb 2 VE,alpha,1,beta,23,Lempel-Golomb 2 VE with Rows reversed,alpha,17,beta,25,Lempel-Golomb 2 VE with Columns reversed,alpha,1,beta,3,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,17,beta,1
+Database All, index 13
+   6  4  18  9  19  12  7  25  2  3  11  1  13  24  5  20  16  10  15  17  21  8  14  23  22
+Methods: Search
+Database All, index 14
+   6  8  14  11  7  10  18  1  24  22  21  16  17  5  19  3  23  12  4  13  20  25  15  9  2
+Methods: Search,Lempel-Golomb 2 VE,alpha,7,beta,1,Lempel-Golomb 2 VE with Rows reversed,alpha,5,beta,3,Lempel-Golomb 2 VE with Columns reversed,alpha,7,beta,25,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,5,beta,23
+Database All, index 15
+   6  11  18  14  1  7  23  24  2  22  25  16  13  5  3  15  10  21  9  8  17  19  12  20  4
+Methods: Search
+Database All, index 16
+   6  11  22  18  15  4  21  2  20  23  3  10  14  12  5  24  25  19  9  1  17  16  7  13  8
+Methods: Search
+Database All, index 17
+   6  18  15  20  11  25  3  1  7  14  24  12  2  13  21  4  5  22  8  17  19  23  16  10  9
+Methods: Search
+Database All, index 18
+   6  21  14  12  15  4  17  2  11  8  16  20  25  5  24  18  1  7  19  3  23  22  13  9  10
+Methods: Search
+Database All, index 19
+   7  11  17  5  4  21  10  24  3  19  1  16  14  15  22  6  18  23  25  8  2  12  20  13  9
+Methods: Search
+Database All, index 20
+   7  18  8  11  20  3  16  9  23  14  12  13  2  4  24  19  1  6  25  10  22  21  17  5  15
+Methods: Search
+Database All, index 21
+   7  20  4  3  14  22  8  17  11  25  23  15  2  21  16  1  18  6  10  13  19  24  5  12  9
+Methods: Search,Lempel-Golomb 2 VE,alpha,17,beta,21,Lempel-Golomb 2 VE with Rows reversed,alpha,1,beta,11,Lempel-Golomb 2 VE with Columns reversed,alpha,17,beta,5,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,1,beta,15
+Database All, index 22
+   7  23  21  9  4  17  24  2  11  3  8  1  13  16  12  22  19  25  10  18  20  14  15  6  5
+Methods: Search,Lempel-Golomb 2 VE,alpha,1,beta,5,Lempel-Golomb 2 VE with Rows reversed,alpha,17,beta,19,Lempel-Golomb 2 VE with Columns reversed,alpha,1,beta,21,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,17,beta,7
+Database All, index 23
+   7  24  21  4  2  20  14  9  11  10  22  12  13  17  6  25  5  8  18  3  16  23  19  1  15
+Methods: Search
+Database All, index 24
+   8  13  7  16  17  1  9  19  25  24  5  12  14  10  3  23  20  2  21  4  15  18  22  11  6
+Methods: Search,Lempel-Golomb 2 VE,alpha,17,beta,23,Lempel-Golomb 2 VE with Rows reversed,alpha,1,beta,17,Lempel-Golomb 2 VE with Columns reversed,alpha,17,beta,3,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,1,beta,9
+Database All, index 25
+   8  14  24  25  21  16  5  3  20  17  19  23  13  6  11  18  4  22  7  1  15  2  10  9  12
+Methods: Search,Lempel-Golomb 2 VE,alpha,5,beta,9,Lempel-Golomb 2 VE with Rows reversed,alpha,7,beta,3,Lempel-Golomb 2 VE with Columns reversed,alpha,5,beta,17,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,7,beta,23
+Database All, index 26
+   8  19  24  10  23  5  9  6  20  12  3  4  13  11  17  7  22  15  25  2  1  21  16  18  14
+Methods: Search
+Database All, index 27
+   8  25  16  19  14  1  5  2  24  6  4  18  20  3  23  12  13  7  15  21  11  10  17  9  22
+Methods: Search
+Database All, index 28
+   9  10  16  23  19  17  8  22  5  4  21  13  2  12  24  14  7  1  3  25  11  20  15  18  6
+Methods: Search,Lempel-Golomb 2 VE,alpha,5,beta,11,Lempel-Golomb 2 VE with Rows reversed,alpha,7,beta,21,Lempel-Golomb 2 VE with Columns reversed,alpha,5,beta,15,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,7,beta,5
+Database All, index 29
+   9  11  1  19  20  7  16  10  3  15  14  5  13  2  8  6  17  21  24  12  22  18  23  4  25
+Methods: Search
+Database All, index 30
+   9  12  5  24  19  13  10  6  18  1  16  21  2  15  23  25  11  17  8  22  14  3  4  20  7
+Methods: Search
+Database All, index 31
+   9  13  20  12  2  8  25  23  18  6  22  15  14  16  1  19  3  24  10  21  4  5  17  11  7
+Methods: Search,Lempel-Golomb 2 VE,alpha,7,beta,19,Lempel-Golomb 2 VE with Rows reversed,alpha,5,beta,5,Lempel-Golomb 2 VE with Columns reversed,alpha,7,beta,7,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,5,beta,21
+Database All, index 32
+   9  16  1  20  10  22  18  19  3  24  6  8  13  7  4  21  25  14  12  15  2  11  17  5  23
+Methods: Search
+Database All, index 33
+   9  18  6  20  12  25  8  16  2  1  17  22  3  23  21  15  19  10  7  14  24  4  5  11  13
+Methods: Search,Lempel-Golomb 2 VE,alpha,17,beta,9,Lempel-Golomb 2 VE with Rows reversed,alpha,1,beta,1,Lempel-Golomb 2 VE with Columns reversed,alpha,17,beta,17,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,1,beta,25
+Database All, index 34
+   10  1  4  6  19  3  21  14  12  2  7  18  13  17  5  25  8  9  15  22  11  23  20  16  24
+Methods: Search
+Database All, index 35
+   10  9  13  22  23  3  19  7  1  18  24  5  25  20  16  8  11  2  17  4  15  12  14  21  6
+Methods: Search
+Database All, index 36
+   10  13  22  23  3  8  25  19  1  7  17  2  6  21  14  11  18  9  5  24  12  20  15  4  16
+Methods: Search
+Database All, index 37
+   10  22  11  6  14  2  21  17  8  15  12  5  20  24  9  19  25  7  1  18  23  3  4  13  16
+Methods: Search,Lempel-Golomb 2 VE,alpha,7,beta,17,Lempel-Golomb 2 VE with Rows reversed,alpha,5,beta,25,Lempel-Golomb 2 VE with Columns reversed,alpha,7,beta,9,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,5,beta,1
+Database All, index 38
+   10  24  4  15  23  20  3  7  12  5  1  19  13  14  17  16  18  8  25  11  9  22  6  21  2
+Methods: Search,Lempel-Golomb 2 VE,alpha,1,beta,19,Lempel-Golomb 2 VE with Rows reversed,alpha,17,beta,15,Lempel-Golomb 2 VE with Columns reversed,alpha,1,beta,7,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,17,beta,11
+Database All, index 39
+   11  8  7  10  18  24  22  3  21  12  16  4  13  23  2  17  19  20  6  1  14  25  15  9  5
+Methods: Search
+Database All, index 40
+   11  21  9  5  4  16  1  20  25  7  2  22  24  13  14  12  3  17  10  23  6  15  18  8  19
+Methods: Search,Lempel-Golomb 2 VE,alpha,17,beta,7,Lempel-Golomb 2 VE with Rows reversed,alpha,1,beta,21,Lempel-Golomb 2 VE with Columns reversed,alpha,17,beta,19,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,1,beta,5
+Database All, index 41
+   11  25  7  3  10  23  8  18  21  1  20  9  13  14  4  16  15  17  12  6  24  22  5  2  19
+Methods: Search,Lempel-Golomb 2 VE,alpha,7,beta,23,Lempel-Golomb 2 VE with Rows reversed,alpha,5,beta,17,Lempel-Golomb 2 VE with Columns reversed,alpha,7,beta,3,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,5,beta,9
+Database All, index 42
+   12  8  10  5  25  24  1  11  4  19  9  15  13  22  23  14  6  20  17  21  3  16  2  7  18
+Methods: Search,Lempel-Golomb 2 VE,alpha,17,beta,3,Lempel-Golomb 2 VE with Rows reversed,alpha,1,beta,9,Lempel-Golomb 2 VE with Columns reversed,alpha,17,beta,23,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,1,beta,17
+Database All, index 43
+   12  9  10  2  15  1  7  22  4  18  11  6  13  23  19  17  20  3  5  16  21  25  24  14  8
+Methods: Search
+Database All, index 44
+   13  11  5  4  24  14  7  10  19  15  21  23  3  22  17  1  2  16  8  25  12  20  6  18  9
+Methods: Search
+Database All, index 45
+   13  15  21  22  2  12  19  16  7  11  5  3  23  4  9  25  24  10  18  1  14  6  20  8  17
+Methods: Search,Lempel-Golomb 2 VE,alpha,1,beta,9,Lempel-Golomb 2 VE with Rows reversed,alpha,17,beta,3,Lempel-Golomb 2 VE with Columns reversed,alpha,1,beta,17,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,17,beta,23
+Database All, index 46
+   14  17  16  24  11  25  19  4  22  8  15  20  13  3  7  9  6  23  21  10  5  1  2  12  18
+Methods: Search,Lempel-Golomb 2 VE,alpha,5,beta,17,Lempel-Golomb 2 VE with Rows reversed,alpha,7,beta,23,Lempel-Golomb 2 VE with Columns reversed,alpha,5,beta,9,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,7,beta,3
+Database All, index 47
+   14  18  16  21  1  2  25  15  22  7  17  11  13  4  3  12  20  6  9  5  23  10  24  19  8
+Methods: Search,Lempel-Golomb 2 VE,alpha,1,beta,21,Lempel-Golomb 2 VE with Rows reversed,alpha,17,beta,7,Lempel-Golomb 2 VE with Columns reversed,alpha,1,beta,5,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,17,beta,19
+Database All, index 48
+   15  1  19  23  16  3  18  8  5  25  6  17  13  12  22  10  11  9  14  20  2  4  21  24  7
+Methods: Search
+Database All, index 49
+   15  5  17  21  22  10  25  6  1  19  24  4  2  13  12  14  23  9  16  3  20  11  8  18  7
+Methods: Search,Lempel-Golomb 2 VE,alpha,17,beta,15,Lempel-Golomb 2 VE with Rows reversed,alpha,1,beta,19,Lempel-Golomb 2 VE with Columns reversed,alpha,17,beta,11,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,1,beta,7
+Database All, index 50
+   15  18  19  16  8  2  4  23  5  14  10  22  13  3  24  9  7  6  20  25  12  1  11  17  21
+Methods: Search,Lempel-Golomb 2 VE,alpha,5,beta,25,Lempel-Golomb 2 VE with Rows reversed,alpha,7,beta,17,Lempel-Golomb 2 VE with Columns reversed,alpha,5,beta,1,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,7,beta,9
+Database All, index 51
+   16  2  22  11  3  6  23  19  14  21  25  7  13  12  9  10  8  18  1  15  17  4  20  5  24
+Methods: Search
+Database All, index 52
+   16  4  15  20  12  24  5  9  18  11  14  21  6  2  17  7  1  19  25  8  3  23  22  13  10
+Methods: Search
+Database All, index 53
+   16  13  4  3  23  18  1  7  25  19  9  24  20  5  12  15  8  17  21  2  14  6  11  22  10
+Methods: Search
+Database All, index 54
+   16  17  13  4  3  23  7  19  25  8  2  21  1  6  10  18  15  24  9  22  11  14  12  5  20
+Methods: Search, Symmetrical,Lempel-Golomb 2 VE,alpha,1,beta,1,Lempel-Golomb 2 VE with Rows reversed,alpha,17,beta,9,Lempel-Golomb 2 VE with Columns reversed,alpha,1,beta,25,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,17,beta,17
+Database All, index 55
+   16  25  22  20  7  23  5  12  14  24  19  8  13  9  21  1  18  17  11  4  15  3  6  10  2
+Methods: Search
+Database All, index 56
+   17  8  20  6  14  1  18  10  24  25  9  4  23  3  5  11  7  16  19  12  2  22  21  15  13
+Methods: Search, Symmetrical,Lempel-Golomb 2 VE,alpha,5,beta,5,Lempel-Golomb 2 VE with Rows reversed,alpha,7,beta,19,Lempel-Golomb 2 VE with Columns reversed,alpha,5,beta,21,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,7,beta,7
+Database All, index 57
+   17  10  25  6  16  4  8  7  23  2  20  18  13  19  22  5  1  12  14  11  24  15  9  21  3
+Methods: Search
+Database All, index 58
+   17  13  6  14  24  18  1  3  8  20  4  11  12  10  25  7  23  2  16  5  22  21  9  15  19
+Methods: Search
+Database All, index 59
+   17  14  21  2  7  13  16  20  8  25  10  5  24  11  3  1  15  9  18  4  12  23  22  6  19
+Methods: Search,Lempel-Golomb 2 VE,alpha,7,beta,21,Lempel-Golomb 2 VE with Rows reversed,alpha,5,beta,11,Lempel-Golomb 2 VE with Columns reversed,alpha,7,beta,5,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,5,beta,15
+Database All, index 60
+   17  15  25  7  6  19  10  16  23  11  12  21  13  24  18  20  9  5  2  14  4  8  3  22  1
+Methods: Search
+Database All, index 61
+   17  16  10  3  7  9  18  4  21  22  5  13  24  14  2  12  19  25  23  1  15  6  11  8  20
+Methods: Search
+Database All, index 62
+   18  1  10  7  12  25  21  24  2  20  22  8  6  23  3  14  13  19  11  5  15  16  9  17  4
+Methods: Search,Lempel-Golomb 2 VE,alpha,7,beta,3,Lempel-Golomb 2 VE with Rows reversed,alpha,5,beta,9,Lempel-Golomb 2 VE with Columns reversed,alpha,7,beta,23,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,5,beta,17
+Database All, index 63
+   18  7  2  16  3  21  17  20  6  14  23  22  13  15  9  19  4  11  1  24  25  5  10  8  12
+Methods: Search,Lempel-Golomb 2 VE,alpha,1,beta,17,Lempel-Golomb 2 VE with Rows reversed,alpha,17,beta,23,Lempel-Golomb 2 VE with Columns reversed,alpha,1,beta,9,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,17,beta,3
+Database All, index 64
+   18  12  2  1  5  10  21  23  6  9  7  3  13  20  15  8  22  4  19  25  11  24  16  17  14
+Methods: Search
+Database All, index 65
+   18  13  19  10  9  25  17  7  1  2  21  14  12  16  23  3  6  24  5  22  11  8  4  15  20
+Methods: Search,Lempel-Golomb 2 VE,alpha,17,beta,19,Lempel-Golomb 2 VE with Rows reversed,alpha,1,beta,5,Lempel-Golomb 2 VE with Columns reversed,alpha,17,beta,7,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,1,beta,21
+Database All, index 66
+   19  2  5  22  24  6  12  17  15  16  4  14  13  9  20  1  21  18  8  23  10  3  7  25  11
+Methods: Search,Lempel-Golomb 2 VE,alpha,1,beta,11,Lempel-Golomb 2 VE with Rows reversed,alpha,17,beta,21,Lempel-Golomb 2 VE with Columns reversed,alpha,1,beta,15,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,17,beta,5
+Database All, index 67
+   19  3  5  17  22  9  2  24  15  23  18  25  13  10  14  4  7  1  16  8  6  12  11  20  21
+Methods: Search
+Database All, index 68
+   19  6  22  23  12  4  18  9  15  1  3  11  24  5  10  25  8  20  16  13  7  2  21  14  17
+Methods: Search
+Database All, index 69
+   19  8  18  15  6  23  10  17  3  12  14  13  24  22  2  7  25  20  1  16  4  5  9  21  11
+Methods: Search
+Database All, index 70
+   19  15  9  21  22  5  16  2  23  7  25  10  12  11  4  20  8  3  1  18  24  14  6  13  17
+Methods: Search
+Database All, index 71
+   20  5  12  14  11  22  9  24  15  18  10  6  1  21  2  8  25  19  7  23  3  4  13  17  16
+Methods: Search
+Database All, index 72
+   20  8  11  6  15  1  23  25  19  12  2  14  24  13  5  22  21  4  18  9  7  3  10  16  17
+Methods: Search
+Database All, index 73
+   20  15  4  8  11  22  5  24  6  3  23  16  12  14  21  2  1  7  17  25  9  10  19  13  18
+Methods: Search,Lempel-Golomb 2 VE,alpha,5,beta,3,Lempel-Golomb 2 VE with Rows reversed,alpha,7,beta,1,Lempel-Golomb 2 VE with Columns reversed,alpha,5,beta,23,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,7,beta,25
+Database All, index 74
+   20  15  8  12  25  19  3  2  24  4  1  10  13  21  23  11  16  5  17  18  9  7  14  6  22
+Methods: Search
+Database All, index 75
+   20  18  12  15  19  16  8  25  2  4  5  10  9  21  7  23  3  14  22  13  6  1  11  17  24
+Methods: Search,Lempel-Golomb 2 VE,alpha,17,beta,25,Lempel-Golomb 2 VE with Rows reversed,alpha,1,beta,23,Lempel-Golomb 2 VE with Columns reversed,alpha,17,beta,1,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,1,beta,3
+Database All, index 76
+   20  22  8  17  7  14  19  1  24  23  15  25  13  2  21  6  10  16  11  9  5  18  12  3  4
+Methods: Search,Lempel-Golomb 2 VE,alpha,17,beta,11,Lempel-Golomb 2 VE with Rows reversed,alpha,1,beta,7,Lempel-Golomb 2 VE with Columns reversed,alpha,17,beta,15,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,1,beta,19
+Database All, index 77
+   21  17  11  1  12  25  20  6  7  9  24  3  13  22  10  14  5  23  4  2  8  16  19  18  15
+Methods: Search,Lempel-Golomb 2 VE,alpha,1,beta,15,Lempel-Golomb 2 VE with Rows reversed,alpha,17,beta,5,Lempel-Golomb 2 VE with Columns reversed,alpha,1,beta,11,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,17,beta,21
+Database All, index 78
+   21  20  11  12  6  8  16  1  7  4  14  10  13  25  18  23  15  24  2  9  22  17  5  3  19
+Methods: Search,Lempel-Golomb 2 VE,alpha,5,beta,23,Lempel-Golomb 2 VE with Rows reversed,alpha,7,beta,25,Lempel-Golomb 2 VE with Columns reversed,alpha,5,beta,3,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,7,beta,1
+Database All, index 79
+   22  6  14  7  9  18  17  5  16  11  23  21  13  10  1  4  24  2  3  19  25  12  8  15  20
+Methods: Search
+Database All, index 80
+   22  9  17  10  11  21  15  7  13  12  23  3  20  18  4  6  24  2  5  1  14  19  16  25  8
+Methods: Search,Lempel-Golomb 2 VE,alpha,1,beta,3,Lempel-Golomb 2 VE with Rows reversed,alpha,17,beta,1,Lempel-Golomb 2 VE with Columns reversed,alpha,1,beta,23,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,17,beta,25
+Database All, index 81
+   22  23  14  8  21  17  15  10  16  20  5  24  13  1  11  3  2  25  7  12  19  9  18  4  6
+Methods: Search, Symmetrical,Lempel-Golomb 2 VE,alpha,7,beta,7,Lempel-Golomb 2 VE with Rows reversed,alpha,5,beta,21,Lempel-Golomb 2 VE with Columns reversed,alpha,7,beta,19,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,5,beta,5
+Database All, index 82
+   23  5  17  11  2  15  12  14  25  21  4  7  13  8  6  24  3  19  18  22  10  20  1  16  9
+Methods: Search,Lempel-Golomb 2 VE,alpha,5,beta,19,Lempel-Golomb 2 VE with Rows reversed,alpha,7,beta,15,Lempel-Golomb 2 VE with Columns reversed,alpha,5,beta,7,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,7,beta,11
+Database All, index 83
+   23  12  17  2  14  10  20  11  25  18  24  6  13  15  16  19  9  4  22  21  8  5  3  7  1
+Methods: Search,Lempel-Golomb 2 VE,alpha,5,beta,1,Lempel-Golomb 2 VE with Rows reversed,alpha,7,beta,9,Lempel-Golomb 2 VE with Columns reversed,alpha,5,beta,25,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,7,beta,17
+Database All, index 84
+   24  5  20  4  17  15  1  18  8  10  9  12  13  7  25  21  14  19  23  6  3  11  22  2  16
+Methods: Search, Symmetrical,Lempel-Golomb 2 VE,alpha,17,beta,17,Lempel-Golomb 2 VE with Rows reversed,alpha,1,beta,25,Lempel-Golomb 2 VE with Columns reversed,alpha,17,beta,9,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,1,beta,1
+Database All, index 85
+   24  16  20  23  11  22  15  9  8  25  5  17  13  18  7  2  12  14  21  3  19  6  4  1  10
+Methods: Search
+Database All, index 86
+   24  17  11  1  6  13  22  14  3  23  7  21  9  10  5  4  2  25  8  16  19  15  12  18  20
+Methods: Search,Lempel-Golomb 2 VE,alpha,5,beta,15,Lempel-Golomb 2 VE with Rows reversed,alpha,7,beta,5,Lempel-Golomb 2 VE with Columns reversed,alpha,5,beta,11,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,7,beta,21
+Database All, index 87
+   25  4  23  18  22  12  24  21  17  6  8  2  13  5  14  15  3  10  16  7  20  19  1  11  9
+Methods: Search,Lempel-Golomb 2 VE,alpha,7,beta,11,Lempel-Golomb 2 VE with Rows reversed,alpha,5,beta,7,Lempel-Golomb 2 VE with Columns reversed,alpha,7,beta,15,Lempel-Golomb 2 VE with Rows and Columns reversed,alpha,5,beta,19
+Database All, index 88
+   25  19  23  21  18  5  4  22  17  7  10  11  13  20  2  8  1  15  6  16  12  24  9  14  3
+Number of Costas arrays output for this order:  88

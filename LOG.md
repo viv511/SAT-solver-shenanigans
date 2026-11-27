@@ -287,6 +287,10 @@ NOTE: first time trying to use Claude Code here for this project, poking at it's
 - Vipin wants to share some data that already is symmetry broken, so maybe that would be more impactful
 - Also saved a bunch of the resulting plots for art (!!!)
 
+### 11.26.26
+- Happy Thanksgiving!
+- Uploaded the symmetry broken Costas Array data today to the folder
+
 things to read:
 - https://github.com/topics/sat-solver
 - https://repositum.tuwien.at/bitstream/20.500.12708/200796/1/Biere%20Armin%20-%202024%20-%20Clausal%20Equivalence%20Sweeping.pdf

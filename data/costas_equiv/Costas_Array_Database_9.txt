@@ -1,0 +1,2317 @@
+********************************************************************************
+v. 3.20 (March 2019)
+From CA_Database_Sticky_Options.txt:
+USER OPTIONS
+Option                              Function
+C:\Users\bhatv\Downloads\GetStarted_2019\CA_Database    ,Database path
+C:\Users\bhatv\Downloads\GetStarted_2019\CA_Database\Read_CA_Database_v3.2\Costas Extraction\    ,Output path
+T                                  ,Option to clear CSV files
+F                                  ,.TRUE. => Both Searches and Generated, .FALSE. => Generated
+T                                  ,.TRUE. => "REWIND" to rewrite files, "APPEND" to append new data
+T                                  ,.TRUE. => number Costas arrays from 1, .FALSE. => number from 0,
+9                               ,Order for Extraction mode
+28                               ,Starting order for Analysis mode
+31                               ,Ending order for Analysis mode
+1                                 ,Index of one of about 20 generator methods
+1                                  ,Index of database types, [1,2,3,4] => [ALL,Essential,Symm,G-Symm]
+4                                  ,[1,2,3,4] filter on number of ones in DAF rectangle [NONE,3X3,5X5,User Defined]
+100                             ,Maximum number of ones in specified DAF area
+rows -2 to +2, cols -2 to +2    ,Input string for rows and columns defining rectangle in DAF
+1                                  ,Index of frequency hop methods [NONE,Min,Min end-around]
+F                                  ,.TRUE. => output CSV files with DAFs
+F                                  ,.TRUE. => output CSV files with XDAFs
+F                                  ,.TRUE. => find generating polynomial in GF(q)
+0                               ,Order q of GF(q) for generating polynomial
+F                                  ,.TRUE. => Write analysis of entire database (not sticky)
+F                                  ,.TRUE. => Write counts in 3X3 central areas of DAFs (not sticky)
+F                                  ,.TRUE. => Write counts in 5X5 central ares of DAFs (not sticky)
+F                                  ,.TRUE. => Recompute minimum peak freuency hop database (not sticky)
+Costas arrays from searches of order 3 to 27
+********************************************************************************
+Costas arrays of order 9
+Total number of unique Costas arrays found:  760
+Costas arrays of order 9
+100  essential Costas arrays
+10  symmetrical Costas arrays
+0  G-symmetrical Costas arrays
+Methods: Search
+Database All, index 1
+   1  2  6  4  9  8  5  7  3
+Methods: Search, Symmetrical
+Database All, index 2
+   1  2  6  8  5  3  9  4  7
+Methods: Search
+Database All, index 3
+   1  2  6  8  5  4  9  7  3
+Methods: Search, Symmetrical
+Database All, index 4
+   1  2  6  9  5  3  8  7  4
+Methods: Search
+Database All, index 5
+   1  2  7  5  9  6  8  4  3
+Methods: Search
+Database All, index 6
+   1  2  7  6  9  4  8  5  3
+Methods: Search, Symmetrical
+Database All, index 7
+   1  2  8  4  9  7  6  3  5
+Methods: Search
+Database All, index 8
+   1  2  9  4  7  3  8  6  5
+Methods: Search
+Database All, index 9
+   1  2  9  6  5  3  8  4  7
+Methods: Search
+Database All, index 10
+   1  2  9  6  8  4  3  7  5
+Methods: Search
+Database All, index 11
+   1  2  9  8  4  6  3  7  5
+Methods: Search
+Database All, index 12
+   1  3  7  4  9  8  6  2  5
+Methods: Search
+Database All, index 13
+   1  3  8  7  2  9  5  6  4
+Methods: Search
+Database All, index 14
+   1  3  9  4  7  8  6  5  2
+Methods: Search
+Database All, index 15
+   1  3  9  6  4  5  8  7  2
+Methods: Search, Symmetrical,Lempel-Golomb 2 PM,alpha,6,beta,6,Lempel-Golomb 2 PM with Rows reversed,alpha,2,beta,6,Lempel-Golomb 2 PM with Columns reversed,alpha,6,beta,2,Lempel-Golomb 2 PM with Rows and Columns reversed,alpha,2,beta,2
+Database All, index 16
+   1  4  6  2  9  3  8  7  5
+Methods: Search
+Database All, index 17
+   1  4  6  2  9  8  5  3  7
+Methods: Search
+Database All, index 18
+   1  4  6  5  9  2  7  8  3
+Methods: Search
+Database All, index 19
+   1  4  8  2  7  3  9  6  5
+Methods: Search, Symmetrical
+Database All, index 20
+   1  4  8  2  9  7  6  3  5
+Methods: Search
+Database All, index 21
+   1  4  8  9  3  5  2  7  6
+Methods: Search
+Database All, index 22
+   1  4  9  5  7  8  6  3  2
+Methods: Search
+Database All, index 23
+   1  4  9  8  3  5  2  6  7
+Methods: Search
+Database All, index 24
+   1  5  2  9  7  8  4  3  6
+Methods: Search
+Database All, index 25
+   1  5  3  9  8  4  6  7  2
+Methods: Search
+Database All, index 26
+   1  5  6  3  8  7  9  4  2
+Methods: Search
+Database All, index 27
+   1  5  6  8  3  9  2  7  4
+Methods: Search
+Database All, index 28
+   1  5  8  4  3  9  6  7  2
+Methods: Search
+Database All, index 29
+   1  5  8  7  4  6  2  9  3
+Methods: Search
+Database All, index 30
+   1  6  3  4  8  7  9  2  5
+Methods: Search
+Database All, index 31
+   1  6  7  4  3  9  5  8  2
+Methods: Search
+Database All, index 32
+   1  6  8  4  7  5  9  2  3
+Methods: Search
+Database All, index 33
+   1  6  9  2  4  3  7  8  5
+Methods: Search
+Database All, index 34
+   1  7  4  9  3  5  8  6  2
+Methods: Search
+Database All, index 35
+   1  7  5  2  6  8  9  4  3
+Methods: Search
+Database All, index 36
+   1  7  5  2  6  9  8  3  4
+Methods: Search
+Database All, index 37
+   1  7  5  8  3  4  9  6  2
+Methods: Search
+Database All, index 38
+   1  7  5  9  2  3  8  4  6
+Methods: Search
+Database All, index 39
+   1  7  9  5  2  6  4  3  8
+Methods: Search
+Database All, index 40
+   1  8  2  4  9  7  3  6  5
+Methods: Search, Symmetrical
+Database All, index 41
+   1  8  3  4  7  9  5  2  6
+Methods: Search
+Database All, index 42
+   1  8  3  4  9  2  6  5  7
+Methods: Search, Symmetrical
+Database All, index 43
+   1  8  3  4  9  7  6  2  5
+Methods: Search
+Database All, index 44
+   1  8  5  4  6  9  3  7  2
+Methods: Search
+Database All, index 45
+   1  8  5  6  4  7  9  3  2
+Methods: Search
+Database All, index 46
+   1  8  6  7  4  3  5  9  2
+Methods: Search
+Database All, index 47
+   1  8  9  4  6  2  5  3  7
+Methods: Search
+Database All, index 48
+   1  9  2  4  8  7  5  6  3
+Methods: Search
+Database All, index 49
+   1  9  2  5  6  4  8  7  3
+Methods: Search
+Database All, index 50
+   1  9  3  6  2  7  8  5  4
+Methods: Search
+Database All, index 51
+   1  9  4  8  2  3  6  5  7
+Methods: Search
+Database All, index 52
+   1  9  5  3  6  8  2  7  4
+Methods: Search
+Database All, index 53
+   1  9  5  4  2  7  8  3  6
+Methods: Search
+Database All, index 54
+   1  9  5  4  7  2  3  8  6
+Methods: Search
+Database All, index 55
+   1  9  5  6  3  8  2  4  7
+Methods: Search
+Database All, index 56
+   1  9  6  5  7  3  4  2  8
+Methods: Search
+Database All, index 57
+   1  9  7  4  3  5  8  2  6
+Methods: Search
+Database All, index 58
+   1  9  8  2  4  7  5  6  3
+Methods: Search
+Database All, index 59
+   1  9  8  5  3  4  6  2  7
+Methods: Search
+Database All, index 60
+   2  1  4  9  5  7  8  6  3
+Methods: Search, Symmetrical,Lempel-Golomb 2 PM,alpha,7,beta,7,Lempel-Golomb 2 PM with Rows reversed,alpha,8,beta,7,Lempel-Golomb 2 PM with Columns reversed,alpha,7,beta,8,Lempel-Golomb 2 PM with Rows and Columns reversed,alpha,8,beta,8
+Database All, index 61
+   2  1  5  8  3  9  7  4  6
+Methods: Search
+Database All, index 62
+   2  1  6  7  9  4  8  5  3
+Methods: Search
+Database All, index 63
+   2  1  6  8  5  9  7  3  4
+Methods: Search
+Database All, index 64
+   2  1  8  9  5  3  7  4  6
+Methods: Search
+Database All, index 65
+   2  1  9  3  5  8  6  7  4
+Methods: Search
+Database All, index 66
+   2  1  9  6  8  3  4  7  5
+Methods: Search
+Database All, index 67
+   2  3  6  4  8  1  7  9  5
+Methods: Search
+Database All, index 68
+   2  3  6  8  7  5  9  4  1
+Methods: Search
+Database All, index 69
+   2  3  8  7  5  9  1  4  6
+Methods: Search
+Database All, index 70
+   2  3  8  7  5  9  6  1  4
+Methods: Search
+Database All, index 71
+   2  3  9  5  7  6  4  1  8
+Methods: Search
+Database All, index 72
+   2  3  9  7  4  6  5  8  1
+Methods: Search
+Database All, index 73
+   2  4  1  8  9  5  3  7  6
+Methods: Search
+Database All, index 74
+   2  4  5  1  6  9  8  3  7
+Methods: Search
+Database All, index 75
+   2  4  9  7  8  3  6  5  1
+Methods: Search
+Database All, index 76
+   2  5  1  7  9  4  3  8  6
+Methods: Search
+Database All, index 77
+   2  5  1  7  9  8  6  3  4
+Methods: Search
+Database All, index 78
+   2  5  3  7  1  6  8  9  4
+Methods: Search
+Database All, index 79
+   2  5  4  9  1  8  6  3  7
+Methods: Search
+Database All, index 80
+   2  5  6  8  7  4  9  3  1
+Methods: Search
+Database All, index 81
+   2  5  7  1  8  9  6  4  3
+Methods: Search
+Database All, index 82
+   2  5  7  1  9  8  6  3  4
+Methods: Search
+Database All, index 83
+   2  5  7  6  3  1  9  4  8
+Methods: Search
+Database All, index 84
+   2  5  9  3  1  8  7  4  6
+Methods: Search
+Database All, index 85
+   2  5  9  3  8  4  1  7  6
+Methods: Search
+Database All, index 86
+   2  6  1  9  7  4  3  5  8
+Methods: Search
+Database All, index 87
+   2  6  3  8  1  7  9  4  5
+Methods: Search
+Database All, index 88
+   2  6  4  9  1  8  7  3  5
+Methods: Search
+Database All, index 89
+   2  6  8  5  3  9  4  7  1
+Methods: Search
+Database All, index 90
+   2  6  8  7  1  9  4  5  3
+Methods: Search
+Database All, index 91
+   2  6  8  7  5  1  9  3  4
+Methods: Search
+Database All, index 92
+   2  6  9  3  1  8  7  4  5
+Methods: Search
+Database All, index 93
+   2  6  9  4  3  8  5  7  1
+Methods: Search
+Database All, index 94
+   2  6  9  8  3  1  7  4  5
+Methods: Search
+Database All, index 95
+   2  6  9  8  3  4  1  7  5
+Methods: Search
+Database All, index 96
+   2  7  1  9  4  5  8  6  3
+Methods: Search
+Database All, index 97
+   2  7  3  9  6  4  5  8  1
+Methods: Search
+Database All, index 98
+   2  7  3  9  6  8  1  4  5
+Methods: Search
+Database All, index 99
+   2  7  3  9  8  6  1  4  5
+Methods: Search
+Database All, index 100
+   2  7  4  8  3  1  9  5  6
+Methods: Search
+Database All, index 101
+   2  7  5  1  9  6  8  3  4
+Methods: Search
+Database All, index 102
+   2  7  5  6  1  3  9  8  4
+Methods: Search
+Database All, index 103
+   2  7  6  4  8  5  1  3  9
+Methods: Search
+Database All, index 104
+   2  7  6  4  8  9  3  5  1
+Methods: Search
+Database All, index 105
+   2  7  6  9  3  4  8  5  1
+Methods: Search
+Database All, index 106
+   2  7  8  5  1  9  3  6  4
+Methods: Search
+Database All, index 107
+   2  7  8  5  1  9  4  3  6
+Methods: Search
+Database All, index 108
+   2  7  8  5  4  6  9  3  1
+Methods: Search
+Database All, index 109
+   2  7  9  3  4  1  8  6  5
+Methods: Search
+Database All, index 110
+   2  8  1  6  3  7  9  4  5
+Methods: Search
+Database All, index 111
+   2  8  1  6  5  9  7  3  4
+Methods: Search
+Database All, index 112
+   2  8  4  7  9  3  1  6  5
+Methods: Search
+Database All, index 113
+   2  8  4  9  1  3  6  7  5
+Methods: Search
+Database All, index 114
+   2  8  5  9  3  4  7  6  1
+Methods: Search
+Database All, index 115
+   2  8  6  3  7  1  9  4  5
+Methods: Search
+Database All, index 116
+   2  8  6  7  1  9  4  3  5
+Methods: Search
+Database All, index 117
+   2  8  6  7  3  5  4  1  9
+Methods: Search
+Database All, index 118
+   2  8  7  1  9  4  5  3  6
+Methods: Search
+Database All, index 119
+   2  8  9  1  6  4  7  3  5
+Methods: Search,Lempel-Golomb 2 PM,alpha,2,beta,8,Lempel-Golomb 2 PM with Rows reversed,alpha,6,beta,8,Lempel-Golomb 2 PM with Columns reversed,alpha,2,beta,7,Lempel-Golomb 2 PM with Rows and Columns reversed,alpha,6,beta,7
+Database All, index 120
+   2  8  9  3  1  6  5  7  4
+Methods: Search
+Database All, index 121
+   2  8  9  7  3  5  4  1  6
+Methods: Search
+Database All, index 122
+   2  9  5  3  4  1  6  8  7
+Methods: Search
+Database All, index 123
+   2  9  5  3  4  7  6  8  1
+Methods: Search
+Database All, index 124
+   2  9  6  4  3  5  1  7  8
+Methods: Search
+Database All, index 125
+   2  9  8  1  5  3  6  7  4
+Methods: Search
+Database All, index 126
+   2  9  8  3  6  4  5  1  7
+Methods: Search
+Database All, index 127
+   3  1  5  8  9  4  6  2  7
+Methods: Search
+Database All, index 128
+   3  1  7  2  6  9  8  4  5
+Methods: Search
+Database All, index 129
+   3  1  7  6  2  9  4  8  5
+Methods: Search
+Database All, index 130
+   3  1  7  6  8  2  5  9  4
+Methods: Search
+Database All, index 131
+   3  1  8  9  2  7  4  6  5
+Methods: Search
+Database All, index 132
+   3  1  8  9  5  4  7  2  6
+Methods: Search
+Database All, index 133
+   3  1  9  5  6  8  2  7  4
+Methods: Search
+Database All, index 134
+   3  2  4  9  6  7  5  1  8
+Methods: Search
+Database All, index 135
+   3  2  5  7  1  8  9  6  4
+Methods: Search
+Database All, index 136
+   3  2  7  5  9  6  8  1  4
+Methods: Search
+Database All, index 137
+   3  2  7  8  5  9  1  4  6
+Methods: Search
+Database All, index 138
+   3  2  8  6  7  1  4  9  5
+Methods: Search,Lempel-Golomb 2 PM,alpha,8,beta,6,Lempel-Golomb 2 PM with Rows reversed,alpha,7,beta,6,Lempel-Golomb 2 PM with Columns reversed,alpha,8,beta,2,Lempel-Golomb 2 PM with Rows and Columns reversed,alpha,7,beta,2
+Database All, index 139
+   3  2  8  6  7  9  4  1  5
+Methods: Search
+Database All, index 140
+   3  2  8  9  5  7  1  6  4
+Methods: Search
+Database All, index 141
+   3  2  9  1  6  4  7  8  5
+Methods: Search
+Database All, index 142
+   3  2  9  5  7  4  8  6  1
+Methods: Search
+Database All, index 143
+   3  4  1  7  9  8  6  2  5
+Methods: Search
+Database All, index 144
+   3  4  6  2  7  1  9  8  5
+Methods: Search
+Database All, index 145
+   3  4  6  9  8  1  7  5  2
+Methods: Search
+Database All, index 146
+   3  4  7  2  9  8  5  1  6
+Methods: Search
+Database All, index 147
+   3  4  8  2  9  6  5  1  7
+Methods: Search
+Database All, index 148
+   3  4  8  5  7  2  1  6  9
+Methods: Search
+Database All, index 149
+   3  4  8  6  9  5  7  2  1
+Methods: Search
+Database All, index 150
+   3  4  9  8  6  2  5  7  1
+Methods: Search
+Database All, index 151
+   3  5  4  1  9  7  8  2  6
+Methods: Search
+Database All, index 152
+   3  5  4  7  8  2  6  1  9
+Methods: Search
+Database All, index 153
+   3  5  4  8  1  6  7  2  9
+Methods: Search
+Database All, index 154
+   3  5  4  9  1  7  8  6  2
+Methods: Search
+Database All, index 155
+   3  5  8  4  9  6  7  2  1
+Methods: Search
+Database All, index 156
+   3  5  8  4  9  7  6  1  2
+Methods: Search
+Database All, index 157
+   3  5  8  9  1  7  2  6  4
+Methods: Search
+Database All, index 158
+   3  5  8  9  2  6  4  1  7
+Methods: Search, Symmetrical
+Database All, index 159
+   3  6  1  7  5  2  4  8  9
+Methods: Search
+Database All, index 160
+   3  6  1  7  5  9  8  2  4
+Methods: Search
+Database All, index 161
+   3  6  2  4  9  7  1  8  5
+Methods: Search
+Database All, index 162
+   3  6  2  7  5  4  1  8  9
+Methods: Search
+Database All, index 163
+   3  6  4  8  1  2  7  9  5
+Methods: Search
+Database All, index 164
+   3  6  5  1  8  9  7  2  4
+Methods: Search
+Database All, index 165
+   3  6  5  7  4  2  8  9  1
+Methods: Search
+Database All, index 166
+   3  6  5  7  8  4  2  9  1
+Methods: Search
+Database All, index 167
+   3  6  7  1  9  2  8  5  4
+Methods: Search
+Database All, index 168
+   3  6  7  2  9  8  4  1  5
+Methods: Search
+Database All, index 169
+   3  6  7  9  2  8  4  1  5
+Methods: Search
+Database All, index 170
+   3  6  8  1  2  7  5  9  4
+Methods: Search
+Database All, index 171
+   3  6  8  2  1  9  7  4  5
+Methods: Search
+Database All, index 172
+   3  6  8  2  7  4  5  1  9
+Methods: Search
+Database All, index 173
+   3  6  8  5  4  9  1  7  2
+Methods: Search
+Database All, index 174
+   3  6  8  7  5  9  4  1  2
+Methods: Search
+Database All, index 175
+   3  7  1  6  8  9  2  5  4
+Methods: Search
+Database All, index 176
+   3  7  1  6  8  9  4  2  5
+Methods: Search
+Database All, index 177
+   3  7  1  9  8  4  2  5  6
+Methods: Search
+Database All, index 178
+   3  7  2  1  4  9  5  6  8
+Methods: Search
+Database All, index 179
+   3  7  2  8  9  5  4  1  6
+Methods: Search
+Database All, index 180
+   3  7  2  9  8  5  1  6  4
+Methods: Search
+Database All, index 181
+   3  7  4  2  9  1  6  5  8
+Methods: Search
+Database All, index 182
+   3  7  5  2  1  8  4  6  9
+Methods: Search
+Database All, index 183
+   3  7  5  8  4  6  1  2  9
+Methods: Search
+Database All, index 184
+   3  7  5  8  9  4  6  2  1
+Methods: Search
+Database All, index 185
+   3  7  6  1  8  9  5  2  4
+Methods: Search
+Database All, index 186
+   3  7  6  8  5  1  2  9  4
+Methods: Search
+Database All, index 187
+   3  7  8  1  9  4  6  2  5
+Methods: Search
+Database All, index 188
+   3  7  8  4  6  5  2  9  1
+Methods: Search
+Database All, index 189
+   3  7  8  6  1  9  2  5  4
+Methods: Search
+Database All, index 190
+   3  7  9  1  4  2  8  5  6
+Methods: Search
+Database All, index 191
+   3  7  9  4  5  8  6  2  1
+Methods: Search
+Database All, index 192
+   3  7  9  6  1  8  4  2  5
+Methods: Search
+Database All, index 193
+   3  8  1  2  9  7  4  6  5
+Methods: Search
+Database All, index 194
+   3  8  1  7  9  4  2  5  6
+Methods: Search
+Database All, index 195
+   3  8  1  9  5  2  4  7  6
+Methods: Search
+Database All, index 196
+   3  8  2  5  6  1  9  7  4
+Methods: Search
+Database All, index 197
+   3  8  4  6  1  2  5  9  7
+Methods: Search
+Database All, index 198
+   3  8  4  6  7  5  2  1  9
+Methods: Search
+Database All, index 199
+   3  8  4  7  1  2  9  6  5
+Methods: Search
+Database All, index 200
+   3  8  5  7  1  2  6  9  4
+Methods: Search
+Database All, index 201
+   3  8  6  2  1  7  9  4  5
+Methods: Search
+Database All, index 202
+   3  8  7  1  9  4  5  2  6
+Methods: Search
+Database All, index 203
+   3  8  7  2  9  5  6  4  1
+Methods: Search
+Database All, index 204
+   3  8  7  5  6  1  9  2  4
+Methods: Search
+Database All, index 205
+   3  8  7  5  9  6  1  2  4
+Methods: Search
+Database All, index 206
+   3  8  9  1  5  2  4  7  6
+Methods: Search
+Database All, index 207
+   3  8  9  2  5  1  7  6  4
+Methods: Search
+Database All, index 208
+   3  9  2  6  4  7  8  5  1
+Methods: Search
+Database All, index 209
+   3  9  4  7  1  2  6  8  5
+Methods: Search
+Database All, index 210
+   3  9  5  4  1  8  2  6  7
+Methods: Search
+Database All, index 211
+   3  9  5  6  4  7  2  1  8
+Methods: Search
+Database All, index 212
+   3  9  6  4  8  1  2  5  7
+Methods: Search
+Database All, index 213
+   3  9  7  2  1  4  8  5  6
+Methods: Search
+Database All, index 214
+   3  9  7  2  1  5  8  4  6
+Methods: Search
+Database All, index 215
+   3  9  8  2  5  1  6  7  4
+Methods: Search
+Database All, index 216
+   4  1  6  9  5  7  8  3  2
+Methods: Search
+Database All, index 217
+   4  1  8  2  3  5  9  7  6
+Methods: Search
+Database All, index 218
+   4  1  8  6  7  9  3  2  5
+Methods: Search
+Database All, index 219
+   4  1  8  6  9  5  7  2  3
+Methods: Search
+Database All, index 220
+   4  1  8  9  2  7  3  6  5
+Methods: Search
+Database All, index 221
+   4  1  8  9  3  6  2  7  5
+Methods: Search
+Database All, index 222
+   4  1  9  8  2  7  3  5  6
+Methods: Search
+Database All, index 223
+   4  2  1  6  9  5  7  8  3
+Methods: Search
+Database All, index 224
+   4  2  5  9  8  1  6  7  3
+Methods: Search
+Database All, index 225
+   4  2  7  6  1  3  9  5  8
+Methods: Search
+Database All, index 226
+   4  2  7  8  3  6  5  1  9
+Methods: Search
+Database All, index 227
+   4  2  7  9  8  1  5  6  3
+Methods: Search
+Database All, index 228
+   4  2  8  7  9  3  6  1  5
+Methods: Search
+Database All, index 229
+   4  2  8  9  1  5  7  3  6
+Methods: Search
+Database All, index 230
+   4  2  8  9  5  7  1  6  3
+Methods: Search, Symmetrical
+Database All, index 231
+   4  2  9  1  6  5  7  8  3
+Methods: Search
+Database All, index 232
+   4  3  1  5  7  8  2  9  6
+Methods: Search
+Database All, index 233
+   4  3  6  8  2  9  1  7  5
+Methods: Search
+Database All, index 234
+   4  3  6  8  5  1  9  2  7
+Methods: Search
+Database All, index 235
+   4  3  6  8  5  9  1  2  7
+Methods: Search
+Database All, index 236
+   4  3  6  8  9  1  7  5  2
+Methods: Search
+Database All, index 237
+   4  3  6  8  9  7  1  5  2
+Methods: Search
+Database All, index 238
+   4  3  7  5  1  2  9  6  8
+Methods: Search
+Database All, index 239
+   4  3  7  9  5  6  1  8  2
+Methods: Search
+Database All, index 240
+   4  3  7  9  5  8  6  1  2
+Methods: Search
+Database All, index 241
+   4  3  7  9  6  1  8  2  5
+Methods: Search
+Database All, index 242
+   4  3  8  5  7  1  2  6  9
+Methods: Search
+Database All, index 243
+   4  3  8  6  9  1  5  7  2
+Methods: Search
+Database All, index 244
+   4  3  8  9  6  2  5  7  1
+Methods: Search
+Database All, index 245
+   4  3  9  1  5  7  8  6  2
+Methods: Search
+Database All, index 246
+   4  3  9  6  2  7  1  5  8
+Methods: Search
+Database All, index 247
+   4  5  1  9  7  2  6  3  8
+Methods: Search
+Database All, index 248
+   4  5  2  6  9  8  3  1  7
+Methods: Search
+Database All, index 249
+   4  5  2  8  6  9  1  3  7
+Methods: Search
+Database All, index 250
+   4  5  2  9  1  6  8  7  3
+Methods: Search
+Database All, index 251
+   4  5  2  9  8  6  1  7  3
+Methods: Search
+Database All, index 252
+   4  5  3  8  7  1  9  2  6
+Methods: Search
+Database All, index 253
+   4  5  7  3  8  2  1  9  6
+Methods: Search
+Database All, index 254
+   4  5  8  2  9  1  7  6  3
+Methods: Search
+Database All, index 255
+   4  5  8  6  1  3  9  2  7
+Methods: Search
+Database All, index 256
+   4  5  8  6  2  1  9  3  7
+Methods: Search
+Database All, index 257
+   4  5  8  7  2  6  3  9  1
+Methods: Search
+Database All, index 258
+   4  5  8  7  3  1  9  2  6
+Methods: Search
+Database All, index 259
+   4  6  1  5  8  9  2  7  3
+Methods: Search
+Database All, index 260
+   4  6  1  7  5  9  8  2  3
+Methods: Search
+Database All, index 261
+   4  6  1  9  8  2  3  7  5
+Methods: Search
+Database All, index 262
+   4  6  2  5  9  8  3  1  7
+Methods: Search
+Database All, index 263
+   4  6  2  7  1  9  8  5  3
+Methods: Search
+Database All, index 264
+   4  6  2  7  8  1  5  3  9
+Methods: Search, Symmetrical,Lempel-Golomb 2 PM,alpha,8,beta,8,Lempel-Golomb 2 PM with Rows reversed,alpha,7,beta,8,Lempel-Golomb 2 PM with Columns reversed,alpha,8,beta,7,Lempel-Golomb 2 PM with Rows and Columns reversed,alpha,7,beta,7
+Database All, index 265
+   4  6  3  1  7  2  5  9  8
+Methods: Search
+Database All, index 266
+   4  6  3  2  9  7  1  5  8
+Methods: Search
+Database All, index 267
+   4  6  3  7  5  1  2  9  8
+Methods: Search
+Database All, index 268
+   4  6  3  9  1  5  8  7  2
+Methods: Search
+Database All, index 269
+   4  6  5  9  2  7  8  3  1
+Methods: Search
+Database All, index 270
+   4  6  7  1  5  2  9  8  3
+Methods: Search
+Database All, index 271
+   4  6  7  2  9  3  8  1  5
+Methods: Search
+Database All, index 272
+   4  6  9  1  5  2  3  8  7
+Methods: Search
+Database All, index 273
+   4  6  9  1  5  3  2  7  8
+Methods: Search
+Database All, index 274
+   4  6  9  7  2  3  8  1  5
+Methods: Search
+Database All, index 275
+   4  6  9  8  1  7  5  2  3
+Methods: Search
+Database All, index 276
+   4  7  2  3  8  6  5  1  9
+Methods: Search
+Database All, index 277
+   4  7  2  8  6  3  5  9  1
+Methods: Search
+Database All, index 278
+   4  7  2  8  6  5  9  1  3
+Methods: Search
+Database All, index 279
+   4  7  2  9  3  8  6  5  1
+Methods: Search
+Database All, index 280
+   4  7  3  5  9  1  2  8  6
+Methods: Search
+Database All, index 281
+   4  7  3  8  1  2  9  6  5
+Methods: Search,Lempel-Golomb 2 PM,alpha,2,beta,7,Lempel-Golomb 2 PM with Rows reversed,alpha,6,beta,7,Lempel-Golomb 2 PM with Columns reversed,alpha,2,beta,8,Lempel-Golomb 2 PM with Rows and Columns reversed,alpha,6,beta,8
+Database All, index 282
+   4  7  5  6  1  3  9  8  2
+Methods: Search
+Database All, index 283
+   4  7  5  6  1  9  3  2  8
+Methods: Search
+Database All, index 284
+   4  7  6  1  5  2  8  9  3
+Methods: Search
+Database All, index 285
+   4  7  6  1  9  5  2  3  8
+Methods: Search
+Database All, index 286
+   4  7  6  2  3  1  8  5  9
+Methods: Search
+Database All, index 287
+   4  7  6  3  5  1  8  9  2
+Methods: Search
+Database All, index 288
+   4  7  6  8  2  3  1  9  5
+Methods: Search
+Database All, index 289
+   4  7  6  8  5  3  9  1  2
+Methods: Search
+Database All, index 290
+   4  7  8  1  6  3  2  9  5
+Methods: Search
+Database All, index 291
+   4  7  8  2  6  1  3  9  5
+Methods: Search
+Database All, index 292
+   4  7  8  3  5  9  6  2  1
+Methods: Search
+Database All, index 293
+   4  7  8  6  2  1  9  3  5
+Methods: Search, Symmetrical
+Database All, index 294
+   4  7  9  1  6  5  2  8  3
+Methods: Search
+Database All, index 295
+   4  8  1  3  2  9  6  7  5
+Methods: Search
+Database All, index 296
+   4  8  1  6  7  9  3  2  5
+Methods: Search
+Database All, index 297
+   4  8  1  6  9  7  2  3  5
+Methods: Search
+Database All, index 298
+   4  8  1  9  3  2  7  5  6
+Methods: Search
+Database All, index 299
+   4  8  1  9  7  3  2  5  6
+Methods: Search
+Database All, index 300
+   4  8  2  3  1  9  6  5  7
+Methods: Search
+Database All, index 301
+   4  8  2  5  7  6  3  1  9
+Methods: Search
+Database All, index 302
+   4  8  3  6  5  1  2  9  7
+Methods: Search, Symmetrical
+Database All, index 303
+   4  8  5  1  3  6  7  2  9
+Methods: Search
+Database All, index 304
+   4  8  5  6  1  9  3  2  7
+Methods: Search
+Database All, index 305
+   4  8  6  7  1  3  2  9  5
+Methods: Search
+Database All, index 306
+   4  8  9  3  1  6  5  7  2
+Methods: Search
+Database All, index 307
+   4  9  2  1  5  8  6  7  3
+Methods: Search
+Database All, index 308
+   4  9  5  2  1  8  3  6  7
+Methods: Search
+Database All, index 309
+   4  9  5  2  8  6  7  1  3
+Methods: Search
+Database All, index 310
+   4  9  5  7  2  1  8  6  3
+Methods: Search
+Database All, index 311
+   4  9  6  2  1  7  5  8  3
+Methods: Search
+Database All, index 312
+   4  9  6  5  1  2  8  3  7
+Methods: Search
+Database All, index 313
+   4  9  6  5  7  3  1  2  8
+Methods: Search
+Database All, index 314
+   4  9  8  6  1  7  3  5  2
+Methods: Search
+Database All, index 315
+   5  1  3  8  9  2  6  4  7
+Methods: Search
+Database All, index 316
+   5  1  3  9  2  6  4  7  8
+Methods: Search
+Database All, index 317
+   5  1  4  8  2  9  7  6  3
+Methods: Search
+Database All, index 318
+   5  1  4  8  9  2  7  6  3
+Methods: Search,Lempel-Golomb 2 PM,alpha,8,beta,2,Lempel-Golomb 2 PM with Rows reversed,alpha,7,beta,2,Lempel-Golomb 2 PM with Columns reversed,alpha,8,beta,6,Lempel-Golomb 2 PM with Rows and Columns reversed,alpha,7,beta,6
+Database All, index 319
+   5  1  4  9  7  6  8  2  3
+Methods: Search
+Database All, index 320
+   5  1  6  3  9  7  8  2  4
+Methods: Search
+Database All, index 321
+   5  1  6  9  3  4  2  8  7
+Methods: Search
+Database All, index 322
+   5  1  7  9  4  8  2  3  6
+Methods: Search
+Database All, index 323
+   5  1  8  3  2  7  9  6  4
+Methods: Search
+Database All, index 324
+   5  1  8  3  9  2  7  6  4
+Methods: Search
+Database All, index 325
+   5  1  8  7  4  9  2  3  6
+Methods: Search
+Database All, index 326
+   5  1  8  7  9  3  4  2  6
+Methods: Search
+Database All, index 327
+   5  1  9  7  8  2  4  3  6
+Methods: Search
+Database All, index 328
+   5  2  1  9  3  8  4  6  7
+Methods: Search
+Database All, index 329
+   5  2  3  6  4  9  1  8  7
+Methods: Search
+Database All, index 330
+   5  2  3  7  6  8  1  4  9
+Methods: Search
+Database All, index 331
+   5  2  3  9  7  6  1  8  4
+Methods: Search
+Database All, index 332
+   5  2  3  9  7  6  8  1  4
+Methods: Search
+Database All, index 333
+   5  2  4  8  1  6  9  7  3
+Methods: Search
+Database All, index 334
+   5  2  4  8  9  3  6  1  7
+Methods: Search
+Database All, index 335
+   5  2  4  9  8  6  1  7  3
+Methods: Search
+Database All, index 336
+   5  2  6  1  8  4  3  9  7
+Methods: Search
+Database All, index 337
+   5  2  6  4  9  1  8  7  3
+Methods: Search
+Database All, index 338
+   5  2  6  7  9  4  3  8  1
+Methods: Search
+Database All, index 339
+   5  2  6  8  9  4  7  3  1
+Methods: Search
+Database All, index 340
+   5  2  6  8  9  7  1  4  3
+Methods: Search
+Database All, index 341
+   5  2  8  1  6  9  7  3  4
+Methods: Search
+Database All, index 342
+   5  2  9  3  1  6  8  4  7
+Methods: Search
+Database All, index 343
+   5  2  9  7  8  4  3  6  1
+Methods: Search, Symmetrical,Lempel-Golomb 2 PM,alpha,2,beta,2,Lempel-Golomb 2 PM with Rows reversed,alpha,6,beta,2,Lempel-Golomb 2 PM with Columns reversed,alpha,2,beta,6,Lempel-Golomb 2 PM with Rows and Columns reversed,alpha,6,beta,6
+Database All, index 344
+   5  3  2  7  1  8  4  6  9
+Methods: Search
+Database All, index 345
+   5  3  2  7  9  6  1  8  4
+Methods: Search
+Database All, index 346
+   5  3  4  1  8  7  9  2  6
+Methods: Search
+Database All, index 347
+   5  3  4  7  9  1  6  2  8
+Methods: Search
+Database All, index 348
+   5  3  4  9  1  7  6  8  2
+Methods: Search
+Database All, index 349
+   5  3  6  7  2  4  1  9  8
+Methods: Search
+Database All, index 350
+   5  3  6  7  9  2  8  4  1
+Methods: Search
+Database All, index 351
+   5  3  6  7  9  4  8  2  1
+Methods: Search
+Database All, index 352
+   5  3  7  4  6  1  9  8  2
+Methods: Search
+Database All, index 353
+   5  3  7  4  6  2  1  8  9
+Methods: Search
+Database All, index 354
+   5  3  7  6  2  4  1  8  9
+Methods: Search
+Database All, index 355
+   5  3  7  8  1  9  4  6  2
+Methods: Search
+Database All, index 356
+   5  3  7  8  2  1  9  4  6
+Methods: Search
+Database All, index 357
+   5  3  8  4  7  1  2  9  6
+Methods: Search
+Database All, index 358
+   5  3  9  1  2  6  8  7  4
+Methods: Search
+Database All, index 359
+   5  3  9  1  8  2  4  7  6
+Methods: Search
+Database All, index 360
+   5  3  9  6  7  2  1  4  8
+Methods: Search
+Database All, index 361
+   5  4  1  6  8  9  3  7  2
+Methods: Search
+Database All, index 362
+   5  4  1  7  3  8  2  6  9
+Methods: Search
+Database All, index 363
+   5  4  1  8  6  9  3  7  2
+Methods: Search
+Database All, index 364
+   5  4  1  8  9  2  7  3  6
+Methods: Search
+Database All, index 365
+   5  4  1  8  9  3  6  2  7
+Methods: Search
+Database All, index 366
+   5  4  2  7  3  6  1  8  9
+Methods: Search
+Database All, index 367
+   5  4  2  9  6  7  1  3  8
+Methods: Search
+Database All, index 368
+   5  4  6  3  1  8  9  2  7
+Methods: Search
+Database All, index 369
+   5  4  6  3  8  1  2  9  7
+Methods: Search
+Database All, index 370
+   5  4  7  1  3  8  9  6  2
+Methods: Search
+Database All, index 371
+   5  4  7  3  1  6  8  2  9
+Methods: Search
+Database All, index 372
+   5  4  7  3  8  1  2  9  6
+Methods: Search
+Database All, index 373
+   5  4  7  8  1  3  9  6  2
+Methods: Search
+Database All, index 374
+   5  4  7  9  1  2  8  6  3
+Methods: Search
+Database All, index 375
+   5  4  8  9  6  2  7  1  3
+Methods: Search
+Database All, index 376
+   5  4  9  1  7  3  6  8  2
+Methods: Search
+Database All, index 377
+   5  4  9  7  1  2  6  8  3
+Methods: Search
+Database All, index 378
+   5  4  9  7  1  3  6  2  8
+Methods: Search
+Database All, index 379
+   5  4  9  7  1  8  3  6  2
+Methods: Search
+Database All, index 380
+   5  4  9  7  3  6  1  8  2
+Methods: Search
+Database All, index 381
+   5  6  1  3  7  4  9  2  8
+Methods: Search
+Database All, index 382
+   5  6  1  3  9  2  7  4  8
+Methods: Search
+Database All, index 383
+   5  6  1  3  9  7  4  8  2
+Methods: Search
+Database All, index 384
+   5  6  1  3  9  8  4  2  7
+Methods: Search
+Database All, index 385
+   5  6  1  9  3  7  4  2  8
+Methods: Search
+Database All, index 386
+   5  6  2  1  4  8  3  9  7
+Methods: Search
+Database All, index 387
+   5  6  3  1  9  8  2  4  7
+Methods: Search
+Database All, index 388
+   5  6  3  2  9  7  1  4  8
+Methods: Search
+Database All, index 389
+   5  6  3  7  2  9  8  1  4
+Methods: Search
+Database All, index 390
+   5  6  3  7  9  4  2  8  1
+Methods: Search
+Database All, index 391
+   5  6  3  9  7  2  1  4  8
+Methods: Search
+Database All, index 392
+   5  6  4  7  2  9  8  1  3
+Methods: Search
+Database All, index 393
+   5  6  4  7  9  2  1  8  3
+Methods: Search
+Database All, index 394
+   5  6  8  1  4  3  9  7  2
+Methods: Search
+Database All, index 395
+   5  6  8  3  7  4  9  2  1
+Methods: Search
+Database All, index 396
+   5  6  9  2  1  7  4  8  3
+Methods: Search
+Database All, index 397
+   5  6  9  2  1  8  3  7  4
+Methods: Search
+Database All, index 398
+   5  6  9  2  4  1  7  3  8
+Methods: Search
+Database All, index 399
+   5  6  9  3  7  2  8  4  1
+Methods: Search
+Database All, index 400
+   5  6  9  4  2  1  7  3  8
+Methods: Search
+Database All, index 401
+   5  7  1  4  3  8  9  6  2
+Methods: Search
+Database All, index 402
+   5  7  1  9  2  8  6  3  4
+Methods: Search
+Database All, index 403
+   5  7  1  9  8  4  2  3  6
+Methods: Search
+Database All, index 404
+   5  7  2  6  3  9  8  1  4
+Methods: Search
+Database All, index 405
+   5  7  3  2  8  9  1  6  4
+Methods: Search
+Database All, index 406
+   5  7  3  2  9  1  6  4  8
+Methods: Search
+Database All, index 407
+   5  7  3  4  8  6  9  2  1
+Methods: Search
+Database All, index 408
+   5  7  3  6  4  8  9  2  1
+Methods: Search
+Database All, index 409
+   5  7  3  6  4  9  1  2  8
+Methods: Search, Symmetrical
+Database All, index 410
+   5  7  4  3  1  6  2  8  9
+Methods: Search, Symmetrical
+Database All, index 411
+   5  7  4  3  1  8  2  6  9
+Methods: Search
+Database All, index 412
+   5  7  4  3  8  6  9  1  2
+Methods: Search
+Database All, index 413
+   5  7  6  1  9  3  4  2  8
+Methods: Search
+Database All, index 414
+   5  7  6  3  1  9  4  8  2
+Methods: Search
+Database All, index 415
+   5  7  6  9  2  3  1  8  4
+Methods: Search
+Database All, index 416
+   5  7  8  3  1  4  9  2  6
+Methods: Search,Lempel-Golomb 2 PM,alpha,6,beta,2,Lempel-Golomb 2 PM with Rows reversed,alpha,2,beta,2,Lempel-Golomb 2 PM with Columns reversed,alpha,6,beta,6,Lempel-Golomb 2 PM with Rows and Columns reversed,alpha,2,beta,6
+Database All, index 417
+   5  7  8  3  9  2  6  4  1
+Methods: Search
+Database All, index 418
+   5  8  1  3  2  6  7  4  9
+Methods: Search
+Database All, index 419
+   5  8  1  7  9  4  2  6  3
+Methods: Search
+Database All, index 420
+   5  8  2  9  4  1  3  7  6
+Methods: Search
+Database All, index 421
+   5  8  4  2  1  3  9  6  7
+Methods: Search
+Database All, index 422
+   5  8  4  2  1  6  3  7  9
+Methods: Search, Symmetrical
+Database All, index 423
+   5  8  4  3  1  6  7  2  9
+Methods: Search
+Database All, index 424
+   5  8  4  6  1  9  2  3  7
+Methods: Search
+Database All, index 425
+   5  8  4  9  2  6  7  1  3
+Methods: Search
+Database All, index 426
+   5  8  6  1  2  4  9  3  7
+Methods: Search
+Database All, index 427
+   5  8  6  2  1  7  4  9  3
+Methods: Search
+Database All, index 428
+   5  8  6  2  9  4  1  3  7
+Methods: Search
+Database All, index 429
+   5  8  7  1  3  4  2  9  6
+Methods: Search
+Database All, index 430
+   5  8  7  1  3  4  9  2  6
+Methods: Search
+Database All, index 431
+   5  8  7  3  4  2  9  6  1
+Methods: Search
+Database All, index 432
+   5  8  7  4  6  1  9  2  3
+Methods: Search
+Database All, index 433
+   5  8  9  1  7  2  6  4  3
+Methods: Search
+Database All, index 434
+   5  9  1  3  2  8  6  7  4
+Methods: Search
+Database All, index 435
+   5  9  2  3  1  7  6  8  4
+Methods: Search
+Database All, index 436
+   5  9  2  3  6  1  8  7  4
+Methods: Search
+Database All, index 437
+   5  9  2  7  1  8  3  4  6
+Methods: Search
+Database All, index 438
+   5  9  2  7  8  3  1  4  6
+Methods: Search
+Database All, index 439
+   5  9  3  1  6  2  8  7  4
+Methods: Search
+Database All, index 440
+   5  9  4  1  7  6  8  2  3
+Methods: Search
+Database All, index 441
+   5  9  4  7  1  3  2  8  6
+Methods: Search,Lempel-Golomb 2 PM,alpha,7,beta,2,Lempel-Golomb 2 PM with Rows reversed,alpha,8,beta,2,Lempel-Golomb 2 PM with Columns reversed,alpha,7,beta,6,Lempel-Golomb 2 PM with Rows and Columns reversed,alpha,8,beta,6
+Database All, index 442
+   5  9  6  1  3  4  2  8  7
+Methods: Search
+Database All, index 443
+   5  9  6  2  1  8  3  4  7
+Methods: Search
+Database All, index 444
+   5  9  6  2  8  1  3  4  7
+Methods: Search
+Database All, index 445
+   5  9  7  1  8  4  6  3  2
+Methods: Search
+Database All, index 446
+   5  9  7  2  1  8  4  6  3
+Methods: Search
+Database All, index 447
+   6  1  2  4  9  3  7  5  8
+Methods: Search
+Database All, index 448
+   6  1  4  5  3  7  9  8  2
+Methods: Search
+Database All, index 449
+   6  1  4  5  9  8  2  7  3
+Methods: Search
+Database All, index 450
+   6  1  4  8  9  3  5  2  7
+Methods: Search
+Database All, index 451
+   6  1  5  3  8  9  2  4  7
+Methods: Search
+Database All, index 452
+   6  1  5  8  2  4  3  9  7
+Methods: Search
+Database All, index 453
+   6  1  5  8  9  2  7  4  3
+Methods: Search
+Database All, index 454
+   6  1  8  9  5  2  4  3  7
+Methods: Search
+Database All, index 455
+   6  2  1  7  9  4  5  3  8
+Methods: Search
+Database All, index 456
+   6  2  4  3  9  7  8  1  5
+Methods: Search
+Database All, index 457
+   6  2  5  4  9  1  7  8  3
+Methods: Search
+Database All, index 458
+   6  2  5  9  7  4  3  8  1
+Methods: Search
+Database All, index 459
+   6  2  7  4  5  9  8  1  3
+Methods: Search
+Database All, index 460
+   6  2  8  5  3  4  7  9  1
+Methods: Search
+Database All, index 461
+   6  2  8  7  9  1  4  5  3
+Methods: Search
+Database All, index 462
+   6  2  9  1  3  7  8  5  4
+Methods: Search
+Database All, index 463
+   6  2  9  1  7  8  3  5  4
+Methods: Search
+Database All, index 464
+   6  2  9  4  1  3  8  7  5
+Methods: Search
+Database All, index 465
+   6  2  9  4  3  1  7  8  5
+Methods: Search
+Database All, index 466
+   6  2  9  7  8  1  4  3  5
+Methods: Search
+Database All, index 467
+   6  3  1  9  4  5  8  2  7
+Methods: Search
+Database All, index 468
+   6  3  2  4  8  9  1  7  5
+Methods: Search, Symmetrical
+Database All, index 469
+   6  3  2  7  5  1  4  8  9
+Methods: Search
+Database All, index 470
+   6  3  2  8  4  9  7  1  5
+Methods: Search
+Database All, index 471
+   6  3  2  9  4  7  8  1  5
+Methods: Search
+Database All, index 472
+   6  3  4  2  5  7  1  9  8
+Methods: Search
+Database All, index 473
+   6  3  4  2  8  7  9  1  5
+Methods: Search
+Database All, index 474
+   6  3  4  7  5  9  2  1  8
+Methods: Search
+Database All, index 475
+   6  3  4  8  7  9  2  5  1
+Methods: Search
+Database All, index 476
+   6  3  4  9  1  5  8  7  2
+Methods: Search
+Database All, index 477
+   6  3  4  9  5  8  2  1  7
+Methods: Search
+Database All, index 478
+   6  3  5  4  9  1  7  8  2
+Methods: Search,Lempel-Golomb 2 PM,alpha,6,beta,7,Lempel-Golomb 2 PM with Rows reversed,alpha,2,beta,7,Lempel-Golomb 2 PM with Columns reversed,alpha,6,beta,8,Lempel-Golomb 2 PM with Rows and Columns reversed,alpha,2,beta,8
+Database All, index 479
+   6  3  5  4  9  7  1  2  8
+Methods: Search
+Database All, index 480
+   6  3  7  2  9  8  1  4  5
+Methods: Search
+Database All, index 481
+   6  3  7  5  1  9  8  2  4
+Methods: Search
+Database All, index 482
+   6  3  8  1  7  2  4  5  9
+Methods: Search
+Database All, index 483
+   6  3  8  2  4  5  1  9  7
+Methods: Search
+Database All, index 484
+   6  3  8  2  4  7  5  1  9
+Methods: Search
+Database All, index 485
+   6  3  8  7  2  4  5  9  1
+Methods: Search
+Database All, index 486
+   6  4  1  2  9  3  5  8  7
+Methods: Search
+Database All, index 487
+   6  4  1  3  8  7  2  9  5
+Methods: Search
+Database All, index 488
+   6  4  1  9  5  7  8  3  2
+Methods: Search
+Database All, index 489
+   6  4  1  9  5  8  7  2  3
+Methods: Search
+Database All, index 490
+   6  4  3  8  1  7  2  9  5
+Methods: Search
+Database All, index 491
+   6  4  3  9  5  8  1  2  7
+Methods: Search
+Database All, index 492
+   6  4  5  1  8  3  2  7  9
+Methods: Search
+Database All, index 493
+   6  4  7  1  9  5  2  3  8
+Methods: Search
+Database All, index 494
+   6  4  7  3  5  9  8  1  2
+Methods: Search
+Database All, index 495
+   6  4  7  8  1  3  9  5  2
+Methods: Search,Lempel-Golomb 2 PM,alpha,7,beta,8,Lempel-Golomb 2 PM with Rows reversed,alpha,8,beta,8,Lempel-Golomb 2 PM with Columns reversed,alpha,7,beta,7,Lempel-Golomb 2 PM with Rows and Columns reversed,alpha,8,beta,7
+Database All, index 496
+   6  4  7  9  3  8  5  1  2
+Methods: Search
+Database All, index 497
+   6  4  8  3  2  9  5  7  1
+Methods: Search
+Database All, index 498
+   6  4  8  3  9  1  2  5  7
+Methods: Search
+Database All, index 499
+   6  4  8  5  1  2  7  9  3
+Methods: Search
+Database All, index 500
+   6  4  9  1  2  8  7  3  5
+Methods: Search
+Database All, index 501
+   6  4  9  3  5  1  2  8  7
+Methods: Search
+Database All, index 502
+   6  4  9  5  2  1  8  3  7
+Methods: Search
+Database All, index 503
+   6  5  2  3  7  9  1  8  4
+Methods: Search
+Database All, index 504
+   6  5  2  3  8  4  7  1  9
+Methods: Search
+Database All, index 505
+   6  5  2  4  8  9  1  7  3
+Methods: Search
+Database All, index 506
+   6  5  2  4  9  7  1  8  3
+Methods: Search
+Database All, index 507
+   6  5  2  8  1  9  3  4  7
+Methods: Search
+Database All, index 508
+   6  5  3  7  2  8  9  1  4
+Methods: Search
+Database All, index 509
+   6  5  7  2  3  9  1  8  4
+Methods: Search
+Database All, index 510
+   6  5  8  1  2  4  9  3  7
+Methods: Search
+Database All, index 511
+   6  5  8  1  9  4  2  3  7
+Methods: Search
+Database All, index 512
+   6  5  8  2  4  1  9  7  3
+Methods: Search
+Database All, index 513
+   6  5  8  4  1  2  7  9  3
+Methods: Search
+Database All, index 514
+   6  5  9  1  3  8  4  7  2
+Methods: Search
+Database All, index 515
+   6  7  1  4  8  3  9  5  2
+Methods: Search
+Database All, index 516
+   6  7  1  9  5  3  2  4  8
+Methods: Search
+Database All, index 517
+   6  7  2  1  4  8  5  3  9
+Methods: Search
+Database All, index 518
+   6  7  2  4  1  9  5  3  8
+Methods: Search
+Database All, index 519
+   6  7  2  5  3  9  8  4  1
+Methods: Search
+Database All, index 520
+   6  7  3  1  4  9  2  8  5
+Methods: Search
+Database All, index 521
+   6  7  3  1  5  2  4  9  8
+Methods: Search
+Database All, index 522
+   6  7  3  1  5  4  9  2  8
+Methods: Search
+Database All, index 523
+   6  7  3  5  9  8  1  4  2
+Methods: Search
+Database All, index 524
+   6  7  4  2  1  3  9  5  8
+Methods: Search
+Database All, index 525
+   6  7  4  2  1  9  3  5  8
+Methods: Search
+Database All, index 526
+   6  7  4  2  5  1  9  8  3
+Methods: Search
+Database All, index 527
+   6  7  4  2  5  9  1  8  3
+Methods: Search
+Database All, index 528
+   6  7  4  2  8  1  9  3  5
+Methods: Search
+Database All, index 529
+   6  7  9  5  3  2  8  1  4
+Methods: Search
+Database All, index 530
+   6  8  1  9  4  5  3  2  7
+Methods: Search
+Database All, index 531
+   6  8  2  1  5  3  9  4  7
+Methods: Search
+Database All, index 532
+   6  8  2  1  9  5  3  7  4
+Methods: Search
+Database All, index 533
+   6  8  2  3  1  7  4  9  5
+Methods: Search
+Database All, index 534
+   6  8  3  1  2  9  5  4  7
+Methods: Search
+Database All, index 535
+   6  8  3  2  7  4  5  9  1
+Methods: Search
+Database All, index 536
+   6  8  3  4  9  7  1  5  2
+Methods: Search
+Database All, index 537
+   6  8  5  1  2  9  4  3  7
+Methods: Search
+Database All, index 538
+   6  8  9  4  1  5  3  2  7
+Methods: Search
+Database All, index 539
+   6  9  1  2  8  3  7  5  4
+Methods: Search
+Database All, index 540
+   6  9  2  1  7  4  8  3  5
+Methods: Search
+Database All, index 541
+   6  9  2  1  8  3  7  4  5
+Methods: Search
+Database All, index 542
+   6  9  2  4  1  5  3  8  7
+Methods: Search
+Database All, index 543
+   6  9  2  4  3  1  7  8  5
+Methods: Search
+Database All, index 544
+   6  9  2  8  7  5  1  3  4
+Methods: Search
+Database All, index 545
+   6  9  4  1  5  3  2  7  8
+Methods: Search
+Database All, index 546
+   7  1  2  8  5  9  4  3  6
+Methods: Search
+Database All, index 547
+   7  1  3  8  9  5  2  6  4
+Methods: Search
+Database All, index 548
+   7  1  3  8  9  6  2  5  4
+Methods: Search
+Database All, index 549
+   7  1  4  6  2  9  8  5  3
+Methods: Search
+Database All, index 550
+   7  1  5  4  6  3  8  9  2
+Methods: Search
+Database All, index 551
+   7  1  5  6  9  2  8  4  3
+Methods: Search
+Database All, index 552
+   7  1  6  3  9  8  4  2  5
+Methods: Search
+Database All, index 553
+   7  1  8  4  6  3  2  5  9
+Methods: Search
+Database All, index 554
+   7  2  1  8  5  9  3  4  6
+Methods: Search
+Database All, index 555
+   7  2  1  9  5  8  6  3  4
+Methods: Search
+Database All, index 556
+   7  2  3  5  1  4  9  8  6
+Methods: Search, Symmetrical
+Database All, index 557
+   7  2  3  5  4  9  1  8  6
+Methods: Search
+Database All, index 558
+   7  2  3  8  1  5  4  6  9
+Methods: Search
+Database All, index 559
+   7  2  3  9  1  6  5  8  4
+Methods: Search
+Database All, index 560
+   7  2  4  8  9  3  1  6  5
+Methods: Search
+Database All, index 561
+   7  2  5  3  9  8  4  1  6
+Methods: Search
+Database All, index 562
+   7  2  6  3  9  8  1  4  5
+Methods: Search
+Database All, index 563
+   7  2  6  4  3  5  8  9  1
+Methods: Search
+Database All, index 564
+   7  2  6  4  9  8  5  1  3
+Methods: Search, Symmetrical
+Database All, index 565
+   7  2  8  5  4  9  1  3  6
+Methods: Search
+Database All, index 566
+   7  2  9  1  5  8  6  3  4
+Methods: Search
+Database All, index 567
+   7  2  9  3  1  6  8  5  4
+Methods: Search
+Database All, index 568
+   7  2  9  8  1  3  6  4  5
+Methods: Search
+Database All, index 569
+   7  3  1  4  9  2  6  8  5
+Methods: Search
+Database All, index 570
+   7  3  1  6  5  2  4  8  9
+Methods: Search
+Database All, index 571
+   7  3  1  9  6  8  2  5  4
+Methods: Search
+Database All, index 572
+   7  3  2  4  9  1  8  5  6
+Methods: Search
+Database All, index 573
+   7  3  2  6  4  5  8  1  9
+Methods: Search
+Database All, index 574
+   7  3  2  9  1  6  4  8  5
+Methods: Search
+Database All, index 575
+   7  3  4  2  5  9  8  1  6
+Methods: Search
+Database All, index 576
+   7  3  4  9  2  1  5  8  6
+Methods: Search
+Database All, index 577
+   7  3  5  2  1  6  4  8  9
+Methods: Search
+Database All, index 578
+   7  3  5  2  6  4  9  8  1
+Methods: Search
+Database All, index 579
+   7  3  5  8  9  2  6  4  1
+Methods: Search
+Database All, index 580
+   7  3  6  8  1  9  4  5  2
+Methods: Search
+Database All, index 581
+   7  3  8  1  2  5  9  4  6
+Methods: Search
+Database All, index 582
+   7  3  8  2  1  5  6  9  4
+Methods: Search
+Database All, index 583
+   7  3  8  9  6  1  5  4  2
+Methods: Search
+Database All, index 584
+   7  3  9  1  2  6  8  5  4
+Methods: Search
+Database All, index 585
+   7  3  9  4  2  1  6  8  5
+Methods: Search
+Database All, index 586
+   7  3  9  4  2  1  8  5  6
+Methods: Search
+Database All, index 587
+   7  4  2  3  5  1  6  9  8
+Methods: Search
+Database All, index 588
+   7  4  2  5  6  1  9  3  8
+Methods: Search
+Database All, index 589
+   7  4  2  8  3  6  5  9  1
+Methods: Search
+Database All, index 590
+   7  4  2  8  9  1  3  6  5
+Methods: Search
+Database All, index 591
+   7  4  2  9  8  3  5  1  6
+Methods: Search
+Database All, index 592
+   7  4  3  1  8  2  6  9  5
+Methods: Search
+Database All, index 593
+   7  4  3  8  1  2  6  9  5
+Methods: Search
+Database All, index 594
+   7  4  3  9  1  8  2  5  6
+Methods: Search
+Database All, index 595
+   7  4  5  3  2  6  8  1  9
+Methods: Search
+Database All, index 596
+   7  4  5  3  6  8  2  1  9
+Methods: Search
+Database All, index 597
+   7  4  5  9  2  1  3  8  6
+Methods: Search
+Database All, index 598
+   7  4  6  2  9  8  3  1  5
+Methods: Search
+Database All, index 599
+   7  4  8  3  5  6  9  2  1
+Methods: Search
+Database All, index 600
+   7  4  8  6  1  3  9  2  5
+Methods: Search
+Database All, index 601
+   7  4  9  3  5  1  2  8  6
+Methods: Search
+Database All, index 602
+   7  4  9  3  5  8  6  2  1
+Methods: Search
+Database All, index 603
+   7  5  2  1  8  4  6  9  3
+Methods: Search
+Database All, index 604
+   7  5  2  1  9  3  8  4  6
+Methods: Search
+Database All, index 605
+   7  5  2  6  1  3  4  9  8
+Methods: Search
+Database All, index 606
+   7  5  2  6  1  4  3  8  9
+Methods: Search
+Database All, index 607
+   7  5  6  1  9  3  2  4  8
+Methods: Search
+Database All, index 608
+   7  5  6  2  9  4  3  8  1
+Methods: Search
+Database All, index 609
+   7  5  6  3  2  8  4  9  1
+Methods: Search
+Database All, index 610
+   7  5  6  9  1  3  2  8  4
+Methods: Search
+Database All, index 611
+   7  6  1  2  4  8  5  3  9
+Methods: Search
+Database All, index 612
+   7  6  2  4  1  5  3  8  9
+Methods: Search
+Database All, index 613
+   7  6  2  5  3  8  9  4  1
+Methods: Search
+Database All, index 614
+   7  6  2  8  1  4  5  9  3
+Methods: Search
+Database All, index 615
+   7  6  3  8  1  2  5  9  4
+Methods: Search
+Database All, index 616
+   7  6  4  1  2  9  3  5  8
+Methods: Search
+Database All, index 617
+   7  6  4  8  3  9  1  2  5
+Methods: Search
+Database All, index 618
+   7  6  9  3  1  2  4  8  5
+Methods: Search
+Database All, index 619
+   7  8  1  5  3  6  2  4  9
+Methods: Search
+Database All, index 620
+   7  8  1  9  4  6  3  2  5
+Methods: Search
+Database All, index 621
+   7  8  2  1  5  3  9  4  6
+Methods: Search,Lempel-Golomb 2 PM,alpha,7,beta,6,Lempel-Golomb 2 PM with Rows reversed,alpha,8,beta,6,Lempel-Golomb 2 PM with Columns reversed,alpha,7,beta,2,Lempel-Golomb 2 PM with Rows and Columns reversed,alpha,8,beta,2
+Database All, index 622
+   7  8  2  4  3  1  6  9  5
+Methods: Search
+Database All, index 623
+   7  8  2  4  3  9  6  1  5
+Methods: Search
+Database All, index 624
+   7  8  3  2  5  1  9  6  4
+Methods: Search
+Database All, index 625
+   7  8  3  5  1  4  2  9  6
+Methods: Search
+Database All, index 626
+   7  8  5  3  9  2  1  4  6
+Methods: Search
+Database All, index 627
+   7  8  6  1  4  3  5  9  2
+Methods: Search
+Database All, index 628
+   7  9  1  5  4  2  8  3  6
+Methods: Search
+Database All, index 629
+   7  9  2  1  5  6  3  8  4
+Methods: Search
+Database All, index 630
+   7  9  2  1  8  3  6  4  5
+Methods: Search
+Database All, index 631
+   7  9  3  4  2  8  5  1  6
+Methods: Search
+Database All, index 632
+   7  9  3  4  8  1  6  2  5
+Methods: Search
+Database All, index 633
+   7  9  3  8  4  1  2  6  5
+Methods: Search
+Database All, index 634
+   7  9  5  2  1  6  4  8  3
+Methods: Search
+Database All, index 635
+   8  1  2  7  4  6  5  9  3
+Methods: Search
+Database All, index 636
+   8  1  2  9  5  7  4  3  6
+Methods: Search
+Database All, index 637
+   8  1  4  6  7  5  9  3  2
+Methods: Search
+Database All, index 638
+   8  1  5  7  6  3  4  2  9
+Methods: Search
+Database All, index 639
+   8  1  5  7  6  9  4  2  3
+Methods: Search
+Database All, index 640
+   8  2  1  3  7  5  6  9  4
+Methods: Search,Lempel-Golomb 2 PM,alpha,6,beta,8,Lempel-Golomb 2 PM with Rows reversed,alpha,2,beta,8,Lempel-Golomb 2 PM with Columns reversed,alpha,6,beta,7,Lempel-Golomb 2 PM with Rows and Columns reversed,alpha,2,beta,7
+Database All, index 641
+   8  2  1  7  9  4  5  3  6
+Methods: Search
+Database All, index 642
+   8  2  1  9  4  6  3  7  5
+Methods: Search
+Database All, index 643
+   8  2  3  9  1  6  5  7  4
+Methods: Search
+Database All, index 644
+   8  2  4  3  7  5  6  9  1
+Methods: Search
+Database All, index 645
+   8  2  4  3  9  1  6  7  5
+Methods: Search
+Database All, index 646
+   8  2  4  7  3  9  1  6  5
+Methods: Search
+Database All, index 647
+   8  2  5  1  7  6  3  4  9
+Methods: Search
+Database All, index 648
+   8  2  6  1  9  7  4  3  5
+Methods: Search
+Database All, index 649
+   8  2  6  3  1  7  9  4  5
+Methods: Search
+Database All, index 650
+   8  2  9  4  5  1  3  7  6
+Methods: Search
+Database All, index 651
+   8  2  9  4  7  3  1  6  5
+Methods: Search
+Database All, index 652
+   8  3  1  7  6  9  2  4  5
+Methods: Search
+Database All, index 653
+   8  3  2  5  6  4  1  7  9
+Methods: Search
+Database All, index 654
+   8  3  2  5  9  1  6  7  4
+Methods: Search
+Database All, index 655
+   8  3  2  5  9  1  7  4  6
+Methods: Search
+Database All, index 656
+   8  3  4  1  7  6  2  5  9
+Methods: Search
+Database All, index 657
+   8  3  4  6  2  1  7  5  9
+Methods: Search
+Database All, index 658
+   8  3  4  6  2  5  9  7  1
+Methods: Search
+Database All, index 659
+   8  3  5  4  9  7  1  2  6
+Methods: Search
+Database All, index 660
+   8  3  5  9  1  4  2  7  6
+Methods: Search
+Database All, index 661
+   8  3  6  2  7  9  1  5  4
+Methods: Search
+Database All, index 662
+   8  3  7  1  2  4  9  6  5
+Methods: Search
+Database All, index 663
+   8  3  7  1  4  2  9  6  5
+Methods: Search
+Database All, index 664
+   8  3  7  1  4  6  5  2  9
+Methods: Search
+Database All, index 665
+   8  3  9  1  6  5  2  4  7
+Methods: Search
+Database All, index 666
+   8  4  1  2  7  6  9  3  5
+Methods: Search
+Database All, index 667
+   8  4  1  2  7  9  3  6  5
+Methods: Search
+Database All, index 668
+   8  4  1  6  7  2  5  3  9
+Methods: Search
+Database All, index 669
+   8  4  1  7  9  2  3  6  5
+Methods: Search
+Database All, index 670
+   8  4  2  3  5  9  1  7  6
+Methods: Search
+Database All, index 671
+   8  4  2  3  9  1  6  5  7
+Methods: Search
+Database All, index 672
+   8  4  2  5  7  1  6  3  9
+Methods: Search
+Database All, index 673
+   8  4  6  1  9  2  3  7  5
+Methods: Search
+Database All, index 674
+   8  4  7  2  9  3  1  6  5
+Methods: Search
+Database All, index 675
+   8  4  9  1  3  6  7  5  2
+Methods: Search
+Database All, index 676
+   8  5  1  7  2  6  9  3  4
+Methods: Search
+Database All, index 677
+   8  5  1  7  9  2  3  6  4
+Methods: Search
+Database All, index 678
+   8  5  3  4  7  9  1  6  2
+Methods: Search
+Database All, index 679
+   8  5  3  9  1  2  4  7  6
+Methods: Search
+Database All, index 680
+   8  5  3  9  2  1  4  6  7
+Methods: Search
+Database All, index 681
+   8  5  4  2  3  6  1  7  9
+Methods: Search
+Database All, index 682
+   8  5  6  1  9  2  4  7  3
+Methods: Search
+Database All, index 683
+   8  5  7  3  9  4  2  1  6
+Methods: Search
+Database All, index 684
+   8  5  9  3  1  2  4  7  6
+Methods: Search
+Database All, index 685
+   8  5  9  3  1  6  7  2  4
+Methods: Search
+Database All, index 686
+   8  6  1  3  2  7  4  5  9
+Methods: Search
+Database All, index 687
+   8  6  5  9  4  1  2  7  3
+Methods: Search
+Database All, index 688
+   8  6  9  2  1  5  7  3  4
+Methods: Search
+Database All, index 689
+   8  7  1  3  6  4  5  2  9
+Methods: Search
+Database All, index 690
+   8  7  1  5  3  4  6  9  2
+Methods: Search
+Database All, index 691
+   8  7  2  3  5  1  4  9  6
+Methods: Search
+Database All, index 692
+   8  7  2  3  5  1  9  6  4
+Methods: Search
+Database All, index 693
+   8  7  4  2  3  5  1  6  9
+Methods: Search
+Database All, index 694
+   8  7  4  6  2  9  3  1  5
+Methods: Search
+Database All, index 695
+   8  9  1  4  2  7  6  3  5
+Methods: Search
+Database All, index 696
+   8  9  1  7  5  2  4  3  6
+Methods: Search
+Database All, index 697
+   8  9  2  1  5  7  3  6  4
+Methods: Search
+Database All, index 698
+   8  9  4  2  5  1  3  7  6
+Methods: Search
+Database All, index 699
+   8  9  4  3  1  6  2  5  7
+Methods: Search,Lempel-Golomb 2 PM,alpha,8,beta,7,Lempel-Golomb 2 PM with Rows reversed,alpha,7,beta,7,Lempel-Golomb 2 PM with Columns reversed,alpha,8,beta,8,Lempel-Golomb 2 PM with Rows and Columns reversed,alpha,7,beta,8
+Database All, index 700
+   8  9  5  2  7  1  3  6  4
+Methods: Search
+Database All, index 701
+   8  9  6  1  5  3  2  4  7
+Methods: Search
+Database All, index 702
+   9  1  2  5  7  6  4  8  3
+Methods: Search
+Database All, index 703
+   9  1  2  8  6  3  5  4  7
+Methods: Search
+Database All, index 704
+   9  1  3  6  7  5  2  8  4
+Methods: Search
+Database All, index 705
+   9  1  4  5  3  7  6  8  2
+Methods: Search
+Database All, index 706
+   9  1  5  4  7  2  8  6  3
+Methods: Search
+Database All, index 707
+   9  1  5  6  3  8  7  2  4
+Methods: Search
+Database All, index 708
+   9  1  5  6  8  3  2  7  4
+Methods: Search
+Database All, index 709
+   9  1  5  7  4  2  8  3  6
+Methods: Search
+Database All, index 710
+   9  1  6  2  8  7  4  5  3
+Methods: Search
+Database All, index 711
+   9  1  7  4  8  3  2  5  6
+Methods: Search
+Database All, index 712
+   9  1  8  5  4  6  2  3  7
+Methods: Search
+Database All, index 713
+   9  1  8  6  2  3  5  4  7
+Methods: Search
+Database All, index 714
+   9  2  1  6  4  8  5  7  3
+Methods: Search
+Database All, index 715
+   9  2  4  3  6  7  5  1  8
+Methods: Search
+Database All, index 716
+   9  2  5  4  6  3  1  7  8
+Methods: Search
+Database All, index 717
+   9  2  5  6  4  1  7  3  8
+Methods: Search
+Database All, index 718
+   9  2  7  6  1  3  4  8  5
+Methods: Search
+Database All, index 719
+   9  2  7  6  1  8  4  5  3
+Methods: Search
+Database All, index 720
+   9  2  7  6  3  1  5  8  4
+Methods: Search
+Database All, index 721
+   9  2  8  6  1  3  7  4  5
+Methods: Search
+Database All, index 722
+   9  3  1  5  8  4  6  7  2
+Methods: Search
+Database All, index 723
+   9  3  5  1  8  7  2  6  4
+Methods: Search
+Database All, index 724
+   9  3  5  2  7  6  1  4  8
+Methods: Search
+Database All, index 725
+   9  3  5  8  4  1  2  7  6
+Methods: Search
+Database All, index 726
+   9  3  5  8  4  2  1  6  7
+Methods: Search
+Database All, index 727
+   9  3  6  1  7  5  2  4  8
+Methods: Search
+Database All, index 728
+   9  4  1  8  6  7  3  2  5
+Methods: Search
+Database All, index 729
+   9  4  2  6  3  5  1  8  7
+Methods: Search
+Database All, index 730
+   9  4  3  6  7  1  5  2  8
+Methods: Search
+Database All, index 731
+   9  4  7  6  2  3  1  8  5
+Methods: Search
+Database All, index 732
+   9  5  2  3  6  4  8  1  7
+Methods: Search
+Database All, index 733
+   9  5  2  6  7  1  4  3  8
+Methods: Search
+Database All, index 734
+   9  5  4  2  7  1  8  3  6
+Methods: Search
+Database All, index 735
+   9  5  4  7  2  3  1  6  8
+Methods: Search
+Database All, index 736
+   9  5  7  1  2  6  4  3  8
+Methods: Search
+Database All, index 737
+   9  5  8  1  3  2  6  7  4
+Methods: Search
+Database All, index 738
+   9  6  1  2  7  5  8  4  3
+Methods: Search
+Database All, index 739
+   9  6  1  5  3  2  4  7  8
+Methods: Search
+Database All, index 740
+   9  6  2  1  7  5  8  3  4
+Methods: Search
+Database All, index 741
+   9  6  2  8  1  3  4  7  5
+Methods: Search
+Database All, index 742
+   9  6  2  8  3  7  1  4  5
+Methods: Search
+Database All, index 743
+   9  6  4  5  1  8  3  2  7
+Methods: Search
+Database All, index 744
+   9  6  4  8  1  2  5  7  3
+Methods: Search,Lempel-Golomb 2 PM,alpha,2,beta,6,Lempel-Golomb 2 PM with Rows reversed,alpha,6,beta,6,Lempel-Golomb 2 PM with Columns reversed,alpha,2,beta,2,Lempel-Golomb 2 PM with Rows and Columns reversed,alpha,6,beta,2
+Database All, index 745
+   9  6  4  8  1  7  2  3  5
+Methods: Search
+Database All, index 746
+   9  7  1  4  6  5  2  3  8
+Methods: Search
+Database All, index 747
+   9  7  1  6  3  2  4  5  8
+Methods: Search
+Database All, index 748
+   9  7  2  3  8  1  5  4  6
+Methods: Search
+Database All, index 749
+   9  7  3  6  1  2  4  8  5
+Methods: Search
+Database All, index 750
+   9  8  1  2  6  4  7  3  5
+Methods: Search
+Database All, index 751
+   9  8  1  4  2  6  7  3  5
+Methods: Search
+Database All, index 752
+   9  8  1  4  5  7  2  6  3
+Methods: Search
+Database All, index 753
+   9  8  1  6  3  7  2  4  5
+Methods: Search
+Database All, index 754
+   9  8  2  6  1  3  4  7  5
+Methods: Search
+Database All, index 755
+   9  8  3  4  1  6  2  5  7
+Methods: Search
+Database All, index 756
+   9  8  3  5  1  4  2  6  7
+Methods: Search
+Database All, index 757
+   9  8  4  1  5  7  2  3  6
+Methods: Search
+Database All, index 758
+   9  8  4  2  5  6  1  3  7
+Methods: Search
+Database All, index 759
+   9  8  4  2  5  7  1  6  3
+Methods: Search
+Database All, index 760
+   9  8  4  6  1  2  5  3  7
+Number of Costas arrays output for this order:  760

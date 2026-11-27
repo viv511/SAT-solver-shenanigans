@@ -1,0 +1,73 @@
+********************************************************************************
+v. 3.20 (March 2019)
+From CA_Database_Sticky_Options.txt:
+USER OPTIONS
+Option                              Function
+C:\Users\bhatv\Downloads\GetStarted_2019\CA_Database    ,Database path
+C:\Users\bhatv\Downloads\GetStarted_2019\CA_Database\Read_CA_Database_v3.2\Costas Extraction\    ,Output path
+T                                  ,Option to clear CSV files
+F                                  ,.TRUE. => Both Searches and Generated, .FALSE. => Generated
+T                                  ,.TRUE. => "REWIND" to rewrite files, "APPEND" to append new data
+T                                  ,.TRUE. => number Costas arrays from 1, .FALSE. => number from 0,
+4                               ,Order for Extraction mode
+28                               ,Starting order for Analysis mode
+31                               ,Ending order for Analysis mode
+1                                 ,Index of one of about 20 generator methods
+1                                  ,Index of database types, [1,2,3,4] => [ALL,Essential,Symm,G-Symm]
+4                                  ,[1,2,3,4] filter on number of ones in DAF rectangle [NONE,3X3,5X5,User Defined]
+100                             ,Maximum number of ones in specified DAF area
+rows -2 to +2, cols -2 to +2    ,Input string for rows and columns defining rectangle in DAF
+1                                  ,Index of frequency hop methods [NONE,Min,Min end-around]
+F                                  ,.TRUE. => output CSV files with DAFs
+F                                  ,.TRUE. => output CSV files with XDAFs
+F                                  ,.TRUE. => find generating polynomial in GF(q)
+0                               ,Order q of GF(q) for generating polynomial
+F                                  ,.TRUE. => Write analysis of entire database (not sticky)
+F                                  ,.TRUE. => Write counts in 3X3 central areas of DAFs (not sticky)
+F                                  ,.TRUE. => Write counts in 5X5 central ares of DAFs (not sticky)
+F                                  ,.TRUE. => Recompute minimum peak freuency hop database (not sticky)
+Costas arrays from searches of order 3 to 27
+********************************************************************************
+Costas arrays of order 4
+Total number of unique Costas arrays found:  12
+Costas arrays of order 4
+2  essential Costas arrays
+1  symmetrical Costas arrays
+8  G-symmetrical Costas arrays
+Methods: Search, Transposed, Symmetrical, G-Symmetrical,Welch 1,alpha,2,offset c,0
+Database All, index 1
+   1  2  4  3
+Methods: Search, G-Symmetrical,Welch 1,alpha,3,offset c,0
+Database All, index 2
+   1  3  4  2
+Methods: Search, Transposed, G-Symmetrical,Welch 1 T,alpha,3,offset c,0
+Database All, index 3
+   1  4  2  3
+Methods: Search, Transposed, Symmetrical, G-Symmetrical,Welch 1,alpha,3,offset c,3
+Database All, index 4
+   2  1  3  4
+Methods: Search, Transposed, G-Symmetrical,Welch 1 T,alpha,2,offset c,3
+Database All, index 5
+   2  3  1  4
+Methods: Search, G-Symmetrical,Welch 1,alpha,2,offset c,1
+Database All, index 6
+   2  4  3  1
+Methods: Search, G-Symmetrical,Welch 1,alpha,2,offset c,3
+Database All, index 7
+   3  1  2  4
+Methods: Search, Transposed, G-Symmetrical,Welch 1 T,alpha,3,offset c,2
+Database All, index 8
+   3  2  4  1
+Methods: Search, Transposed, G-Symmetrical,Welch 1,alpha,3,offset c,1
+Database All, index 9
+   3  4  2  1
+Methods: Search, Transposed, G-Symmetrical,Welch 1 T,alpha,2,offset c,1
+Database All, index 10
+   4  1  3  2
+Methods: Search, G-Symmetrical,Welch 1,alpha,3,offset c,2
+Database All, index 11
+   4  2  1  3
+Methods: Search, Transposed, G-Symmetrical,Welch 1,alpha,2,offset c,2
+Database All, index 12
+   4  3  1  2
+Number of Costas arrays output for this order:  12

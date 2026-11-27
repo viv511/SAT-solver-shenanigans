@@ -9,7 +9,7 @@ save = False
 vis = np.zeros((visLen, visLen))
 
 for n in range(minN, maxN + 1):
-    data = np.loadtxt(f"../../data/Sorted_Costas_arrays_N={n}.txt", skiprows=1, dtype=int)
+    data = np.loadtxt(f"../../data/costas_all/Sorted_Costas_arrays_N={n}.txt", skiprows=1, dtype=int)
     count = len(data)
     print(f"N={n}: {count} arrays")
 

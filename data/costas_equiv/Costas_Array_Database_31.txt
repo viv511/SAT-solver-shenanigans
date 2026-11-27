@@ -1,0 +1,24 @@
+Database All, index 1
+   1  28  20  27  17  18  21  30  26  14  9  25  11  31  29  23  5  13  6  16  15  12  3  7  19  24  8  22  2  4  10
+Methods: Welch 0, Rows Reversed
+Database All, index 2
+   1  29  23  30  17  19  24  27  11  31  13  22  18  10  21  20  5  6  25  3  7  28  16  26  12  9  4  2  15  8  14
+Methods: Welch 0, Rows Reversed, Cols Reversed, Transposed
+Database All, index 3
+   10  4  2  22  8  24  19  7  3  12  15  16  6  13  5  23  29  31  11  25  9  14  26  30  21  18  17  27  20  28  1
+Methods: Welch 0
+Database All, index 4
+   14  8  15  2  4  9  12  26  16  28  7  3  25  6  5  20  21  10  18  22  13  31  11  27  24  19  17  30  23  29  1
+Methods: Welch 0, Cols Reversed
+Database All, index 5
+   18  24  17  30  28  23  20  6  16  4  25  29  7  26  27  12  11  22  14  10  19  1  21  5  8  13  15  2  9  3  31
+Methods: Welch 0, Rows Reversed, Transposed
+Database All, index 6
+   22  28  30  10  24  8  13  25  29  20  17  16  26  19  27  9  3  1  21  7  23  18  6  2  11  14  15  5  12  4  31
+Methods: Welch 0, Rows Reversed, Cols Reversed
+Database All, index 7
+   31  3  9  2  15  13  8  5  21  1  19  10  14  22  11  12  27  26  7  29  25  4  16  6  20  23  28  30  17  24  18
+Methods: Welch 0, Transposed
+Database All, index 8
+   31  4  12  5  15  14  11  2  6  18  23  7  21  1  3  9  27  19  26  16  17  20  29  25  13  8  24  10  30  28  22
+Number of Costas arrays output for this order:  8
